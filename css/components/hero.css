@@ -2,11 +2,34 @@
    Hero — título principal e botão de ação
    ========================================================================== */
 
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .intro-section {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+.nephew-logo,
+.main-heading,
+.primary-btn,
+.footer--text {
+  animation: fade-in-up 0.8s ease forwards;
+}
+
+.main-heading { animation-delay: 0.15s; opacity: 0; }
+.primary-btn { animation-delay: 0.3s; opacity: 0; }
+.footer--text { animation-delay: 0.45s; opacity: 0; }
+.nephew-logo { animation-delay: 0s; opacity: 0; }
 
 .main-heading {
   margin-top: 0;

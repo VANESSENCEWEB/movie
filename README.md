@@ -72,7 +72,35 @@ O export original tinha nomes com hash, scripts offline enormes, tudo minificado
 
 **JS:** escreva em `js/main.js`
 
-## Rodar localmente
+## Rodar no PC (IMPORTANTE)
+
+**Não abra o `index.html` com duplo clique** — no Windows isso abre como `file://` e o navegador bloqueia os estilos e scripts. Por isso as fotos ficam paradas e sem efeito.
+
+### Opção 1 — Mais fácil (Windows)
+
+Dê **duplo clique** no arquivo:
+
+```
+iniciar.bat
+```
+
+Ele abre um servidor local e o navegador em `http://localhost:3000`.
+
+### Opção 2 — Manual
+
+Com Python instalado, na pasta do projeto:
+
+```bash
+python -m http.server 3000
+```
+
+Depois acesse `http://localhost:3000` no navegador.
+
+### Sobre vídeo
+
+Este template **não tem vídeo** — o efeito é uma **grade de fotos** que se move ao fundo. Se você esperava vídeo, precisará adicionar separadamente.
+
+## Rodar localmente (desenvolvedores)
 
 ```bash
 npx serve .

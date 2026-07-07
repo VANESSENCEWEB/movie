@@ -1,9 +1,9 @@
 /**
- * Scripts customizados do projeto.
- * As animações da grade de fundo são controladas pelo webflow.js.
- * Adicione aqui qualquer JS que você criar.
+ * Scripts do projeto.
+ * A animacao da grade roda em CSS (background-grid.css).
+ * Este arquivo e reserva para suas customizacoes.
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  // Exemplo: console.log('Página carregada');
+  document.documentElement.classList.add('is-ready');
 });
