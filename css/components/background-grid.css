@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Background Grid — grade de imagens animada ao fundo
+   Edite as URLs em cada classe ._N para trocar as fotos
+   ========================================================================== */
+
+.image-wrapper-inner {
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 0 auto;
+  opacity: 0.15;
+  transform: rotate(15deg);
+}
+
+.loop-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  flex: 0 auto;
+}
+
+.image-row-wrapper {
+  display: flex;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  flex: 0 0 auto;
+}
+
+/* Imagem quadrada padrão */
+.single-bg-image {
+  width: 12.5em;
+  height: 12.5em;
+  margin-right: 1em;
+  margin-left: 1em;
+  background-image: url('../../images/fotos/mike-dorner.jpg');
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.single-bg-image._3 { background-image: url('../../images/fotos/mae-mu-1.jpg'); }
+.single-bg-image._4 { background-image: url('../../images/fotos/tangerine-1.jpg'); }
+.single-bg-image._6 { background-image: url('../../images/fotos/tim-foster.jpg'); }
+.single-bg-image._8 { background-image: url('../../images/fotos/elena-2.jpg'); }
+.single-bg-image._9 { background-image: url('../../images/fotos/aliona.jpg'); }
+.single-bg-image._11 { background-image: url('../../images/fotos/amy-1.jpg'); }
+.single-bg-image._13 { background-image: url('../../images/fotos/tangerine-2.jpg'); }
+.single-bg-image._14 { background-image: url('../../images/fotos/lidya.jpg'); }
+.single-bg-image._16 { background-image: url('../../images/fotos/mae-mu-2.jpg'); }
+.single-bg-image._18 { background-image: url('../../images/fotos/dose-juice.jpg'); }
+.single-bg-image._19 { background-image: url('../../images/fotos/davisuko-2.jpg'); }
+
+/* Imagem retangular (mais larga) */
+.single-bg-image-long {
+  width: 22.5em;
+  height: 12.5em;
+  margin-right: 1em;
+  margin-left: 1em;
+  background-image: url('../../images/fotos/dose-juice.jpg');
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.single-bg-image-long._2 { background-image: url('../../images/fotos/dose-juice.jpg'); }
+.single-bg-image-long._5 { background-image: url('../../images/fotos/davisuko-1.jpg'); }
+.single-bg-image-long._7 { background-image: url('../../images/fotos/amy-2.jpg'); }
+.single-bg-image-long._10 { background-image: url('../../images/fotos/elena-1.jpg'); }
+.single-bg-image-long._12 { background-image: url('../../images/fotos/amy-3.jpg'); }
+.single-bg-image-long._15 { background-image: url('../../images/fotos/tangerine-2.jpg'); }
+.single-bg-image-long._17 { background-image: url('../../images/fotos/mike-dorner.jpg'); }
+.single-bg-image-long._20 { background-image: url('../../images/fotos/aliona.jpg'); }

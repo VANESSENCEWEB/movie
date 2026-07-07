@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Hero — título principal e botão de ação
+   ========================================================================== */
+
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-heading {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-family: 'Messinasans webfont', sans-serif;
+  font-size: 4em;
+  line-height: 1;
+  letter-spacing: -1.33px;
+}
+
+.primary-btn {
+  display: inline-block;
+  padding: 0.5em 2em;
+  border: 0.1em solid #fff;
+  border-radius: 8em;
+  background-color: transparent;
+  transition: all 200ms ease;
+  font-family: 'Messinasans webfont', sans-serif;
+  color: #fff;
+  font-size: 1.3em;
+  line-height: 1;
+  letter-spacing: -1.33px;
+}
+
+.primary-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+@media screen and (max-width: 479px) {
+  .main-heading {
+    font-size: 4em;
+  }
+
+  .primary-btn {
+    font-size: 1em;
+  }
+}
