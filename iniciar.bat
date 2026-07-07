@@ -1,15 +1,11 @@
 @echo off
 chcp 65001 >nul
-title Servidor Local - Template
+title Servidor Local (opcional)
 color 0A
 
 echo.
-echo  ============================================
-echo   INICIANDO O TEMPLATE LOCALMENTE
-echo  ============================================
-echo.
-echo  NAO abra o index.html com duplo clique!
-echo  Use este arquivo para ver as animacoes.
+echo  Servidor local OPCIONAL — o index.html ja abre com duplo clique.
+echo  Use isto so se quiser testar como site publicado (http://).
 echo.
 
 cd /d "%~dp0"

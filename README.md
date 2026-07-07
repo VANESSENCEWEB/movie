@@ -1,112 +1,70 @@
 # Moving Background Images Grid
 
-Template Webflow reorganizado para facilitar customização.
+Template reorganizado para facilitar customização.
+
+## Abrir no PC
+
+**Pode abrir com duplo clique no `index.html`** — agora funciona direto, sem servidor.
+
+O `iniciar.bat` é **opcional** (só se quiser testar como num site publicado).
+
+## Deploy (publicar na internet)
+
+No deploy **não precisa** de `iniciar.bat` nem de servidor no seu PC. Você sobe os arquivos e pronto.
+
+| Plataforma | Como fazer |
+|---|---|
+| **Vercel** | Conecte o repositório GitHub → deploy automático |
+| **Netlify** | Arraste a pasta do projeto em [netlify.com/drop](https://app.netlify.com/drop) |
+| **GitHub Pages** | Settings → Pages → branch `main` → pasta raiz |
+
+O site publicado roda em `https://` — igual qualquer site na internet. Visitantes acessam pela URL, sem instalar nada.
+
+## Por que antes pedia servidor?
+
+Era limitação do **export original** do Webflow:
+
+- CSS com `@import` (navegador bloqueia em `file://`)
+- Animações presas ao `webflow.js` (não roda abrindo arquivo local)
+- Scripts enormes de "modo offline"
+
+Isso foi removido. Hoje a animação é **CSS puro** e o `index.html` carrega tudo direto.
 
 ## Estrutura do projeto
 
 ```
 /
-├── index.html              ← Página principal (limpa e comentada)
-├── index.original.html     ← Backup do export original (bagunçado)
+├── index.html              ← Duplo clique para abrir
+├── iniciar.bat             ← Opcional: servidor local
+├── atualizar-css.bat       ← Rode após editar CSS modular
 │
 ├── css/
-│   ├── main.css            ← Importa todos os estilos
-│   ├── base.css            ← Tipografia, cores, layout geral
-│   ├── vendor-webflow.css  ← CSS base do Webflow
-│   └── components/
-│       ├── background-grid.css  ← Grade de fotos ao fundo
-│       ├── header.css           ← Logo
-│       ├── hero.css             ← Título + botão
-│       └── footer.css           ← Rodapé
+│   ├── site.css            ← CSS que o index.html usa
+│   ├── vendor-webflow.css  ← Base do Webflow (botões, grid)
+│   ├── base.css            ← Fonte para edição
+│   └── components/         ← Fonte para edição (grid, hero, etc.)
 │
 ├── js/
-│   ├── jquery.min.js       ← Dependência do Webflow
-│   ├── webflow.js          ← Animações do template
-│   └── main.js             ← Seus scripts customizados
+│   └── main.js             ← Seus scripts
 │
-├── componentes/
-│   ├── background-grid.html
-│   ├── header.html
-│   ├── hero.html
-│   └── footer.html
-│
-├── images/
-│   ├── fotos/              ← Fotos de fundo (16 imagens)
-│   ├── logo.svg
-│   ├── favicon.ico
-│   └── webclip.png
-│
+├── componentes/            ← HTML de referência
+├── images/fotos/           ← Fotos de fundo
 └── fonts/
-    └── messinasans-regular.woff2
 ```
 
-## Como o template funciona
+## Customização
 
-### Grade de fundo animada
+**Fotos:** coloque em `images/fotos/` → edite `css/components/background-grid.css` → rode `atualizar-css.bat`
 
-O efeito principal é uma grade de imagens que se move horizontalmente atrás do conteúdo.
-
-- **HTML:** `componentes/background-grid.html`
-- **CSS:** `css/components/background-grid.css`
-- **Animação:** `webflow.js` via `data-w-id` — não remova esses atributos
-
-### Conteúdo sobre a grade
-
-| Componente | HTML | CSS |
-|------------|------|-----|
-| Logo | `componentes/header.html` | `css/components/header.css` |
-| Hero | `componentes/hero.html` | `css/components/hero.css` |
-| Rodapé | `componentes/footer.html` | `css/components/footer.css` |
-
-### O que era a bagunça original
-
-O export original tinha nomes com hash, scripts offline enormes, tudo minificado e referências ao CDN Webflow. Tudo foi separado em arquivos legíveis.
-
-## Customização rápida
-
-**Fotos:** coloque em `images/fotos/` e edite `css/components/background-grid.css`
-
-**Textos:** edite `index.html` (classes `.main-heading`, `.primary-btn`, `.footer--text`)
+**Textos:** edite `index.html`
 
 **Logo:** substitua `images/logo.svg`
 
 **JS:** escreva em `js/main.js`
 
-## Rodar no PC (IMPORTANTE)
+## Sobre vídeo
 
-**Não abra o `index.html` com duplo clique** — no Windows isso abre como `file://` e o navegador bloqueia os estilos e scripts. Por isso as fotos ficam paradas e sem efeito.
-
-### Opção 1 — Mais fácil (Windows)
-
-Dê **duplo clique** no arquivo:
-
-```
-iniciar.bat
-```
-
-Ele abre um servidor local e o navegador em `http://localhost:3000`.
-
-### Opção 2 — Manual
-
-Com Python instalado, na pasta do projeto:
-
-```bash
-python -m http.server 3000
-```
-
-Depois acesse `http://localhost:3000` no navegador.
-
-### Sobre vídeo
-
-Este template **não tem vídeo** — o efeito é uma **grade de fotos** que se move ao fundo. Se você esperava vídeo, precisará adicionar separadamente.
-
-## Rodar localmente (desenvolvedores)
-
-```bash
-npx serve .
-```
-
-Acesse `http://localhost:3000`
+Este template usa **fotos animadas**, não vídeo.
 
 ## Créditos
 

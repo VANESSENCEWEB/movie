@@ -1,11 +1,4 @@
 /* ==========================================================================
-   Main — ponto de entrada dos estilos do projeto
-   Ordem: vendor → base → componentes
+   Main — legado. O index.html usa css/site.css diretamente.
+   Edite css/base.css e css/components/*, depois rode atualizar-css.bat
    ========================================================================== */
-
-@import url('vendor-webflow.css');
-@import url('base.css');
-@import url('components/background-grid.css');
-@import url('components/header.css');
-@import url('components/hero.css');
-@import url('components/footer.css');
