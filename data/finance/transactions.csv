@@ -1,0 +1,14 @@
+transaction_id,year_month,apartment_id,transaction_type,category,subcategory,description,guest_name,event_date,check_in,check_out,nights,amount_brl,flow,status,source,notes
+2026-06-apt_105-rev-001,2026-06,apt_105,revenue,reserva,,Reserva,Mila Abencoada,2026-06-22,2026-06-22,2026-06-25,3,320.00,inflow,pago,relatorio_jun_2026,
+2026-06-apt_105-rev-002,2026-06,apt_105,revenue,reserva,,Reserva,Jhenyfer Victória,2026-06-05,2026-06-05,2026-06-06,1,400.00,inflow,pago,relatorio_jun_2026,
+2026-06-apt_105-rev-003,2026-06,apt_105,revenue,reserva,,Reserva,,2026-06-07,2026-06-07,2026-06-08,1,214.00,inflow,pago,relatorio_jun_2026,preencher nome do hóspede
+2026-06-apt_105-fix-001,2026-06,apt_105,fixed_expense,IPTU,,IPTU - Mês de Junho,,2026-06-10,,,,67.52,outflow,pago,relatorio_jun_2026,vencimento 10/06/2026
+2026-06-apt_105-fix-002,2026-06,apt_105,fixed_expense,condominio,,Condomínio,,2026-06-10,,,,568.01,outflow,pago,relatorio_jun_2026,
+2026-06-apt_105-fix-003,2026-06,apt_105,fixed_expense,energia,,Energia,,2026-06-10,,,,793.91,outflow,pago,relatorio_jun_2026,
+2026-06-apt_105-ext-001,2026-06,apt_105,extra_expense,outro,reserva_falsa,Reserva Falsa,,2026-06-15,,,,0.00,outflow,pago,relatorio_jun_2026,ajustar valor conforme relatório
+2026-06-apt_105-ext-002,2026-06,apt_105,extra_expense,manutencao,dedetizacao,Dedetização,,2026-06-15,,,,0.00,outflow,pago,relatorio_jun_2026,ajustar valor conforme relatório
+2026-06-apt_105-ext-003,2026-06,apt_105,extra_expense,transporte,uber,Uber,,2026-06-27,,,,0.00,outflow,pago,relatorio_jun_2026,ajustar valor conforme relatório
+2026-06-apt_105-shr-001,2026-06,apt_105,shared_expense,administracao,,Administração Gabi (cota),,2026-06-01,,,,0.00,outflow,pago,relatorio_jun_2026,ver shared_expense_allocations.csv
+2026-06-apt_804-rev-001,2026-06,apt_804,revenue,reserva,,Reserva,,,,,,0.00,inflow,pago,relatorio_jun_2026,exemplo vazio — preencher
+2026-06-apt_203-rev-001,2026-06,apt_203,revenue,reserva,,Reserva,,,,,,0.00,inflow,pago,relatorio_jun_2026,exemplo vazio — preencher
+2026-06-apt_1006-rev-001,2026-06,apt_1006,revenue,reserva,,Reserva,,,,,,0.00,inflow,pago,relatorio_jun_2026,exemplo vazio — preencher

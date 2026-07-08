@@ -1,0 +1,5 @@
+year_month,apartment_id,revenue_gross_brl,revenue_received_brl,revenue_pending_brl,expenses_fixed_brl,expenses_extra_brl,expenses_cleaning_brl,expenses_shared_brl,expenses_total_brl,net_result_brl,nights_sold,occupancy_pct,num_reservations,adr_brl,avg_ticket_brl,days_in_month,source
+2026-06,apt_105,3846.00,3846.00,0.00,1429.44,2583.99,0.00,756.55,4769.98,-923.98,17,57,14,226.24,274.71,30,relatorio_jun_2026
+2026-06,apt_804,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,0,0,0.00,0.00,30,relatorio_jun_2026,preencher
+2026-06,apt_203,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,0,0,0.00,0.00,30,relatorio_jun_2026,preencher
+2026-06,apt_1006,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,0,0,0.00,0.00,30,relatorio_jun_2026,preencher

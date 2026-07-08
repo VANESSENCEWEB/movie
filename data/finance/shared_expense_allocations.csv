@@ -1,0 +1,7 @@
+allocation_id,year_month,parent_expense_id,description,total_amount_brl,apartment_id,allocated_amount_brl,allocation_method,status,source
+2026-06-shared-001,2026-06,2026-06-shared-parent-admin,Administração Gabi,0.00,apt_804,0.00,equal_split,pago,relatorio_jun_2026,preencher valor total e cotas
+2026-06-shared-001,2026-06,2026-06-shared-parent-admin,Administração Gabi,0.00,apt_105,0.00,equal_split,pago,relatorio_jun_2026,preencher valor total e cotas
+2026-06-shared-001,2026-06,2026-06-shared-parent-admin,Administração Gabi,0.00,apt_203,0.00,equal_split,pago,relatorio_jun_2026,preencher valor total e cotas
+2026-06-shared-002,2026-06,2026-06-shared-parent-internet,Internet,0.00,apt_105,0.00,equal_split,pago,relatorio_jun_2026,somente apt 105 e 203
+2026-06-shared-002,2026-06,2026-06-shared-parent-internet,Internet,0.00,apt_203,0.00,equal_split,pago,relatorio_jun_2026,somente apt 105 e 203
+2026-06-shared-003,2026-06,2026-06-shared-parent-contab,Contabilidade,0.00,apt_804,0.00,equal_split,pago,relatorio_jun_2026,preencher conforme relatório

@@ -1,0 +1,5 @@
+apartment_id,apartment_name,building,neighborhood,active
+apt_105,Apartamento 105,Edifício Ipê,Boa Viagem,true
+apt_804,Apartamento 804,,Pina,true
+apt_203,Studio 203,,Boa Viagem,true
+apt_1006,Flat Golden View 1006,Golden View,Boa Viagem,true
