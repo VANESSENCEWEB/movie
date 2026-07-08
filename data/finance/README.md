@@ -43,6 +43,36 @@ pl = jun.groupby("apartment_id")["signed"].sum().reset_index(name="net_brl")
 print(pl)
 ```
 
-## Próximo mês
+## Extração automática de PDF
 
-**Não apague linhas antigas.** Apenas adicione novas linhas com `year_month = 2026-07`, etc.
+Se o relatório vier em PDF (com texto selecionável, não só imagem):
+
+```bash
+cd data/finance
+pip install -r requirements.txt
+python pdf_to_csv.py caminho/relatorio_apt105_jun2026.pdf
+```
+
+Isso gera `transactions_extracted.csv`. **Revise** antes de mesclar com `transactions.csv`.
+
+### Vários PDFs de uma vez
+
+```bash
+python pdf_to_csv.py relatorios/*.pdf --output-dir out
+```
+
+### Acrescentar ao master (sem apagar o que já existe)
+
+```bash
+python pdf_to_csv.py junho/apt105.pdf --append
+```
+
+### Limitações
+
+| Tipo de PDF | Funciona? |
+|-------------|-----------|
+| PDF gerado digitalmente (texto + tabelas) | ✅ Bom com `pdfplumber` |
+| PDF escaneado (só foto) | ❌ Precisa OCR (`ocrmypdf` + tesseract) |
+| Layout muito diferente mês a mês | ⚠️ Pode precisar ajustar o script |
+
+Se o relatório for gerado no Netlify/HTML, o ideal é exportar **JSON ou CSV na origem** — mais confiável que PDF.
