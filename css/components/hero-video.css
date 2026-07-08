@@ -17,6 +17,12 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  background: var(--verde-escuro, #1b3d32) url('../../images/fotos/mike-dorner.jpg') center / cover no-repeat;
+}
+
+/* Se o vídeo não carregar, mantém a imagem de poster visível */
+.hero-video__media[data-erro="1"] {
+  opacity: 0.85;
 }
 
 .hero-video__overlay {

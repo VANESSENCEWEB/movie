@@ -1,15 +1,26 @@
 # Vídeo do hero
 
-Coloque seu arquivo `.mp4` aqui com o nome:
+Caminho no site: `assets/video/hero.mp4`
 
-```
-hero.mp4
-```
+## Subir pelo GitHub (navegador)
 
-Caminho usado no site: `assets/video/hero.mp4`
+1. Abra esta pasta no GitHub:
+   `movie` → branch **`cursor/organize-template-structure-7ac6`** → pasta **`assets/video`**
+2. Clique em **Add file** → **Upload files**
+3. Arraste o `.mp4` e renomeie para **`hero.mp4`** (se precisar)
+4. Clique em **Commit changes** e aguarde terminar
 
-Se o seu arquivo tiver outro nome, renomeie para `hero.mp4` **ou** troque no `index.html`:
+## Se não aparecer no site
 
-```html
-<source src="assets/video/SEU-NOME.mp4" type="video/mp4" />
-```
+| Problema | Solução |
+|---|---|
+| Arquivo **maior que 50 MB** | GitHub pode recusar. Comprima o vídeo ou use [Git LFS](https://git-lfs.github.com/) |
+| Nome diferente de `hero.mp4` | Troque o `src` no `index.html` |
+| Subiu na branch **`main`** | O site usa a branch `cursor/organize-template-structure-7ac6` — suba na mesma branch |
+| Só aparece `LEIA-ME.md` | O vídeo **não foi commitado** — repita o upload e confirme o commit |
+
+## Conferir se subiu
+
+Na pasta `assets/video` no GitHub deve aparecer **dois arquivos**:
+- `LEIA-ME.md`
+- `hero.mp4` (ou o nome do seu vídeo)
