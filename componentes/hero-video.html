@@ -1,0 +1,45 @@
+<!--
+  COMPONENTE: Hero com vídeo
+  =============================================
+  ONDE TROCAR O VÍDEO:
+  1. Coloque o arquivo em: **assets/video/hero.mp4**
+  2. Troque o src abaixo (linha do <source>)
+  3. Se editou CSS em css/components/, rode: atualizar-css.bat
+  =============================================
+
+  FORMATO: use .mp4 (H.264). .mov do iPhone pode NÃO funcionar no Chrome.
+  ATRIBUTOS obrigatórios para autoplay: muted autoplay loop playsinline
+-->
+
+<section class="hero-video">
+  <video
+    class="hero-video__media"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="images/fotos/mike-dorner.jpg"
+  >
+    <!-- ★ TROQUE AQUI o nome do seu vídeo -->
+    <source src="assets/video/hero.mp4" type="video/mp4" />
+    Seu navegador não suporta vídeo.
+  </video>
+
+  <div class="hero-video__overlay"></div>
+
+  <!-- Bordas verdes nas laterais -->
+  <div class="hero-video__borda hero-video__borda--esq"></div>
+  <div class="hero-video__borda hero-video__borda--dir"></div>
+
+  <!-- Onda verde descendo embaixo -->
+  <div class="hero-video__onda" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,64 C360,120 720,0 1080,48 C1260,72 1380,96 1440,80 L1440,120 L0,120 Z" />
+    </svg>
+  </div>
+
+  <div class="hero-video__conteudo">
+    <h1 class="main-heading">Um lugar de verdade pra ficar em Recife.</h1>
+    <a class="primary-btn w-button" href="#">Consultar</a>
+  </div>
+</section>

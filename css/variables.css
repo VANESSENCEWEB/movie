@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Cores do tema — edite aqui para mudar verde, terracota, etc.
+   ========================================================================== */
+
+:root {
+  --verde-escuro: #1b3d32;
+  --verde-medio: #2d5a4a;
+  --verde-claro: #3d7a63;
+  --terracota: #c4613a;
+  --creme: #f5f0e8;
+  --branco: #ffffff;
+}

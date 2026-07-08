@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Hero — título principal e botão de ação
+   ========================================================================== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nephew-logo,
+.main-heading,
+.primary-btn,
+.footer--text {
+  animation: fade-in-up 0.8s ease forwards;
+}
+
+.main-heading { animation-delay: 0.15s; opacity: 0; }
+.primary-btn { animation-delay: 0.3s; opacity: 0; }
+.footer--text { animation-delay: 0.45s; opacity: 0; }
+.nephew-logo { animation-delay: 0s; opacity: 0; }
+
+.main-heading {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-family: 'Messinasans webfont', sans-serif;
+  font-size: 4em;
+  line-height: 1.08;
+  letter-spacing: -1.33px;
+  color: #fff;
+}
+
+.primary-btn {
+  display: inline-block;
+  padding: 0.5em 2em;
+  border: 0.1em solid var(--verde-claro, #3d7a63);
+  border-radius: 8em;
+  background-color: transparent;
+  transition: all 200ms ease;
+  font-family: 'Messinasans webfont', sans-serif;
+  color: #fff;
+  font-size: 1.3em;
+  line-height: 1;
+  letter-spacing: -1.33px;
+}
+
+.primary-btn:hover {
+  background-color: var(--verde-claro, #3d7a63);
+  color: #fff;
+}
+
+@media screen and (max-width: 479px) {
+  .main-heading {
+    font-size: 4em;
+  }
+
+  .primary-btn {
+    font-size: 1em;
+  }
+}
