@@ -68,12 +68,38 @@ class RFHero extends HTMLElement {
         this.querySelector('.hero__poster'),
         active
       );
+      this._bindVideoFallback(assets);
     } catch (err) {
       console.warn('[rf-hero] API unavailable, using HTML fallbacks', err);
       this._assets = fallback;
+      this._bindVideoFallback(fallback);
     }
 
     this._startPeriodWatcher(timeOptions);
+  }
+
+  /** Se o vídeo da noite não existir (404), usa o do dia automaticamente */
+  _bindVideoFallback(assets) {
+    const videoEl = this.querySelector('.hero__video');
+    const posterEl = this.querySelector('.hero__poster');
+    if (!videoEl || !assets) return;
+
+    const onVideoError = () => {
+      const dayAsset = pickActiveAsset(assets, 'day');
+      if (!dayAsset?.video) return;
+
+      const mp4 = videoEl.querySelector('source[type="video/mp4"]');
+      const current = mp4?.getAttribute('src') || '';
+      if (current === dayAsset.video || current.endsWith(dayAsset.video.replace(/^\.\//, ''))) return;
+
+      console.warn('[rf-hero] Vídeo indisponível — fallback:', dayAsset.video);
+      applyVideoAsset(videoEl, posterEl, dayAsset);
+    };
+
+    videoEl.addEventListener('error', onVideoError, { once: true });
+    videoEl.querySelectorAll('source').forEach((source) => {
+      source.addEventListener('error', onVideoError, { once: true });
+    });
   }
 
   _startPeriodWatcher(timeOptions) {
