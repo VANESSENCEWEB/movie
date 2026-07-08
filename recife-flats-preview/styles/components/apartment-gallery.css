@@ -1,0 +1,177 @@
+/* ============================================================
+   APARTMENT GALLERY — Mini galeria estilo Booking
+============================================================ */
+
+.apt-gallery {
+  position: relative;
+  outline: none;
+}
+
+.apt-gallery__stage {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--cream-dark);
+  aspect-ratio: 4 / 3;
+}
+
+.apt-gallery__main {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 180ms var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+
+.apt-gallery__main.is-fading {
+  opacity: 0.4;
+  transform: scale(1.02);
+}
+
+.apt-gallery__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transition: opacity var(--dur-base), transform var(--dur-fast), background var(--dur-base);
+  z-index: 2;
+}
+
+.apt-gallery:hover .apt-gallery__nav,
+.apt-gallery:focus-within .apt-gallery__nav {
+  opacity: 1;
+}
+
+.apt-gallery__nav:hover {
+  background: var(--white);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.apt-gallery__nav--prev { left: var(--space-3); }
+.apt-gallery__nav--next { right: var(--space-3); }
+
+.apt-gallery__counter {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(13, 13, 13, 0.65);
+  color: var(--white);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(6px);
+  z-index: 2;
+}
+
+.apt-gallery__thumbs {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: var(--space-1);
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-soft) transparent;
+}
+
+.apt-gallery__thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.apt-gallery__thumbs::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+  border-radius: var(--radius-pill);
+}
+
+.apt-gallery__thumbs button,
+.apt-card__thumb,
+.apt-detail__thumb {
+  flex: 0 0 72px;
+  width: 72px;
+  scroll-snap-align: start;
+  position: relative;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  transition: border-color var(--dur-base), transform var(--dur-fast), opacity var(--dur-base);
+  opacity: 0.75;
+}
+
+.apt-gallery__thumbs button img,
+.apt-card__thumb img,
+.apt-detail__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apt-gallery__thumbs button:hover,
+.apt-card__thumb:hover,
+.apt-detail__thumb:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.apt-gallery__thumbs button.is-active,
+.apt-card__thumb.is-active,
+.apt-detail__thumb.is-active {
+  border-color: var(--accent);
+  opacity: 1;
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+/* Variante página de detalhe */
+.apt-gallery--detail .apt-gallery__stage {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-xl);
+}
+
+.apt-gallery__thumbs--detail {
+  gap: var(--space-3);
+}
+
+.apt-gallery__hint {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.apt-gallery__thumbs--detail button,
+.apt-gallery__thumbs--detail .apt-detail__thumb {
+  flex: 0 0 88px;
+  width: 88px;
+}
+
+@media (max-width: 600px) {
+  .apt-gallery__nav {
+    opacity: 1;
+    width: 36px;
+    height: 36px;
+  }
+  .apt-gallery__thumbs button,
+  .apt-card__thumb,
+  .apt-detail__thumb {
+    flex: 0 0 64px;
+    width: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apt-gallery__main { transition: none; }
+}

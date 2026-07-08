@@ -1,0 +1,150 @@
+/* ============================================================
+   DESIGN SYSTEM — Recife Flats Temporada
+   Fraunces · Inter · JetBrains Mono
+============================================================ */
+
+/* Eyebrow — terracotta-800 em fundo claro (WCAG AA) */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--terracotta-800);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--terracotta-800);
+  flex-shrink: 0;
+}
+
+.eyebrow--on-dark,
+.hero .eyebrow,
+.home-section--ocean .eyebrow,
+.reservation-steps .eyebrow {
+  color: var(--gold);
+}
+
+.eyebrow--on-dark::before,
+.hero .eyebrow::before,
+.home-section--ocean .eyebrow::before,
+.reservation-steps .eyebrow::before {
+  background: var(--gold);
+}
+
+.eyebrow--pill {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Seções */
+.section { padding: var(--section-py) 0; }
+.section--tight { padding: 64px 0; }
+.section--sand { background: var(--sand-200); }
+.section--paper { background: var(--paper); }
+.section--mangue { background: var(--mangue-600); color: var(--paper); }
+.section--mangue h2,
+.section--mangue h3 { color: var(--paper); }
+.section--mangue .section-head__lead,
+.section--mangue p { color: var(--mare-text-soft); }
+
+/* Reveal ao scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Faixa de confiança */
+.trust-strip {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.trust-strip__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.trust-item strong {
+  font-family: var(--font-mono);
+  color: var(--mangue-600);
+}
+
+.trust-item svg {
+  flex-shrink: 0;
+  color: var(--terracotta-600);
+}
+
+/* Painel de busca no hero */
+.tide-panel {
+  background: rgba(26, 46, 34, 0.78);
+  border: 1px solid rgba(240, 199, 154, 0.35);
+  border-radius: var(--radius-m);
+  padding: 22px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* CTA banner */
+.cta-banner {
+  background: var(--terracotta-600);
+  color: var(--paper);
+  border-radius: var(--radius-m);
+  padding: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.cta-banner h2 {
+  color: var(--paper);
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  max-width: 480px;
+}
+
+.cta-banner .btn--primary {
+  background: var(--mangue-800);
+}
+
+.cta-banner .btn--primary:hover {
+  background: var(--mangue-900);
+}
+
+@keyframes hero-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(0.85); }
+}
+
+@media (max-width: 768px) {
+  .cta-banner { padding: 32px 24px; }
+}
