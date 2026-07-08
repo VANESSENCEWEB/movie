@@ -2,65 +2,136 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <title>Moving Background Images Grid</title>
+  <title>Recife Flats — Temporada</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Template com grade de imagens animada ao fundo" />
+  <meta name="description" content="Flats mobiliados em Boa Viagem e Pina, Recife" />
 
-  <!-- 2 arquivos CSS — funciona com duplo clique no index.html -->
   <link href="css/variables.css" rel="stylesheet" />
   <link href="css/vendor-webflow.css" rel="stylesheet" />
   <link href="css/site.css" rel="stylesheet" />
+  <link href="css/components/header-nav.css" rel="stylesheet" />
   <link href="css/components/hero-video.css" rel="stylesheet" />
+  <link href="css/components/booking.css" rel="stylesheet" />
 
-  <!-- Favicon -->
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
   <link href="images/webclip.png" rel="apple-touch-icon" />
 </head>
 
 <body class="dark">
 
-  <!-- ============================================
-       HERO COM VÍDEO (Recife Flats)
-       Troque o src em videos/meu-video.mp4
-       Coloque seu .mp4 na pasta videos/
-       ============================================ -->
+  <!-- Faixa promocional -->
+  <div class="top-bar" id="top-bar">
+    <span>🌴 Promoção de Temporada — até 20% off nas reservas de 5+ noites</span>
+    <button class="top-bar__close" type="button" aria-label="Fechar" onclick="document.getElementById('top-bar').style.display='none'">×</button>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <a class="site-header__logo" href="#">
+      <img src="images/logo.svg" alt="" />
+      <span>
+        Recife Flats
+        <small>Temporada</small>
+      </span>
+    </a>
+    <div class="site-header__actions">
+      <a class="btn-header" href="https://wa.me/5581999999999" target="_blank" rel="noopener">
+        <span aria-hidden="true">💬</span>
+        <span class="label">WhatsApp</span>
+      </a>
+      <button class="btn-header btn-header--menu" type="button">
+        <span aria-hidden="true">☰</span>
+        <span class="label">Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Faixa de benefícios -->
+  <div class="features-ticker" aria-hidden="true">
+    <div class="features-ticker__track">
+      <span class="features-ticker__item">📶 Wifi 300mbps incluído</span>
+      <span class="features-ticker__item">🏊 Piscina e academia</span>
+      <span class="features-ticker__item">🔒 Segurança 24h</span>
+      <span class="features-ticker__item">⭐ Nota 4.9 no Google</span>
+      <span class="features-ticker__item">🏠 Flats mobiliados em Boa Viagem</span>
+      <span class="features-ticker__item">🌊 A 100m da praia</span>
+      <span class="features-ticker__item">📶 Wifi 300mbps incluído</span>
+      <span class="features-ticker__item">🏊 Piscina e academia</span>
+      <span class="features-ticker__item">🔒 Segurança 24h</span>
+      <span class="features-ticker__item">⭐ Nota 4.9 no Google</span>
+      <span class="features-ticker__item">🏠 Flats mobiliados em Boa Viagem</span>
+      <span class="features-ticker__item">🌊 A 100m da praia</span>
+    </div>
+  </div>
+
+  <!-- Hero com vídeo -->
   <section class="hero-video">
-    <video
-      class="hero-video__media"
-      autoplay
-      muted
-      loop
-      playsinline
-      poster="images/fotos/mike-dorner.jpg"
-    >
-      <source src="videos/meu-video.mp4" type="video/mp4" />
-    </video>
+  <video
+    class="hero-video__media"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="images/fotos/mike-dorner.jpg"
+  >
+    <!-- Vídeo em assets/video/ — renomeie para hero.mp4 ou ajuste o src -->
+    <source src="assets/video/hero.mp4" type="video/mp4" />
+  </video>
 
     <div class="hero-video__overlay"></div>
     <div class="hero-video__borda hero-video__borda--esq"></div>
     <div class="hero-video__borda hero-video__borda--dir"></div>
 
+    <!-- Frase principal — posicionada mais alta (como no print) -->
+    <div class="hero-video__texto">
+      <p class="hero-video__subtitulo">— Boa Viagem e Pina, Recife · PE —</p>
+      <h1 class="main-heading">Um lugar de <em>verdade</em> pra ficar em Recife.</h1>
+    </div>
+
+    <!-- Barra de busca / disponibilidade -->
+    <div class="booking-bar">
+      <p class="booking-bar__title">Verificar disponibilidade</p>
+      <form class="booking-bar__form" action="#" method="get">
+        <div class="booking-field">
+          <label for="entrada">Entrada</label>
+          <input id="entrada" name="entrada" type="date" />
+        </div>
+        <div class="booking-field">
+          <label for="saida">Saída</label>
+          <input id="saida" name="saida" type="date" />
+        </div>
+        <div class="booking-field">
+          <label for="hospedes">Hóspedes</label>
+          <select id="hospedes" name="hospedes">
+            <option>1 hóspede</option>
+            <option selected>2 hóspedes</option>
+            <option>3 hóspedes</option>
+            <option>4+ hóspedes</option>
+          </select>
+        </div>
+        <div class="booking-field">
+          <label for="quarto">Quarto</label>
+          <select id="quarto" name="quarto">
+            <option>Qualquer</option>
+            <option>Studio</option>
+            <option>1 quarto</option>
+            <option>2 quartos</option>
+          </select>
+        </div>
+        <button class="booking-bar__submit" type="submit">Consultar</button>
+      </form>
+      <p class="booking-bar__note">Reserva direta sem taxa</p>
+    </div>
+
+    <!-- Onda verde embaixo -->
     <div class="hero-video__onda" aria-hidden="true">
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,64 C360,120 720,0 1080,48 C1260,72 1380,96 1440,80 L1440,120 L0,120 Z" />
       </svg>
     </div>
-
-    <div class="hero-video__conteudo">
-      <a class="logo-link w-inline-block" href="#">
-        <img alt="Logo" class="nephew-logo" loading="lazy" src="images/logo.svg" />
-      </a>
-
-      <div class="intro-section">
-        <h1 class="main-heading">Um lugar de verdade pra ficar em Recife.</h1>
-        <a class="primary-btn w-button" href="#">Consultar</a>
-      </div>
-
-      <div class="footer-container">
-        <div class="footer--text">Feel free to clone this and use in your own projects.</div>
-      </div>
-    </div>
   </section>
+
+  <a class="whatsapp-float" href="https://wa.me/5581999999999" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
 
   <script src="js/main.js"></script>
 </body>

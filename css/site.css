@@ -215,8 +215,9 @@ a {
   margin-bottom: 0.5em;
   font-family: 'Messinasans webfont', sans-serif;
   font-size: 4em;
-  line-height: 1;
+  line-height: 1.08;
   letter-spacing: -1.33px;
+  color: #fff;
 }
 
 .primary-btn {
