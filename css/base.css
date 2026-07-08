@@ -45,7 +45,7 @@ a {
 }
 
 .dark {
-  background-color: #000;
+  background-color: var(--verde-escuro, #1b3d32);
 }
 
 /* Layout principal da página */

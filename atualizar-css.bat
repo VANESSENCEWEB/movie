@@ -4,6 +4,7 @@ cd /d "%~dp0"
 
 (
   echo /* Atualizado automaticamente — fonte: css/base.css + css/components/* */
+  type css\variables.css
   type css\base.css
   powershell -Command "(Get-Content css\components\background-grid.css) -replace '../../images/', '../images/' | Write-Output"
   type css\components\header.css

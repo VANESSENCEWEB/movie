@@ -43,7 +43,7 @@
 .primary-btn {
   display: inline-block;
   padding: 0.5em 2em;
-  border: 0.1em solid #fff;
+  border: 0.1em solid var(--verde-claro, #3d7a63);
   border-radius: 8em;
   background-color: transparent;
   transition: all 200ms ease;
@@ -55,8 +55,8 @@
 }
 
 .primary-btn:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--verde-claro, #3d7a63);
+  color: #fff;
 }
 
 @media screen and (max-width: 479px) {

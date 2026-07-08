@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Hero com vídeo + bordas verdes (estilo Recife Flats)
+   Troque o vídeo em index.html E confira o caminho abaixo
+   ========================================================================== */
+
+.hero-video {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--verde-escuro, #1b3d32);
+}
+
+/* Vídeo de fundo */
+.hero-video__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-video__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(27, 61, 50, 0.35) 0%,
+    rgba(27, 61, 50, 0.55) 60%,
+    rgba(27, 61, 50, 0.85) 100%
+  );
+  z-index: 1;
+}
+
+/* Bordas laterais verdes */
+.hero-video__borda {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--verde-claro, #3d7a63);
+  z-index: 3;
+}
+
+.hero-video__borda--esq { left: 0; }
+.hero-video__borda--dir { right: 0; }
+
+/* Onda verde descendo na parte de baixo */
+.hero-video__onda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 7rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.hero-video__onda svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video__onda path {
+  fill: var(--verde-escuro, #1b3d32);
+}
+
+.hero-video__conteudo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}

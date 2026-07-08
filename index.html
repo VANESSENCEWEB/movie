@@ -7,8 +7,10 @@
   <meta name="description" content="Template com grade de imagens animada ao fundo" />
 
   <!-- 2 arquivos CSS — funciona com duplo clique no index.html -->
+  <link href="css/variables.css" rel="stylesheet" />
   <link href="css/vendor-webflow.css" rel="stylesheet" />
   <link href="css/site.css" rel="stylesheet" />
+  <link href="css/components/hero-video.css" rel="stylesheet" />
 
   <!-- Favicon -->
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -17,114 +19,48 @@
 
 <body class="dark">
 
-  <div class="page-wrapper-full-w-outer">
+  <!-- ============================================
+       HERO COM VÍDEO (Recife Flats)
+       Troque o src em videos/meu-video.mp4
+       Coloque seu .mp4 na pasta videos/
+       ============================================ -->
+  <section class="hero-video">
+    <video
+      class="hero-video__media"
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="images/fotos/mike-dorner.jpg"
+    >
+      <source src="videos/meu-video.mp4" type="video/mp4" />
+    </video>
 
-    <!-- ============================================
-         COMPONENTE: Background Grid
-         Arquivo de referência: componentes/background-grid.html
-         ============================================ -->
-    <div class="image-wrapper-inner" data-w-id="2b3504e5-5926-9c92-7878-83099913cd8c">
-      <div class="loop-container" data-w-id="1bfea512-1bd9-fa4a-916d-47eb6270e391">
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _1"></div>
-          <div class="single-bg-image-long _2"></div>
-          <div class="single-bg-image _3"></div>
-          <div class="single-bg-image _4"></div>
-          <div class="single-bg-image-long _5"></div>
-        </div>
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _1"></div>
-          <div class="single-bg-image-long _2"></div>
-          <div class="single-bg-image _3"></div>
-          <div class="single-bg-image _4"></div>
-          <div class="single-bg-image-long _5"></div>
-        </div>
-      </div>
+    <div class="hero-video__overlay"></div>
+    <div class="hero-video__borda hero-video__borda--esq"></div>
+    <div class="hero-video__borda hero-video__borda--dir"></div>
 
-      <div class="loop-container" data-w-id="0a464e51-11ce-bbcc-b2ef-94253b24abe7">
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _6"></div>
-          <div class="single-bg-image-long _7"></div>
-          <div class="single-bg-image _8"></div>
-          <div class="single-bg-image _9"></div>
-          <div class="single-bg-image-long _10"></div>
-        </div>
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _6"></div>
-          <div class="single-bg-image-long _7"></div>
-          <div class="single-bg-image _8"></div>
-          <div class="single-bg-image _9"></div>
-          <div class="single-bg-image-long _10"></div>
-        </div>
-      </div>
-
-      <div class="loop-container" data-w-id="540ff7ea-e023-4496-7c52-de2b1326d01b">
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _11"></div>
-          <div class="single-bg-image-long _12"></div>
-          <div class="single-bg-image _13"></div>
-          <div class="single-bg-image _14"></div>
-          <div class="single-bg-image-long _15"></div>
-        </div>
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _11"></div>
-          <div class="single-bg-image-long _12"></div>
-          <div class="single-bg-image _13"></div>
-          <div class="single-bg-image _14"></div>
-          <div class="single-bg-image-long _15"></div>
-        </div>
-      </div>
-
-      <div class="loop-container" data-w-id="9ab0c5bb-b55d-4396-7c63-963d68258a8e">
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _16"></div>
-          <div class="single-bg-image-long _17"></div>
-          <div class="single-bg-image _18"></div>
-          <div class="single-bg-image _19"></div>
-          <div class="single-bg-image-long _20"></div>
-        </div>
-        <div class="image-row-wrapper">
-          <div class="single-bg-image _16"></div>
-          <div class="single-bg-image-long _17"></div>
-          <div class="single-bg-image _18"></div>
-          <div class="single-bg-image _19"></div>
-          <div class="single-bg-image-long _20"></div>
-        </div>
-      </div>
+    <div class="hero-video__onda" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,64 C360,120 720,0 1080,48 C1260,72 1380,96 1440,80 L1440,120 L0,120 Z" />
+      </svg>
     </div>
 
-    <!-- ============================================
-         CONTEÚDO PRINCIPAL (sobre a grade)
-         ============================================ -->
-    <div class="parent-container">
-      <div class="child-container">
+    <div class="hero-video__conteudo">
+      <a class="logo-link w-inline-block" href="#">
+        <img alt="Logo" class="nephew-logo" loading="lazy" src="images/logo.svg" />
+      </a>
 
-        <!-- COMPONENTE: Header → componentes/header.html -->
-        <a class="logo-link w-inline-block" href="#" target="_blank">
-          <img alt="Logo" class="nephew-logo" data-w-id="38b6c333-b96b-24f2-99c6-d349de900ecf" loading="lazy" src="images/logo.svg" />
-        </a>
+      <div class="intro-section">
+        <h1 class="main-heading">Um lugar de verdade pra ficar em Recife.</h1>
+        <a class="primary-btn w-button" href="#">Consultar</a>
+      </div>
 
-        <!-- COMPONENTE: Hero → componentes/hero.html -->
-        <div class="intro-section">
-          <h1 class="main-heading" data-w-id="965f7409-f8a8-e84b-7fcc-3176d757e023">
-            Moving background images grid
-          </h1>
-          <a class="primary-btn w-button" data-w-id="d58e7690-4839-c2e5-31d7-a7d4141bf6bd" href="#" target="_blank">
-            Clone me
-          </a>
-        </div>
-
-        <!-- COMPONENTE: Footer → componentes/footer.html -->
-        <div class="footer-container">
-          <div class="footer--text" data-w-id="99944fe7-21f1-b086-e927-83245a0bb58f">
-            Feel free to clone this and use in your own projects.
-          </div>
-        </div>
-
+      <div class="footer-container">
+        <div class="footer--text">Feel free to clone this and use in your own projects.</div>
       </div>
     </div>
-
-  </div>
+  </section>
 
   <script src="js/main.js"></script>
 </body>
