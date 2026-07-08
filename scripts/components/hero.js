@@ -19,6 +19,7 @@ import {
   getFallbackAssetsFromElement,
   pickActiveAsset,
 } from '../modules/hero-assets.js';
+import { applyHeroCopy, getHeroCopy, getLang } from '../utils/i18n.js';
 
 const PERIOD_CHECK_MS = 60_000;
 
@@ -27,6 +28,8 @@ class RFHero extends HTMLElement {
     this._periodCheckInterval = null;
     this._currentPeriod = null;
     this._assets = null;
+    this._onLangChange = (e) => this._applyLang(e.detail.lang);
+    window.addEventListener('rf-lang-change', this._onLangChange);
     this._init();
   }
 
@@ -35,6 +38,7 @@ class RFHero extends HTMLElement {
       clearInterval(this._periodCheckInterval);
       this._periodCheckInterval = null;
     }
+    window.removeEventListener('rf-lang-change', this._onLangChange);
   }
 
   async _init() {
@@ -47,6 +51,7 @@ class RFHero extends HTMLElement {
 
     this._renderShell(initial);
     this.dataset.period = period;
+    if (getLang() === 'en') this._applyLang('en');
     this._animate();
     this._bindVideoFallback(fallback);
 
@@ -121,12 +126,13 @@ class RFHero extends HTMLElement {
   }
 
   _renderShell(asset) {
-    const eyebrow = this.getAttribute('eyebrow') || 'Recife · Boa Viagem · Pina';
-    const title = this.getAttribute('title') || this.getAttribute('heading')
-      || 'Sua estadia em <em>Recife</em> começa aqui.';
-    const description = this.getAttribute('description') || '';
+    const lang = getLang();
+    const copy = getHeroCopy(lang);
+    const eyebrow = this.getAttribute('eyebrow') || copy.eyebrow;
+    const title = this.getAttribute('title') || this.getAttribute('heading') || copy.title;
+    const description = this.getAttribute('description') || copy.description;
     const noSearch = this.hasAttribute('no-search');
-    const waLink = whatsappUrl('Olá! Gostaria de saber mais sobre os apartamentos para temporada em Recife.');
+    const waLink = whatsappUrl(copy.whatsappMsg);
 
     const video = asset?.video || '';
     const videoWebm = asset?.videoWebm || '';
@@ -197,10 +203,10 @@ class RFHero extends HTMLElement {
             ` : ''}
 
             <div class="hero__cta" data-hero-cta>
-              <a href="./apartamentos.html" class="btn btn--primary">Ver apartamentos</a>
-              <a href="${waLink}" class="btn btn--outline" target="_blank" rel="noopener noreferrer">
+              <a href="./apartamentos.html" class="btn btn--primary">${copy.ctaPrimary}</a>
+              <a href="${waLink}" class="btn btn--outline" target="_blank" rel="noopener noreferrer" data-hero-wa>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A10 10 0 0 0 3.6 17l-1.6 5 5.1-1.6A10 10 0 1 0 20.5 3.5z"/></svg>
-                Falar no WhatsApp
+                ${copy.ctaWhatsapp}
               </a>
             </div>
           </div>
@@ -260,6 +266,14 @@ class RFHero extends HTMLElement {
     if (descEl) tl.to(descEl, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.35);
     if (ctaEl) tl.to(ctaEl, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.45);
     if (searchEl) tl.to(searchEl, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.55);
+  }
+
+  _applyLang(lang) {
+    applyHeroCopy(this, lang);
+
+    const copy = getHeroCopy(lang);
+    const waBtn = this.querySelector('[data-hero-wa]');
+    if (waBtn) waBtn.href = whatsappUrl(copy.whatsappMsg);
   }
 }
 

@@ -1,0 +1,81 @@
+/**
+ * i18n mínimo — PT / EN para textos principais do hero.
+ */
+
+const STORAGE_KEY = 'rf-lang';
+
+export const LANGS = ['pt', 'en'];
+
+const HERO_COPY = {
+  pt: {
+    eyebrow: 'Boa Viagem e Pina, Recife · PE',
+    title: 'Um lugar de <em>verdade</em> pra ficar em Recife.',
+    description:
+      'Apartamentos mobiliados, prontos pra usar, com fotos reais e reserva direta — sem surpresa na chegada.',
+    ctaPrimary: 'Ver apartamentos',
+    ctaWhatsapp: 'Falar no WhatsApp',
+    whatsappMsg: 'Olá! Gostaria de saber mais sobre os apartamentos para temporada em Recife.',
+  },
+  en: {
+    eyebrow: 'Boa Viagem & Pina, Recife · PE',
+    title: 'A <em>real</em> place to stay in Recife.',
+    description:
+      'Furnished apartments ready to move in, with real photos and direct booking — no surprises on arrival.',
+    ctaPrimary: 'View apartments',
+    ctaWhatsapp: 'Chat on WhatsApp',
+    whatsappMsg: 'Hi! I would like to know more about short-term apartments in Recife.',
+  },
+};
+
+export function getLang() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return LANGS.includes(stored) ? stored : 'pt';
+}
+
+export function setLang(lang) {
+  const next = LANGS.includes(lang) ? lang : 'pt';
+  localStorage.setItem(STORAGE_KEY, next);
+  document.documentElement.lang = next === 'en' ? 'en' : 'pt-BR';
+  window.dispatchEvent(new CustomEvent('rf-lang-change', { detail: { lang: next } }));
+  return next;
+}
+
+export function toggleLang() {
+  return setLang(getLang() === 'pt' ? 'en' : 'pt');
+}
+
+export function getHeroCopy(lang = getLang()) {
+  return HERO_COPY[lang] || HERO_COPY.pt;
+}
+
+export function applyHeroCopy(heroEl, lang = getLang()) {
+  if (!heroEl) return;
+
+  const copy = getHeroCopy(lang);
+  const eyebrowEl = heroEl.querySelector('[data-hero-eyebrow]');
+  const titleEl = heroEl.querySelector('[data-hero-title]');
+  const descEl = heroEl.querySelector('[data-hero-desc]');
+  const ctaEl = heroEl.querySelector('[data-hero-cta]');
+
+  if (eyebrowEl) eyebrowEl.textContent = copy.eyebrow;
+  if (titleEl) titleEl.innerHTML = copy.title;
+  if (descEl) descEl.textContent = copy.description;
+
+  if (ctaEl) {
+    const primary = ctaEl.querySelector('.btn--primary');
+    const outline = ctaEl.querySelector('.btn--outline');
+    if (primary) primary.textContent = copy.ctaPrimary;
+    if (outline) {
+      const icon = outline.querySelector('svg');
+      outline.textContent = '';
+      if (icon) outline.appendChild(icon);
+      outline.append(` ${copy.ctaWhatsapp}`);
+    }
+  }
+
+  heroEl.setAttribute('data-lang', lang);
+}
+
+export function initDocumentLang() {
+  document.documentElement.lang = getLang() === 'en' ? 'en' : 'pt-BR';
+}

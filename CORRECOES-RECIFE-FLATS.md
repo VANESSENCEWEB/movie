@@ -20,7 +20,11 @@ Além disso, o componente `<rf-hero>` carrega o vídeo dos JSON em `data/hero/ho
 | `data/hero/home/night.json` | `"video": "./assets/videos/video.mp4"` |
 | `styles/components/hero-roof.css` | Bordas terracota → verde `--mangue-500` |
 | `scripts/components/hero.js` | Onda embaixo: branco → verde `#1A2E22` |
-| `styles/components/hero.css` | Frase mais alta; busca fixa acima da onda |
+| `styles/components/hero.css` | Frase mais alta; busca fixa acima da onda; **description e CTAs visíveis** |
+| `styles/components/navbar.css` | Botão de idioma PT/EN; labels WhatsApp e Menu visíveis no mobile |
+| `scripts/components/navbar.js` | Botão de idioma + WhatsApp/Menu no header |
+| `scripts/components/hero.js` | Troca de texto PT/EN no hero |
+| `scripts/utils/i18n.js` | Traduções mínimas do hero (novo arquivo) |
 
 ## Como aplicar
 
