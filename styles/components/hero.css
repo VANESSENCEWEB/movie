@@ -240,11 +240,31 @@ rf-hero[data-period="night"] .hero__overlay {
 }
 
 .hero__description {
-  display: none;
+  font-size: clamp(0.95rem, 1.8vw, 1.125rem);
+  line-height: var(--lh-relaxed);
+  color: rgba(251, 246, 236, 0.92);
+  max-width: 38ch;
+  margin-inline: auto;
+  margin-bottom: var(--space-5);
+  opacity: 0;
+  transform: translateY(20px);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 
 .hero__cta {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero__cta .btn--shiny,
+.hero__cta .btn--outline-hero {
+  min-width: 11rem;
 }
 
 .hero__title {

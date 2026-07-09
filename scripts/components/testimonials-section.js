@@ -1,5 +1,5 @@
 /**
- * <rf-testimonials-section> — Depoimentos de hóspedes (seção própria).
+ * <rf-testimonials-section> — Depoimentos com marquee vertical (3 colunas).
  */
 
 import { prefersReducedMotion } from '../utils/dom.js';
@@ -10,42 +10,117 @@ const TESTIMONIALS = [
     name: 'Mariana R.',
     meta: 'São Paulo · 7 noites',
     quote: 'Apartamento idêntico às fotos, pertinho da praia. Atendimento impecável do check-in ao check-out.',
+    stars: true,
   },
   {
     initials: 'CP',
     name: 'Caio P.',
     meta: 'Brasília · 5 noites',
     quote: 'Flat Golden View perfeito para o casal. Resposta rápida no WhatsApp e tudo muito limpo.',
+    stars: true,
   },
   {
     initials: 'FL',
     name: 'Família Lopes',
     meta: 'Porto Alegre · 10 noites',
     quote: 'Apt espaçoso para a família, bem localizado em Boa Viagem. Voltaremos com certeza.',
+    stars: true,
+  },
+  {
+    initials: 'AS',
+    name: 'Ana S.',
+    meta: 'Rio de Janeiro · 4 noites',
+    quote: 'Localização excelente no Pina, perto do RioMar. Check-in simples e apartamento impecável.',
+    stars: true,
+  },
+  {
+    initials: 'JT',
+    name: 'João T.',
+    meta: 'Curitiba · 6 noites',
+    quote: 'Wi-Fi ótimo para trabalho remoto e praia a poucos passos. Recomendo demais!',
+    stars: false,
+  },
+  {
+    initials: 'RC',
+    name: 'Rita C.',
+    meta: 'Salvador · 8 noites',
+    quote: 'Reserva direta sem surpresa: valores claros, fotos reais e suporte durante toda a estadia.',
+    stars: true,
+  },
+  {
+    initials: 'LM',
+    name: 'Lucas M.',
+    meta: 'Fortaleza · 3 noites',
+    quote: 'Melhor custo-benefício em Boa Viagem. Voltaria sem pensar duas vezes.',
+    stars: true,
+  },
+  {
+    initials: 'PF',
+    name: 'Patrícia F.',
+    meta: 'Belo Horizonte · 5 noites',
+    quote: 'Equipe atenciosa, apartamento confortável e muito perto da orla. Experiência nota 10.',
+    stars: true,
   },
 ];
 
+function reviewCard(t, variant = 'default') {
+  const stars = t.stars
+    ? '<div class="review-card__stars" aria-label="5 de 5 estrelas">★★★★★</div>'
+    : '';
+
+  return `
+    <article class="review-card review-card--${variant}">
+      ${stars}
+      <blockquote class="review-card__quote">"${t.quote}"</blockquote>
+      <div class="review-card__author">
+        <span class="review-card__avatar" aria-hidden="true">${t.initials}</span>
+        <div>
+          <strong>${t.name}</strong>
+          <span>${t.meta}</span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function marqueeColumn(items, direction, speed) {
+  const cards = items.map((t, i) => reviewCard(t, i % 2 ? 'alt' : 'default')).join('');
+  return `
+    <div class="testimonials-marquee__col">
+      <div class="testimonials-marquee__track"
+           data-marquee-track
+           data-direction="${direction}"
+           data-speed="${speed}">
+        ${cards}
+        ${cards}
+      </div>
+    </div>
+  `;
+}
+
 class RFTestimonialsSection extends HTMLElement {
   connectedCallback() {
-    const cards = TESTIMONIALS.map((t) => `
-      <article class="review-card" data-reveal>
-        <div class="review-card__stars" aria-label="5 de 5 estrelas">★★★★★</div>
-        <blockquote class="review-card__quote">"${t.quote}"</blockquote>
-        <div class="review-card__author">
-          <span class="review-card__avatar" aria-hidden="true">${t.initials}</span>
-          <div>
-            <strong>${t.name}</strong>
-            <span>${t.meta}</span>
-          </div>
-        </div>
-      </article>
-    `).join('');
+    const col1 = marqueeColumn(
+      [TESTIMONIALS[0], TESTIMONIALS[3], TESTIMONIALS[6], TESTIMONIALS[1]],
+      'up',
+      '0.45',
+    );
+    const col2 = marqueeColumn(
+      [TESTIMONIALS[1], TESTIMONIALS[4], TESTIMONIALS[7], TESTIMONIALS[2]],
+      'down',
+      '0.55',
+    );
+    const col3 = marqueeColumn(
+      [TESTIMONIALS[2], TESTIMONIALS[5], TESTIMONIALS[0], TESTIMONIALS[4]],
+      'up',
+      '0.5',
+    );
 
     this.innerHTML = `
-      <section class="home-section home-section--white testimonials" id="depoimentos" aria-labelledby="reviews-heading">
-        <div class="container">
-          <header class="section-head" data-reveal>
-            <span class="eyebrow eyebrow--pill">Avaliações</span>
+      <section class="home-section testimonials testimonials--marquee" id="depoimentos" aria-labelledby="reviews-heading">
+        <div class="container testimonials__head" data-reveal>
+          <header class="section-head section-head--center">
+            <span class="eyebrow eyebrow--pill eyebrow--on-dark">Avaliações</span>
             <h2 class="section-head__title" id="reviews-heading">
               O que dizem nossos <em>hóspedes</em>
             </h2>
@@ -53,21 +128,66 @@ class RFTestimonialsSection extends HTMLElement {
               Nota <strong class="testimonials__score">4.9</strong> no Google — avaliações reais de quem já se hospedou.
             </p>
           </header>
-          <div class="section-body testimonials__grid">${cards}</div>
+        </div>
+
+        <div class="testimonials-marquee" aria-hidden="false">
+          <div class="testimonials-marquee__grid">
+            ${col1}
+            ${col2}
+            ${col3}
+          </div>
         </div>
       </section>
     `;
 
+    this._initMarquee();
     this._animate();
   }
 
+  disconnectedCallback() {
+    if (this._marqueeFrame) cancelAnimationFrame(this._marqueeFrame);
+  }
+
+  _initMarquee() {
+    if (prefersReducedMotion()) return;
+
+    const tracks = this.querySelectorAll('[data-marquee-track]');
+    const states = new Map();
+
+    tracks.forEach((track) => {
+      const dir = track.dataset.direction || 'up';
+      const speed = parseFloat(track.dataset.speed) || 0.5;
+      const startY = dir === 'down' ? -(track.scrollHeight / 2) : 0;
+      states.set(track, { y: startY, dir, speed });
+      track.style.transform = `translate3d(0, ${startY}px, 0)`;
+    });
+
+    const tick = () => {
+      states.forEach((state, track) => {
+        const half = track.scrollHeight / 2;
+        if (state.dir === 'up') {
+          state.y -= state.speed;
+          if (Math.abs(state.y) >= half) state.y = 0;
+        } else {
+          state.y += state.speed;
+          if (state.y >= 0) state.y = -half;
+        }
+        track.style.transform = `translate3d(0, ${state.y}px, 0)`;
+      });
+      this._marqueeFrame = requestAnimationFrame(tick);
+    };
+
+    this._marqueeFrame = requestAnimationFrame(tick);
+  }
+
   _animate() {
-    if (prefersReducedMotion() || !window.gsap) return;
-    gsap.from(this.querySelectorAll('[data-reveal]'), {
+    const head = this.querySelector('[data-reveal]');
+    if (!head || prefersReducedMotion() || !window.gsap) return;
+
+    gsap.from(head, {
       opacity: 0,
-      y: 20,
-      duration: 0.55,
-      stagger: 0.08,
+      y: 24,
+      duration: 0.7,
       ease: 'power2.out',
       scrollTrigger: { trigger: this, start: 'top 88%', once: true },
     });

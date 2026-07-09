@@ -127,3 +127,128 @@
   box-shadow: none;
   transform: none;
 }
+
+/* ============================================================
+   HERO CTA — botão shiny + outline (estilo Vanessence, cores RF)
+============================================================ */
+
+@property --rf-grad-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rf-border-spin {
+  to { --rf-grad-angle: 360deg; }
+}
+
+@keyframes rf-shimmer {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.btn--shiny {
+  --rf-grad-angle: 0deg;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  color: var(--paper);
+  background:
+    linear-gradient(var(--terracotta-700), var(--terracotta-800)) padding-box,
+    conic-gradient(
+      from var(--rf-grad-angle),
+      transparent 0%,
+      var(--terracotta-400) 8%,
+      var(--gold) 18%,
+      var(--terracotta-500) 32%,
+      transparent 42%
+    ) border-box;
+  box-shadow: 0 8px 24px rgba(110, 45, 26, 0.35);
+  animation: rf-border-spin 3s linear infinite;
+  transition: transform var(--dur-fast) ease;
+}
+
+.btn--shiny::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  background: linear-gradient(-50deg, transparent, rgba(240, 199, 154, 0.35), transparent);
+  opacity: 0.45;
+  animation: rf-shimmer 5s linear infinite;
+}
+
+.btn--shiny > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn--shiny:hover {
+  transform: translateY(-2px);
+  color: var(--paper);
+}
+
+.btn--shiny:active {
+  transform: scale(0.98);
+}
+
+.btn--outline-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(251, 246, 236, 0.42);
+  color: var(--paper);
+  background: transparent;
+  transition:
+    transform var(--dur-fast) ease,
+    border-color var(--dur-base) ease,
+    background var(--dur-base) ease,
+    color var(--dur-base) ease;
+}
+
+.btn--outline-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(251, 246, 236, 0);
+  transition: background var(--dur-base) ease;
+  z-index: 0;
+}
+
+.btn--outline-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn--outline-hero:hover {
+  border-color: var(--gold);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+
+.btn--outline-hero:hover::before {
+  background: rgba(251, 246, 236, 0.1);
+}
+
+.btn--outline-hero svg {
+  transition: transform var(--dur-base) ease;
+}
+
+.btn--outline-hero:hover svg {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--shiny,
+  .btn--shiny::after {
+    animation: none;
+  }
+}
