@@ -92,7 +92,12 @@ rf-hero[data-period="night"] .hero__overlay {
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(26, 46, 34, 0.5) 0%, rgba(26, 46, 34, 0.78) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(26, 46, 34, 0.42) 0%,
+    rgba(26, 46, 34, 0.55) 45%,
+    rgba(26, 46, 34, 0.68) 100%
+  );
 }
 
 .hero::after {
@@ -168,7 +173,7 @@ rf-hero[data-period="night"] .hero__overlay {
   align-items: center;
   justify-content: flex-start;
   padding-top: calc(var(--hero-header-offset) + clamp(2.5rem, 8vh, 5rem));
-  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + 11rem);
+  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + 7.5rem);
   gap: var(--space-5);
   min-height: min(100dvh, 100%);
 }
@@ -331,7 +336,7 @@ rf-hero[data-period="night"] .hero__overlay {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-5));
+  bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-3));
   z-index: 7;
   width: 100%;
   max-width: min(100%, var(--container-max, 1100px));
@@ -341,6 +346,11 @@ rf-hero[data-period="night"] .hero__overlay {
   transform: translateY(20px);
   margin-top: 0;
   flex-shrink: 0;
+  pointer-events: none;
+}
+
+.hero__search > * {
+  pointer-events: auto;
 }
 
 /* Em mobile, dá folga lateral pra não encostar nas bordas */
@@ -367,7 +377,7 @@ rf-hero[data-period="night"] .hero__overlay {
 
   .hero__container {
     padding-top: calc(var(--hero-header-offset) + var(--space-3));
-    padding-bottom: calc(var(--hero-cloud-reserve) + 10.5rem);
+    padding-bottom: calc(var(--hero-cloud-reserve) + 6.5rem);
     gap: var(--space-3);
   }
 
@@ -405,7 +415,10 @@ rf-hero[data-period="night"] .hero__overlay {
 
   .hero__search {
     width: 100%;
+    max-width: 100%;
     margin-bottom: 0;
+    padding-inline: var(--space-3);
+    bottom: calc(var(--hero-cloud-reserve, 4.5rem) + var(--space-2));
   }
 
   .hero__beach-palm { display: none; }
