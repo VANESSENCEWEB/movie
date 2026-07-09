@@ -23,15 +23,7 @@ class RFBookingSearch extends HTMLElement {
     out.setDate(out.getDate() + 3);
     const outDef = out.toISOString().slice(0, 10);
 
-    const header = inHero ? `
-      <header class="booking-search__header booking-search__header--hero">
-        <span class="booking-search__hero-label">Verificar disponibilidade</span>
-        <span class="booking-search__hero-status">
-          <span class="booking-search__status-dot" aria-hidden="true"></span>
-          Reserva direta sem taxa
-        </span>
-      </header>
-    ` : `
+    const header = inHero ? '' : `
       <header class="booking-search__header">
         <span class="booking-search__title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -47,7 +39,7 @@ class RFBookingSearch extends HTMLElement {
       </header>
     `;
 
-    const roomField = inHero ? `
+    const roomField = inHero ? '' : `
       <label class="booking-search__field booking-search__field--room">
         <span class="booking-search__label">Quarto</span>
         <select class="booking-search__select"
@@ -59,7 +51,7 @@ class RFBookingSearch extends HTMLElement {
           <option value="2">2 quartos</option>
         </select>
       </label>
-    ` : '';
+    `;
 
     const checkinLabel = inHero ? 'Entrada' : 'Check-in';
     const checkoutLabel = inHero ? 'Saída' : 'Check-out';

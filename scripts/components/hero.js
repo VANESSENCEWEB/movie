@@ -212,13 +212,13 @@ class RFHero extends HTMLElement {
               </a>
             </div>
           </div>
-
-          ${noSearch ? '' : `
-            <div class="hero__search" data-hero-search>
-              <rf-booking-search variant="hero" action="./apartamentos.html"></rf-booking-search>
-            </div>
-          `}
         </div>
+
+        ${noSearch ? '' : `
+          <div class="hero__search" data-hero-search>
+            <rf-booking-search variant="hero" action="./apartamentos.html"></rf-booking-search>
+          </div>
+        `}
 
         <div class="hero__clouds" aria-hidden="true">
           <svg class="hero__clouds-layer hero__clouds-layer--back" viewBox="0 0 1440 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">

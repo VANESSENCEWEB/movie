@@ -94,9 +94,9 @@ rf-hero[data-period="night"] .hero__overlay {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(26, 46, 34, 0.42) 0%,
-    rgba(26, 46, 34, 0.55) 45%,
-    rgba(26, 46, 34, 0.68) 100%
+    rgba(26, 46, 34, 0.35) 0%,
+    rgba(26, 46, 34, 0.42) 50%,
+    rgba(26, 46, 34, 0.55) 100%
   );
 }
 
@@ -171,10 +171,10 @@ rf-hero[data-period="night"] .hero__overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: calc(var(--hero-header-offset) + clamp(2.5rem, 8vh, 5rem));
-  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + 7.5rem);
-  gap: var(--space-5);
+  justify-content: center;
+  padding-top: calc(var(--hero-header-offset) + var(--space-4));
+  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + 4.5rem);
+  gap: var(--space-4);
   min-height: min(100dvh, 100%);
 }
 
@@ -331,21 +331,17 @@ rf-hero[data-period="night"] .hero__overlay {
   will-change: opacity, transform;
 }
 
-/* --- Buscador no rodapé do hero --- */
+/* --- Buscador flutuante no rodapé do hero (fora do container de texto) --- */
 .hero__search {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-3));
-  z-index: 7;
-  width: 100%;
-  max-width: min(100%, var(--container-max, 1100px));
+  bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-2));
+  z-index: 8;
+  width: min(100% - var(--space-6), 34rem);
   margin-inline: auto;
-  padding-inline: var(--space-4);
   opacity: 0;
   transform: translateY(20px);
-  margin-top: 0;
-  flex-shrink: 0;
   pointer-events: none;
 }
 
@@ -376,9 +372,10 @@ rf-hero[data-period="night"] .hero__overlay {
   }
 
   .hero__container {
-    padding-top: calc(var(--hero-header-offset) + var(--space-3));
-    padding-bottom: calc(var(--hero-cloud-reserve) + 6.5rem);
+    padding-top: calc(var(--hero-header-offset) + var(--space-2));
+    padding-bottom: calc(var(--hero-cloud-reserve) + 3.75rem);
     gap: var(--space-3);
+    justify-content: center;
   }
 
   .hero__text {
@@ -414,11 +411,8 @@ rf-hero[data-period="night"] .hero__overlay {
   .hero__title em { font-size: 0.95em; }
 
   .hero__search {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 0;
-    padding-inline: var(--space-3);
-    bottom: calc(var(--hero-cloud-reserve, 4.5rem) + var(--space-2));
+    width: min(100% - var(--space-4), 17.5rem);
+    bottom: calc(var(--hero-cloud-reserve, 4.5rem) + var(--space-1));
   }
 
   .hero__beach-palm { display: none; }
