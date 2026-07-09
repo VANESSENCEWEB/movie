@@ -262,6 +262,11 @@ rf-hero[data-period="night"] .hero__overlay {
   transform: translateY(20px);
 }
 
+.hero__cta .btn--shiny,
+.hero__cta .btn--outline-hero {
+  min-width: 11rem;
+}
+
 .hero__title {
   font-family: var(--font-display);
   font-size: var(--fs-display);
