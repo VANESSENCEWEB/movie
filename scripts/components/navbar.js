@@ -14,7 +14,8 @@
 
 import { BUSINESS, whatsappUrl } from '../data/location.js';
 import { pageHref } from '../data/site-structure.js';
-import { getLang, getHeroCopy, toggleLang, initDocumentLang } from '../utils/i18n.js';
+import { getLang, getHeroCopy, setLang, initDocumentLang } from '../utils/i18n.js';
+import { WHATSAPP_ICON_SVG, FLAG_BR_SVG, FLAG_US_SVG, GLOBE_SVG } from '../data/brand-icons.js';
 
 const WHATSAPP_DEFAULT = BUSINESS.whatsapp;
 
@@ -26,6 +27,8 @@ class RFNavbar extends HTMLElement {
     const whatsapp  = this.getAttribute('whatsapp') || WHATSAPP_DEFAULT;
     const heroTarget = this.getAttribute('hero-target') || '#hero';
     const lang = getLang();
+    const flagSvg = lang === 'en' ? FLAG_US_SVG : FLAG_BR_SVG;
+    const langMenuLabel = lang === 'en' ? 'Choose language' : 'Escolher idioma';
 
     this.innerHTML = /* html */`
       <header class="navbar ${overHero ? 'is-over-hero' : ''}" data-navbar>
@@ -51,28 +54,41 @@ class RFNavbar extends HTMLElement {
           </a>
 
           <div class="navbar__actions">
-            <button class="lang-toggle"
-                    type="button"
-                    data-lang-toggle
-                    aria-label="${lang === 'en' ? 'Switch language to Portuguese' : 'Mudar idioma para inglês'}"
-                    title="${lang === 'en' ? 'Português' : 'English'}">
-              <svg class="lang-toggle__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>
-              </svg>
-              <span class="lang-toggle__code" data-lang-code>${lang.toUpperCase()}</span>
-            </button>
+            <div class="lang-switcher" data-lang-switcher>
+              <button class="lang-toggle"
+                      type="button"
+                      data-lang-toggle
+                      aria-haspopup="listbox"
+                      aria-expanded="false"
+                      aria-label="${langMenuLabel}"
+                      title="${langMenuLabel}">
+                ${GLOBE_SVG}
+                <span class="lang-toggle__flag-wrap" data-lang-flag>${flagSvg}</span>
+                <span class="lang-toggle__code" data-lang-code>${lang.toUpperCase()}</span>
+                <svg class="lang-toggle__chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              <div class="lang-menu" data-lang-menu role="listbox" hidden>
+                <button type="button" class="lang-menu__option${lang === 'pt' ? ' is-active' : ''}" data-lang-option="pt" role="option" aria-selected="${lang === 'pt'}">
+                  ${FLAG_BR_SVG}
+                  <span>Português</span>
+                </button>
+                <button type="button" class="lang-menu__option${lang === 'en' ? ' is-active' : ''}" data-lang-option="en" role="option" aria-selected="${lang === 'en'}">
+                  ${FLAG_US_SVG}
+                  <span>English</span>
+                </button>
+              </div>
+            </div>
 
             <a href="${whatsappUrl('Olá! Gostaria de saber mais sobre os apartamentos para temporada em Recife.')}"
-               class="btn--whatsapp"
+               class="btn--whatsapp btn--whatsapp--icon"
                data-whatsapp-link
                target="_blank"
                rel="noopener noreferrer"
-               aria-label="Falar no WhatsApp">
-              <svg class="btn--whatsapp__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              <span class="btn--whatsapp__text">WhatsApp</span>
+               aria-label="Falar no WhatsApp"
+               title="WhatsApp">
+              <span class="btn--whatsapp__icon">${WHATSAPP_ICON_SVG}</span>
             </a>
 
             <button class="menu-toggle"
@@ -95,6 +111,9 @@ class RFNavbar extends HTMLElement {
     this._toggle    = this.querySelector('[data-menu-toggle]');
     this._langBtn   = this.querySelector('[data-lang-toggle]');
     this._langCode  = this.querySelector('[data-lang-code]');
+    this._langFlag  = this.querySelector('[data-lang-flag]');
+    this._langMenu  = this.querySelector('[data-lang-menu]');
+    this._langRoot  = this.querySelector('[data-lang-switcher]');
     this._waLink    = this.querySelector('[data-whatsapp-link]');
     this._heroEl    = document.querySelector(heroTarget);
 
@@ -113,16 +132,49 @@ class RFNavbar extends HTMLElement {
       this._navbar.classList.add('is-scrolled');
     }
 
-    // 2. Idioma PT / EN
-    this._langBtn?.addEventListener('click', () => {
-      const next = toggleLang();
+    // 2. Idioma PT / EN — menu com bandeiras
+    const closeLangMenu = () => {
+      this._langMenu?.setAttribute('hidden', '');
+      this._langBtn?.setAttribute('aria-expanded', 'false');
+    };
+
+    const openLangMenu = () => {
+      this._langMenu?.removeAttribute('hidden');
+      this._langBtn?.setAttribute('aria-expanded', 'true');
+    };
+
+    const applyLangUi = (next) => {
       if (this._langCode) this._langCode.textContent = next.toUpperCase();
-      this._langBtn.setAttribute(
-        'aria-label',
-        next === 'en' ? 'Switch language to Portuguese' : 'Mudar idioma para inglês'
-      );
-      this._langBtn.setAttribute('title', next === 'en' ? 'Português' : 'English');
+      if (this._langFlag) this._langFlag.innerHTML = next === 'en' ? FLAG_US_SVG : FLAG_BR_SVG;
+      this._langMenu?.querySelectorAll('[data-lang-option]').forEach((btn) => {
+        const active = btn.dataset.langOption === next;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', String(active));
+      });
+      const label = next === 'en' ? 'Choose language' : 'Escolher idioma';
+      this._langBtn?.setAttribute('aria-label', label);
+      this._langBtn?.setAttribute('title', label);
+    };
+
+    this._langBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = this._langBtn.getAttribute('aria-expanded') === 'true';
+      if (open) closeLangMenu();
+      else openLangMenu();
     });
+
+    this._langMenu?.querySelectorAll('[data-lang-option]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const next = setLang(btn.dataset.langOption);
+        applyLangUi(next);
+        closeLangMenu();
+      });
+    });
+
+    this._onDocClick = (e) => {
+      if (!this._langRoot?.contains(e.target)) closeLangMenu();
+    };
+    document.addEventListener('click', this._onDocClick);
 
     // 3. Emite evento global ao clicar no botão Menu
     this._toggle.addEventListener('click', () => {
@@ -141,19 +193,15 @@ class RFNavbar extends HTMLElement {
 
     this._onLangChange = (e) => {
       const copy = getHeroCopy(e.detail.lang);
-      if (this._langCode) this._langCode.textContent = e.detail.lang.toUpperCase();
+      applyLangUi(e.detail.lang);
       if (this._waLink) this._waLink.href = whatsappUrl(copy.whatsappMsg);
-      this._langBtn?.setAttribute(
-        'aria-label',
-        e.detail.lang === 'en' ? 'Switch language to Portuguese' : 'Mudar idioma para inglês'
-      );
-      this._langBtn?.setAttribute('title', e.detail.lang === 'en' ? 'Português' : 'English');
     };
     window.addEventListener('rf-lang-change', this._onLangChange);
   }
 
   disconnectedCallback() {
     this._observer?.disconnect();
+    document.removeEventListener('click', this._onDocClick);
     window.removeEventListener('rf-menu-state', this._unsync);
     window.removeEventListener('rf-lang-change', this._onLangChange);
   }

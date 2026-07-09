@@ -29,7 +29,10 @@ const HERO_COPY = {
 
 export function getLang() {
   const stored = localStorage.getItem(STORAGE_KEY);
-  return LANGS.includes(stored) ? stored : 'pt';
+  if (LANGS.includes(stored)) return stored;
+
+  const nav = (navigator.language || navigator.userLanguage || 'pt').toLowerCase();
+  return nav.startsWith('en') ? 'en' : 'pt';
 }
 
 export function setLang(lang) {
