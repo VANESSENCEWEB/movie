@@ -62,14 +62,21 @@ export function applyHeroCopy(heroEl, lang = getLang()) {
   if (descEl) descEl.textContent = copy.description;
 
   if (ctaEl) {
-    const primary = ctaEl.querySelector('.btn--primary');
-    const outline = ctaEl.querySelector('.btn--outline');
+    const primary = ctaEl.querySelector('.btn--shiny span') || ctaEl.querySelector('.btn--primary');
+    const outline = ctaEl.querySelector('.btn--outline-hero') || ctaEl.querySelector('.btn--outline');
     if (primary) primary.textContent = copy.ctaPrimary;
     if (outline) {
       const icon = outline.querySelector('svg');
-      outline.textContent = '';
-      if (icon) outline.appendChild(icon);
-      outline.append(` ${copy.ctaWhatsapp}`);
+      const textNodes = [...outline.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE);
+      textNodes.forEach((n) => n.remove());
+      if (!icon) {
+        outline.textContent = copy.ctaWhatsapp;
+      } else {
+        outline.childNodes.forEach((n) => {
+          if (n !== icon) n.remove();
+        });
+        outline.append(` ${copy.ctaWhatsapp}`);
+      }
     }
   }
 
