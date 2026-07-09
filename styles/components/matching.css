@@ -5,7 +5,8 @@
 .matching-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: min(520px, 70vh);
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
 }
 

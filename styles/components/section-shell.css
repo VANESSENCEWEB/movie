@@ -3,9 +3,18 @@
 ============================================================ */
 
 .home-section {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-block: var(--section-py);
   width: 100%;
   position: relative;
+}
+
+.home-section > .container {
+  width: 100%;
 }
 
 .home-section--white,

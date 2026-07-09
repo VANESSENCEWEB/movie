@@ -84,7 +84,7 @@ rf-hero[data-period="night"] .hero__video {
 }
 
 rf-hero[data-period="night"] .hero__overlay {
-  background: linear-gradient(180deg, rgba(26, 46, 34, 0.62) 0%, rgba(26, 46, 34, 0.88) 100%);
+  background: linear-gradient(180deg, rgba(26, 46, 34, 0.45) 0%, rgba(26, 46, 34, 0.68) 100%);
 }
 
 .hero__overlay {
@@ -94,9 +94,9 @@ rf-hero[data-period="night"] .hero__overlay {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(26, 46, 34, 0.35) 0%,
-    rgba(26, 46, 34, 0.42) 50%,
-    rgba(26, 46, 34, 0.55) 100%
+    rgba(26, 46, 34, 0.2) 0%,
+    rgba(26, 46, 34, 0.28) 50%,
+    rgba(26, 46, 34, 0.38) 100%
   );
 }
 
@@ -130,7 +130,7 @@ rf-hero[data-period="night"] .hero__overlay {
   z-index: 7;
   overflow: hidden;
   padding-block: 10px;
-  background: rgba(26, 46, 34, 0.55);
+  background: rgba(26, 46, 34, 0.38);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);

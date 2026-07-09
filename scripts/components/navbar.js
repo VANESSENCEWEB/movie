@@ -6,25 +6,20 @@
  *
  * Atributos:
  *   over-hero  : aplica o estilo claro inicial (texto branco) sobre hero escuro
- *   whatsapp   : número de WhatsApp (default: o de produção)
  *
  * Eventos emitidos:
  *   rf-menu-toggle  : disparado ao clicar no botão "Menu" (detail: { open: boolean })
  */
 
-import { BUSINESS, whatsappUrl } from '../data/location.js';
 import { pageHref } from '../data/site-structure.js';
-import { getLang, getHeroCopy, setLang, initDocumentLang } from '../utils/i18n.js';
-import { WHATSAPP_ICON_SVG, FLAG_BR_SVG, FLAG_US_SVG, GLOBE_SVG } from '../data/brand-icons.js';
-
-const WHATSAPP_DEFAULT = BUSINESS.whatsapp;
+import { getLang, setLang, initDocumentLang } from '../utils/i18n.js';
+import { FLAG_BR_SVG, FLAG_US_SVG, GLOBE_SVG } from '../data/brand-icons.js';
 
 class RFNavbar extends HTMLElement {
   connectedCallback() {
     initDocumentLang();
 
     const overHero  = this.hasAttribute('over-hero');
-    const whatsapp  = this.getAttribute('whatsapp') || WHATSAPP_DEFAULT;
     const heroTarget = this.getAttribute('hero-target') || '#hero';
     const lang = getLang();
     const flagSvg = lang === 'en' ? FLAG_US_SVG : FLAG_BR_SVG;
@@ -81,16 +76,6 @@ class RFNavbar extends HTMLElement {
               </div>
             </div>
 
-            <a href="${whatsappUrl('Olá! Gostaria de saber mais sobre os apartamentos para temporada em Recife.')}"
-               class="btn--whatsapp btn--whatsapp--icon"
-               data-whatsapp-link
-               target="_blank"
-               rel="noopener noreferrer"
-               aria-label="Falar no WhatsApp"
-               title="WhatsApp">
-              <span class="btn--whatsapp__icon">${WHATSAPP_ICON_SVG}</span>
-            </a>
-
             <button class="menu-toggle"
                     data-menu-toggle
                     type="button"
@@ -114,7 +99,6 @@ class RFNavbar extends HTMLElement {
     this._langFlag  = this.querySelector('[data-lang-flag]');
     this._langMenu  = this.querySelector('[data-lang-menu]');
     this._langRoot  = this.querySelector('[data-lang-switcher]');
-    this._waLink    = this.querySelector('[data-whatsapp-link]');
     this._heroEl    = document.querySelector(heroTarget);
 
     // 1. Observa o hero — define is-over-hero / is-scrolled
@@ -192,9 +176,7 @@ class RFNavbar extends HTMLElement {
     window.addEventListener('rf-menu-state', this._unsync);
 
     this._onLangChange = (e) => {
-      const copy = getHeroCopy(e.detail.lang);
       applyLangUi(e.detail.lang);
-      if (this._waLink) this._waLink.href = whatsappUrl(copy.whatsappMsg);
     };
     window.addEventListener('rf-lang-change', this._onLangChange);
   }
