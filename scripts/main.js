@@ -27,6 +27,7 @@ import './components/apartments-hub.js';
 import './components/neighborhood-hub.js';
 import './components/apartments-teaser.js';
 import './components/amenities-section.js';
+import './components/why-choose-section.js';
 import './components/neighborhoods-showcase.js';
 import './components/testimonials-section.js';
 import './components/faq-section.js';
