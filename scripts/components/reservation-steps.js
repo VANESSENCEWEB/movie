@@ -33,7 +33,7 @@ const HIGHLIGHTS = [
 class RFReservationSteps extends HTMLElement {
   connectedCallback() {
     const steps = STEPS.map((step) => `
-      <article class="reservation-step" data-reservation-reveal>
+      <article class="reservation-step" data-reservation-card>
         <span class="reservation-step__num">${step.num}</span>
         <h3 class="reservation-step__title">${step.title}</h3>
         <p class="reservation-step__text">${step.text}</p>
@@ -41,7 +41,7 @@ class RFReservationSteps extends HTMLElement {
     `).join('');
 
     const highlights = HIGHLIGHTS.map((h) => `
-      <div class="reservation-highlight" data-reservation-reveal>
+      <div class="reservation-highlight" data-reservation-card>
         <h4>${h.title}</h4>
         <p>${h.text}</p>
       </div>
@@ -76,18 +76,79 @@ class RFReservationSteps extends HTMLElement {
     `;
 
     this._animate();
+    this._initScrollGlow();
+  }
+
+  disconnectedCallback() {
+    this._scrollTriggers?.forEach((st) => st.kill());
+    this._scrollTriggers = null;
+    this._cardObserver?.disconnect();
+    this._cardObserver = null;
+  }
+
+  _initScrollGlow() {
+    const cards = [...this.querySelectorAll('[data-reservation-card]')];
+    if (!cards.length) return;
+
+    if (prefersReducedMotion()) {
+      cards.forEach((card) => card.classList.add('is-lit'));
+      return;
+    }
+
+    if (window.gsap && window.ScrollTrigger) {
+      this._scrollTriggers = cards.map((card) =>
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 86%',
+          once: true,
+          onEnter: () => card.classList.add('is-lit'),
+        }),
+      );
+      return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach((card) => card.classList.add('is-lit'));
+      return;
+    }
+
+    this._cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-lit');
+          this._cardObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.35, rootMargin: '0px 0px -6% 0px' },
+    );
+
+    cards.forEach((card) => this._cardObserver.observe(card));
   }
 
   _animate() {
     if (prefersReducedMotion() || !window.gsap) return;
 
-    gsap.from(this.querySelectorAll('[data-reservation-reveal]'), {
+    const cards = this.querySelectorAll('[data-reservation-card]');
+    const staticReveal = this.querySelectorAll('[data-reservation-reveal]');
+
+    gsap.from(staticReveal, {
       opacity: 0,
       y: 28,
       duration: 0.65,
       stagger: 0.08,
       ease: 'power2.out',
       scrollTrigger: { trigger: this, start: 'top 85%', once: true },
+    });
+
+    cards.forEach((card) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 26,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: card, start: 'top 88%', once: true },
+      });
     });
   }
 }
