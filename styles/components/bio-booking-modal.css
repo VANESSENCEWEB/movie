@@ -1,0 +1,288 @@
+/* ============================================================
+   BIO BOOKING MODAL — Fluxo estilo HostBio
+============================================================ */
+
+.bio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-overlay) + 2);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+
+.bio-modal[hidden] {
+  display: none;
+}
+
+.bio-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 46, 34, 0.45);
+  opacity: 0;
+  transition: opacity 0.28s var(--ease-out);
+}
+
+.bio-modal.is-open .bio-modal__backdrop {
+  opacity: 1;
+}
+
+.bio-modal__sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 28rem;
+  max-height: min(92dvh, 640px);
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(100%);
+  transition: transform 0.32s var(--ease-out);
+}
+
+.bio-modal.is-open .bio-modal__sheet {
+  transform: translateY(0);
+}
+
+.bio-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 2;
+}
+
+.bio-modal__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.bio-modal__title svg {
+  color: var(--terracotta-600);
+  flex-shrink: 0;
+}
+
+.bio-modal__close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  transition: background var(--dur-fast);
+}
+
+.bio-modal__close:hover {
+  background: var(--sand-200);
+}
+
+.bio-modal__form {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.bio-modal__apt {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--mangue-600);
+  margin: 0;
+}
+
+.bio-modal__dates-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-m);
+  border: 1px solid var(--line);
+  background: var(--sand-200);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-align: left;
+}
+
+.bio-modal__dates-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--terracotta-600);
+  flex-shrink: 0;
+}
+
+.bio-modal__nights {
+  display: inline-block;
+  margin-top: var(--space-2);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: rgba(184, 80, 47, 0.12);
+  color: var(--terracotta-700);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.bio-modal__date-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.bio-modal__steppers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-1);
+}
+
+.bio-modal__stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.bio-modal__stepper-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.bio-modal__stepper-ctrl {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bio-modal__stepper-ctrl button {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+}
+
+.bio-modal__stepper-ctrl button:last-child {
+  background: var(--terracotta-600);
+  border-color: var(--terracotta-600);
+  color: var(--branco);
+}
+
+.bio-modal__stepper-ctrl button:hover {
+  border-color: var(--terracotta-400);
+}
+
+.bio-modal__stepper-ctrl span {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.bio-modal__lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--line);
+}
+
+.bio-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bio-modal__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.bio-modal__optional {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.65rem;
+}
+
+.bio-modal__field input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-s);
+  border: 1px solid var(--line);
+  background: var(--branco);
+  font-size: 0.9375rem;
+  color: var(--ink);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.bio-modal__field input:focus {
+  outline: none;
+  border-color: var(--terracotta-500);
+  box-shadow: 0 0 0 3px rgba(184, 80, 47, 0.15);
+}
+
+.bio-modal__submit {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--terracotta-600);
+  color: var(--branco);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-clay);
+  transition: background var(--dur-base), transform var(--dur-fast), opacity var(--dur-fast);
+}
+
+.bio-modal__submit:hover:not(:disabled) {
+  background: var(--terracotta-800);
+}
+
+.bio-modal__submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.bio-modal__submit:disabled {
+  background: var(--sand-400);
+  color: var(--sand-800);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (min-width: 520px) {
+  .bio-modal {
+    align-items: center;
+    padding: var(--space-4);
+  }
+
+  .bio-modal__sheet {
+    border-radius: var(--radius-m);
+    max-height: min(88dvh, 620px);
+  }
+}
