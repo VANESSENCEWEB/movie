@@ -3,65 +3,7 @@
  */
 
 import { prefersReducedMotion } from '../utils/dom.js';
-
-const TESTIMONIALS = [
-  {
-    initials: 'MR',
-    name: 'Mariana R.',
-    meta: 'São Paulo · 7 noites',
-    quote: 'Apartamento idêntico às fotos, pertinho da praia. Atendimento impecável do check-in ao check-out.',
-    stars: true,
-  },
-  {
-    initials: 'CP',
-    name: 'Caio P.',
-    meta: 'Brasília · 5 noites',
-    quote: 'Flat Golden View perfeito para o casal. Resposta rápida no WhatsApp e tudo muito limpo.',
-    stars: true,
-  },
-  {
-    initials: 'FL',
-    name: 'Família Lopes',
-    meta: 'Porto Alegre · 10 noites',
-    quote: 'Apt espaçoso para a família, bem localizado em Boa Viagem. Voltaremos com certeza.',
-    stars: true,
-  },
-  {
-    initials: 'AS',
-    name: 'Ana S.',
-    meta: 'Rio de Janeiro · 4 noites',
-    quote: 'Localização excelente no Pina, perto do RioMar. Check-in simples e apartamento impecável.',
-    stars: true,
-  },
-  {
-    initials: 'JT',
-    name: 'João T.',
-    meta: 'Curitiba · 6 noites',
-    quote: 'Wi-Fi ótimo para trabalho remoto e praia a poucos passos. Recomendo demais!',
-    stars: false,
-  },
-  {
-    initials: 'RC',
-    name: 'Rita C.',
-    meta: 'Salvador · 8 noites',
-    quote: 'Reserva direta sem surpresa: valores claros, fotos reais e suporte durante toda a estadia.',
-    stars: true,
-  },
-  {
-    initials: 'LM',
-    name: 'Lucas M.',
-    meta: 'Fortaleza · 3 noites',
-    quote: 'Melhor custo-benefício em Boa Viagem. Voltaria sem pensar duas vezes.',
-    stars: true,
-  },
-  {
-    initials: 'PF',
-    name: 'Patrícia F.',
-    meta: 'Belo Horizonte · 5 noites',
-    quote: 'Equipe atenciosa, apartamento confortável e muito perto da orla. Experiência nota 10.',
-    stars: true,
-  },
-];
+import { TESTIMONIALS, renderTestimonialAvatar } from '../data/testimonials.js';
 
 function reviewCard(t, variant = 'default') {
   const stars = t.stars
@@ -73,7 +15,7 @@ function reviewCard(t, variant = 'default') {
       ${stars}
       <blockquote class="review-card__quote">"${t.quote}"</blockquote>
       <div class="review-card__author">
-        <span class="review-card__avatar" aria-hidden="true">${t.initials}</span>
+        ${renderTestimonialAvatar(t)}
         <div>
           <strong>${t.name}</strong>
           <span>${t.meta}</span>

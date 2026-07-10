@@ -124,6 +124,13 @@
   font-size: 0.76rem;
 }
 
+.review-card__avatar-wrap {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
 .review-card__avatar {
   width: 42px;
   height: 42px;
@@ -137,6 +144,19 @@
   font-size: 0.72rem;
   font-weight: 600;
   flex-shrink: 0;
+}
+
+.review-card__avatar--photo {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  background: rgba(184, 80, 47, 0.15);
+}
+
+.review-card__avatar--fallback {
+  position: absolute;
+  inset: 0;
 }
 
 @media (min-width: 768px) {

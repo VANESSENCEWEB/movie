@@ -6,27 +6,7 @@ import { APARTAMENTOS, resolveImages, FALLBACK_IMAGE } from '../data/apartamento
 import { apartmentUrl } from '../data/site-structure.js';
 import { BUSINESS, MAPS_LINKS } from '../data/location.js';
 import { assetUrl } from '../utils/paths.js';
-
-const TESTIMONIALS = [
-  {
-    initials: 'MR',
-    name: 'Mariana R.',
-    meta: 'São Paulo · 7 noites',
-    quote: 'Apartamento idêntico às fotos, pertinho da praia. Atendimento impecável do check-in ao check-out.',
-  },
-  {
-    initials: 'CP',
-    name: 'Caio P.',
-    meta: 'Brasília · 5 noites',
-    quote: 'Flat Golden View perfeito para o casal. Resposta rápida no WhatsApp e tudo muito limpo.',
-  },
-  {
-    initials: 'FL',
-    name: 'Família Lopes',
-    meta: 'Porto Alegre · 10 noites',
-    quote: 'Apt espaçoso para a família, bem localizado em Boa Viagem. Voltaremos com certeza.',
-  },
-];
+import { TESTIMONIALS, renderTestimonialAvatar } from '../data/testimonials.js';
 
 function shortName(apt) {
   if (apt.building) {
@@ -148,7 +128,11 @@ class RFBioPage extends HTMLElement {
               <div class="bio-review__stars" aria-hidden="true">★★★★★</div>
               <blockquote class="bio-review__quote" data-bio-review-quote>"${testimonial.quote}"</blockquote>
               <div class="bio-review__author">
-                <span class="bio-review__avatar" data-bio-review-avatar>${testimonial.initials}</span>
+                <span data-bio-review-avatar>${renderTestimonialAvatar(testimonial, {
+                  baseClass: 'bio-review__avatar',
+                  imgClass: 'bio-review__avatar bio-review__avatar--photo',
+                  fallbackClass: 'bio-review__avatar bio-review__avatar--fallback',
+                })}</span>
                 <div>
                   <strong data-bio-review-name>${testimonial.name}</strong>
                   <span data-bio-review-meta>${testimonial.meta}</span>
@@ -231,7 +215,14 @@ class RFBioPage extends HTMLElement {
     if (!t) return;
     this._reviewIndex = i;
     this.querySelector('[data-bio-review-quote]').textContent = `"${t.quote}"`;
-    this.querySelector('[data-bio-review-avatar]').textContent = t.initials;
+    const avatarWrap = this.querySelector('[data-bio-review-avatar]');
+    if (avatarWrap) {
+      avatarWrap.innerHTML = renderTestimonialAvatar(t, {
+        baseClass: 'bio-review__avatar',
+        imgClass: 'bio-review__avatar bio-review__avatar--photo',
+        fallbackClass: 'bio-review__avatar bio-review__avatar--fallback',
+      });
+    }
     this.querySelector('[data-bio-review-name]').textContent = t.name;
     this.querySelector('[data-bio-review-meta]').textContent = t.meta;
     this.querySelectorAll('[data-bio-review-dot]').forEach((d, j) => {

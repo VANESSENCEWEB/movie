@@ -134,6 +134,13 @@
   margin-top: auto;
 }
 
+.avatar-wrap {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
 .avatar {
   width: 44px;
   height: 44px;
@@ -144,6 +151,19 @@
   font-weight: 600;
   color: var(--color-accent-dark);
   flex-shrink: 0;
+}
+
+.avatar--photo {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  background: var(--color-accent-soft);
+}
+
+.avatar--fallback {
+  position: absolute;
+  inset: 0;
 }
 
 .testimonial__author strong {

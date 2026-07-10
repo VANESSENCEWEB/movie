@@ -3,21 +3,24 @@
  */
 
 import { whatsappUrl } from '../data/location.js';
-
-const TESTIMONIALS = [
-  { stars: 5, quote: 'Apartamento em Boa Viagem idêntico às fotos. Vista incrível e atendimento impecável.', author: 'Mariana R.', meta: 'São Paulo — 7 noites', initials: 'MR' },
-  { stars: 5, quote: 'Flat Golden View perfeito para o casal. Check-in rápido e suporte no WhatsApp em minutos.', author: 'Caio P.', meta: 'Brasília — 5 noites', initials: 'CP' },
-  { stars: 5, quote: 'Apt 105 espaçoso, limpo e bem localizado. Família adorou Boa Viagem.', author: 'Família Lopes', meta: 'Porto Alegre — 10 noites', initials: 'FL' },
-  { stars: 5, quote: 'Apartamento no Pina com ótima localização. Voltaremos com certeza!', author: 'Ana S.', meta: 'Rio de Janeiro — 4 noites', initials: 'AS' },
-];
+import { TESTIMONIALS_SHORT, renderTestimonialAvatar } from '../data/testimonials.js';
 
 function testimonialCard(t) {
+  const avatar = renderTestimonialAvatar(
+    { initials: t.initials, name: t.author, photo: t.photo },
+    {
+      baseClass: 'avatar',
+      imgClass: 'avatar avatar--photo',
+      fallbackClass: 'avatar avatar--fallback',
+    },
+  );
+
   return `
     <article class="testimonial--card">
       <div class="testimonial__stars">${'★'.repeat(t.stars)}</div>
       <blockquote>"${t.quote}"</blockquote>
       <div class="testimonial__author">
-        <div class="avatar">${t.initials}</div>
+        ${avatar}
         <div><strong>${t.author}</strong><small>${t.meta}</small></div>
       </div>
     </article>
@@ -26,7 +29,7 @@ function testimonialCard(t) {
 
 class RFHomeSections extends HTMLElement {
   connectedCallback() {
-    const cards = [...TESTIMONIALS, ...TESTIMONIALS].map(testimonialCard).join('');
+    const cards = [...TESTIMONIALS_SHORT, ...TESTIMONIALS_SHORT].map(testimonialCard).join('');
 
     this.innerHTML = `
       <section class="section section--screen">

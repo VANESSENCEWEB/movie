@@ -417,6 +417,13 @@ rf-bio-page {
   gap: var(--space-3);
 }
 
+.bio-review__avatar-wrap {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
 .bio-review__avatar {
   width: 40px;
   height: 40px;
@@ -428,6 +435,19 @@ rf-bio-page {
   display: grid;
   place-items: center;
   flex-shrink: 0;
+}
+
+.bio-review__avatar--photo {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  padding: 0;
+  background: var(--mangue-200);
+}
+
+.bio-review__avatar--fallback {
+  position: absolute;
+  inset: 0;
 }
 
 .bio-review__author strong {
