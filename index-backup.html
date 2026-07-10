@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recife Flats Temporada — Apartamentos para temporada em Boa Viagem, Recife</title>
-  <meta name="description" content="Apartamentos mobiliados para temporada em Boa Viagem e Pina, Recife. A 100m da praia, reserva direta e nota 4.9 no Google. Veja no mapa e fale conosco." />
+  <title>Recife Flats Temporada — Backup com telhado (referência)</title>
+  <meta name="description" content="Versão de referência da home com telhado decorativo acima da navegação. Não é a página principal de entrega." />
+  <meta name="robots" content="noindex, nofollow" />
 
   <link rel="preconnect" href="https://www.google.com" />
   <link rel="preconnect" href="https://maps.googleapis.com" crossorigin />
@@ -43,10 +44,19 @@
 </head>
 
 <body>
+  <!-- Backup: versão com telhado decorativo (.hero-roof) acima da nav. Entrega oficial: index.html -->
 
   <rf-menu wraps=".site-content"></rf-menu>
 
-  <div class="site-content">
+  <div class="site-content site-content--house">
+
+    <div class="hero-roof" aria-hidden="true">
+      <svg class="hero-roof__svg" viewBox="0 0 1200 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 140 L0 52 L600 0 L1200 52 L1200 140 Z" fill="var(--terracotta-600)"/>
+        <path d="M0 52 L600 0 L1200 52" fill="none" stroke="var(--terracotta-800)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+        <path d="M80 140 L80 72 L1120 72 L1120 140 Z" fill="var(--terracotta-700)" opacity="0.35"/>
+      </svg>
+    </div>
 
     <rf-announcement>
       🌴 Promoção de Temporada — <strong>até 20% off</strong> nas reservas de 5+ noites

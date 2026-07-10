@@ -9,7 +9,7 @@ export const LANGS = ['pt', 'en'];
 const HERO_COPY = {
   pt: {
     eyebrow: 'Boa Viagem e Pina, Recife · PE',
-    title: 'Um lugar de <em>verdade</em> pra ficar em Recife.',
+    title: 'Um lugar de <em>verdade</em><br class="hero__title-break"> pra ficar em Recife.',
     description:
       'Apartamentos mobiliados, prontos pra usar, com fotos reais e reserva direta — sem surpresa na chegada.',
     ctaPrimary: 'Ver apartamentos',
@@ -18,7 +18,7 @@ const HERO_COPY = {
   },
   en: {
     eyebrow: 'Boa Viagem & Pina, Recife · PE',
-    title: 'A <em>real</em> place to stay in Recife.',
+    title: 'A <em>real</em> place<br class="hero__title-break"> to stay in Recife.',
     description:
       'Furnished apartments ready to move in, with real photos and direct booking — no surprises on arrival.',
     ctaPrimary: 'View apartments',

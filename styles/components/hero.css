@@ -294,7 +294,11 @@ rf-hero[data-period="night"] .hero__overlay {
   font-weight: 400;
   color: var(--sol);
   display: inline;
-  white-space: normal;
+  white-space: nowrap;
+}
+
+.hero__title-break {
+  display: block;
 }
 
 /* --- Sol girando no fim do título --- */

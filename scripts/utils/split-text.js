@@ -17,7 +17,7 @@ export function splitTextIntoLetters(el) {
       });
       node.parentNode.replaceChild(frag, node);
     } else if (node.nodeType === Node.ELEMENT_NODE) {
-      if (node.tagName === 'SVG' || node.tagName === 'IMG') return;
+      if (node.tagName === 'SVG' || node.tagName === 'IMG' || node.tagName === 'BR') return;
       [...node.childNodes].forEach(walk);
     }
   };
