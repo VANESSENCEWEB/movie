@@ -17,6 +17,15 @@
   gap: var(--space-8);
 }
 
+.site-footer__grid > * {
+  min-width: 0;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ---- Marca ---- */
 .site-footer__brand-header {
   display: flex;
@@ -87,6 +96,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  min-width: 0;
 }
 
 .site-footer__trust-card:hover {
@@ -112,11 +122,13 @@
   font-weight: 700;
   color: var(--paper);
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .site-footer__trust-card span {
   font-size: var(--fs-xs);
   color: rgba(251, 246, 236, 0.65);
+  overflow-wrap: anywhere;
 }
 
 /* ---- Pagamentos ---- */
@@ -209,12 +221,13 @@
 }
 
 .site-footer__col a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--space-2);
   font-size: var(--fs-sm);
   color: rgba(251, 246, 236, 0.72);
   transition: color 0.25s ease, gap 0.25s ease;
+  min-width: 0;
 }
 
 .site-footer__col a:hover {
@@ -290,6 +303,7 @@
   font-size: var(--fs-sm);
   color: rgba(251, 246, 236, 0.72);
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .site-footer__status {
@@ -374,7 +388,8 @@
 }
 
 /* ---- Responsivo ---- */
-@media (min-width: 640px) {
+/* Tablet: faixa única — trust em 3 colunas */
+@media (min-width: 640px) and (max-width: 899px) {
   .site-footer__trust {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -382,9 +397,14 @@
 
 @media (min-width: 900px) {
   .site-footer__grid {
-    grid-template-columns: 1.35fr 0.9fr 0.9fr 0.9fr 1.1fr;
-    gap: var(--space-6);
+    grid-template-columns: minmax(220px, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(200px, 1.15fr);
+    gap: clamp(1.25rem, 2.5vw, var(--space-6));
     align-items: start;
+  }
+
+  /* Desktop: coluna da marca é estreita — trust empilhado */
+  .site-footer__trust {
+    grid-template-columns: 1fr;
   }
 }
 
