@@ -12,6 +12,7 @@ import './components/menu.js';
 import './components/booking-search.js';
 import './components/hero.js';
 import './components/trust-strip.js';
+import './components/home-marquee.js';
 import './components/location-section.js';
 import './components/reservation-steps.js';
 import './components/matching-teaser.js';

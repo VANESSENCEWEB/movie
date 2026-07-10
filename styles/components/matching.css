@@ -76,6 +76,19 @@
   }
 }
 
+/* Home com moldura: smart match na mesma largura do hero */
+@media (min-width: 901px) {
+  .site-content--house .matching-split {
+    margin-inline: var(--house-inset);
+    width: auto;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    border-left: var(--house-border) solid var(--mangue-500);
+    border-right: var(--house-border) solid var(--mangue-500);
+    border-bottom: var(--house-border) solid var(--mangue-500);
+  }
+}
+
 /* Legado — modal do questionário */
 .matching-modal {
   position: fixed;

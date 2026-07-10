@@ -6,7 +6,7 @@ class RFHomeMarquee extends HTMLElement {
   connectedCallback() {
     const items = [
       'Boa Viagem', 'Pina', 'Vista mar', '4 apartamentos',
-      'Recife — PE', 'Pé na areia', 'Reserva direta',
+      'Recife — PE', 'Pé na areia', 'Reserva direta', 'Reserve conosco',
     ];
     const track = [...items, ...items]
       .map((t) => `<span class="marquee__item">${t}</span>`)

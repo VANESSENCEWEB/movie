@@ -121,13 +121,13 @@ rf-hero[data-period="night"] .hero__overlay {
   mix-blend-mode: overlay;
 }
 
-/* Ticker dentro do hero */
+/* Ticker dentro do hero — sempre visível abaixo da nav */
 .hero__ticker {
   position: absolute;
   top: var(--hero-header-offset);
   left: 0;
   right: 0;
-  z-index: 7;
+  z-index: 8;
   overflow: hidden;
   padding-block: 10px;
   background: rgba(26, 46, 34, 0.38);

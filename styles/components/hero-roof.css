@@ -1,7 +1,17 @@
 /* ============================================================
    HERO ROOF + MOLDURA CASA — telhado + verde descendo
-   Apenas na home com .site-content--house
+   .site-content--house = moldura e offsets
+   .site-content--no-roof = entrega sem telhado (só index.html)
 ============================================================ */
+
+/* Entrega oficial: moldura sim, telhado não */
+.site-content--house.site-content--no-roof {
+  --roof-height: 0px;
+}
+
+.site-content--house.site-content--no-roof .hero-roof {
+  display: none;
+}
 
 .hero-roof {
   position: fixed;
@@ -46,18 +56,25 @@
     overflow: hidden;
   }
 
-  /* Navbar dentro da moldura — verde visível nas laterais */
+  /* Navbar sobre o hero — largura total; alinhamento via .container (sem salto no scroll) */
   .hero-house .navbar.is-over-hero:not(.is-scrolled) {
-    left: var(--house-inset);
-    right: var(--house-inset);
-    width: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
     background: rgba(26, 46, 34, 0.42);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border-left: var(--house-border) solid var(--mangue-500);
-    border-right: var(--house-border) solid var(--mangue-500);
+    border-left: none;
+    border-right: none;
     border-bottom: 1px solid rgba(240, 199, 154, 0.12);
     box-shadow: none;
+  }
+
+  /* Navbar após scroll — mesmo trilho horizontal do .container */
+  .hero-house .navbar.is-scrolled {
+    left: 0;
+    right: 0;
+    width: 100%;
   }
 
   /* Hero recuado — faixas verdes nas laterais da foto */
