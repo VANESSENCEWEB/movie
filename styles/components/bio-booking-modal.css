@@ -283,6 +283,13 @@
 
   .bio-modal__sheet {
     border-radius: var(--radius-m);
+    max-width: 26rem;
     max-height: min(88dvh, 620px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .bio-modal__sheet {
+    max-width: 28rem;
   }
 }

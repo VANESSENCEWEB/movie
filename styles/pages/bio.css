@@ -3,7 +3,7 @@
 ============================================================ */
 
 .bio-body {
-  background: var(--paper);
+  background: var(--sand-200);
   overflow-x: hidden;
 }
 
@@ -19,7 +19,7 @@ rf-bio-page {
   box-shadow: 0 0 0 1px var(--line);
 }
 
-/* --- Topbar --- */
+/* --- Topbar (mobile: barra fixa estilo app) --- */
 .bio__topbar {
   position: fixed;
   top: 0;
@@ -509,16 +509,199 @@ rf-bio-page {
   z-index: calc(var(--z-overlay) + 1);
 }
 
-@media (min-width: 520px) {
+/* ============================================================
+   TABLET — coluna mais larga, cards em 2 colunas
+============================================================ */
+
+@media (min-width: 640px) and (max-width: 1023px) {
   .bio {
+    max-width: 720px;
     margin-block: var(--space-4);
     min-height: calc(100dvh - var(--space-8));
     border-radius: var(--radius-m);
     overflow: hidden;
+    box-shadow: 0 8px 40px rgba(42, 33, 24, 0.1);
   }
 
   .bio__topbar {
+    max-width: 720px;
     border-radius: var(--radius-m) var(--radius-m) 0 0;
+  }
+
+  .bio__hero {
+    min-height: 72dvh;
+  }
+
+  .bio__hero-title {
+    font-size: clamp(2.25rem, 5vw, 3rem);
+  }
+
+  .bio__hero-tagline {
+    font-size: 1.05rem;
+    max-width: 36ch;
+  }
+
+  .bio__main {
+    padding: var(--space-6) var(--space-5) var(--space-8);
+  }
+
+  .bio__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .bio__section-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================================
+   DESKTOP — layout split: hero fixo à esquerda, conteúdo à direita
+============================================================ */
+
+@media (min-width: 1024px) {
+  .bio {
+    max-width: 1280px;
+    margin-block: 0;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(360px, 44%) 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      "topbar topbar"
+      "hero   nav"
+      "hero   main"
+      "footer footer";
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    background: var(--paper);
+  }
+
+  .bio__topbar {
+    position: sticky;
+    top: 0;
+    left: auto;
+    transform: none;
+    grid-area: topbar;
+    max-width: none;
+    width: 100%;
+    padding: 14px clamp(var(--space-4), 3vw, var(--space-8));
+    background: var(--mangue-800);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0;
+  }
+
+  .bio__visit-site {
+    padding: 8px 16px;
+    font-size: 0.8125rem;
+  }
+
+  .bio__hero {
+    grid-area: hero;
+    min-height: calc(100dvh - 56px);
+    position: sticky;
+    top: 56px;
+    align-self: start;
+    align-items: center;
+  }
+
+  .bio__hero-content {
+    padding: var(--space-10) clamp(var(--space-5), 4vw, var(--space-8));
+    text-align: left;
+    max-width: 36rem;
+  }
+
+  .bio__hero-eyebrow {
+    font-size: 0.75rem;
+  }
+
+  .bio__hero-title {
+    font-size: clamp(2.5rem, 3.5vw, 3.5rem);
+    max-width: 14ch;
+  }
+
+  .bio__hero-tagline {
+    font-size: 1.0625rem;
+    max-width: 34ch;
+    margin-inline: 0;
+  }
+
+  .bio__hero-scroll {
+    display: none;
+  }
+
+  .bio__nav {
+    grid-area: nav;
+    position: sticky;
+    top: 56px;
+    z-index: 12;
+    padding-inline: clamp(var(--space-4), 3vw, var(--space-8));
+    gap: var(--space-2);
+  }
+
+  .bio__nav-link {
+    font-size: 0.75rem;
+    padding: 14px 12px;
+  }
+
+  .bio__main {
+    grid-area: main;
+    padding: var(--space-5) clamp(var(--space-4), 3vw, var(--space-8)) var(--space-10);
+    gap: var(--space-10);
+  }
+
+  .bio__section-title {
+    font-size: 1.625rem;
+    margin-bottom: var(--space-5);
+  }
+
+  .bio__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  .bio-card__body {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .bio-card__tagline {
+    font-size: 0.9375rem;
+  }
+
+  .bio__reviews,
+  .bio__map {
+    max-width: 52rem;
+  }
+
+  .bio-review {
+    padding: var(--space-6);
+  }
+
+  .bio-review__quote {
+    font-size: 1.0625rem;
+  }
+
+  .bio__footer {
+    grid-area: footer;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) clamp(var(--space-4), 3vw, var(--space-8));
+    background: var(--sand-200);
+  }
+}
+
+@media (min-width: 1280px) {
+  .bio__cards {
+    gap: var(--space-6);
+  }
+
+  .bio-card__media {
+    aspect-ratio: 16 / 11;
   }
 }
 
