@@ -189,3 +189,16 @@ export function getApartmentBySlug(slug) {
 export function getApartmentsByNeighborhood(neighborhoodSlug) {
   return APARTAMENTOS.filter((a) => a.neighborhoodSlug === neighborhoodSlug);
 }
+
+/** Google Maps — rota até o endereço do apartamento */
+/** @param {Apartment} apt */
+export function apartmentMapsUrl(apt) {
+  const destination = encodeURIComponent(`${apt.name}, ${apt.address}`);
+  return `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=driving`;
+}
+
+/** @param {string} text @param {number} [max] */
+export function excerptText(text, max = 140) {
+  if (!text || text.length <= max) return text || '';
+  return `${text.slice(0, max).replace(/\s+\S*$/, '')}…`;
+}
