@@ -92,7 +92,10 @@ class RFConfirmReservationModal extends HTMLElement {
         <div class="confirm-modal__backdrop" data-confirm-close></div>
         <div class="confirm-modal__panel">
           <header class="confirm-modal__header">
-            <h2 class="confirm-modal__title" id="confirm-modal-title">Confirmar Minha Reserva</h2>
+            <div class="confirm-modal__header-text">
+              <span class="confirm-modal__brand">Booking.com</span>
+              <h2 class="confirm-modal__title" id="confirm-modal-title">Confirmar Minha Reserva</h2>
+            </div>
             <button type="button" class="confirm-modal__close" data-confirm-close aria-label="Fechar">✕</button>
           </header>
 
