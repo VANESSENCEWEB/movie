@@ -1,3 +1,5 @@
+@import './confirm-reservation-modal.css';
+
 /* ============================================================
    MENU OVERLAY — O "catálogo" que abre virando como página de livro
    Posicionado atrás do #site-content (z-index baixo) e trazido

@@ -68,6 +68,14 @@ class RFMenu extends HTMLElement {
             `).join('')}
           </nav>
 
+          <div class="menu-overlay__confirm">
+            <button type="button" class="menu-overlay__confirm-btn" data-menu-confirm>
+              <span class="menu-overlay__confirm-label">Confirmar minha reserva</span>
+              <span class="menu-overlay__confirm-sub">Reservou pelo Booking? Finalize aqui pelo WhatsApp.</span>
+              <span class="menu-overlay__confirm-badge">Booking</span>
+            </button>
+          </div>
+
           <footer class="menu-overlay__footer">
             <span class="menu-overlay__copy">© ${new Date().getFullYear()} Recife Flats</span>
             <div class="menu-overlay__socials">
@@ -108,6 +116,10 @@ class RFMenu extends HTMLElement {
 
     // Wiring
     this.querySelector('[data-menu-close]').addEventListener('click', () => this.close());
+    this.querySelector('[data-menu-confirm]')?.addEventListener('click', () => {
+      this.close();
+      window.dispatchEvent(new CustomEvent('rf-confirm-reservation-open'));
+    });
     this.querySelectorAll('[data-menu-link]').forEach(a =>
       a.addEventListener('click', () => this.close())
     );

@@ -9,6 +9,7 @@ if (window.gsap && window.ScrollTrigger) {
 import './components/announcement.js';
 import './components/navbar.js';
 import './components/menu.js';
+import './components/confirm-reservation-modal.js';
 import './components/booking-search.js';
 import './components/hero.js';
 import './components/trust-strip.js';
