@@ -4,7 +4,7 @@
 ============================================================ */
 
 .announcement {
-  background: linear-gradient(90deg, var(--mangue-800) 0%, var(--mangue-700) 50%, var(--mangue-800) 100%);
+  background: linear-gradient(90deg, var(--terracotta-800) 0%, var(--terracotta-600) 50%, var(--terracotta-800) 100%);
   color: var(--paper);
   font-size: var(--fs-xs);
   font-weight: 600;
@@ -18,8 +18,8 @@
   right: 0;
   z-index: calc(var(--z-nav) + 1);
   overflow: hidden;
-  border-bottom: 1px solid rgba(240, 199, 154, 0.2);
-  box-shadow: 0 2px 12px rgba(26, 46, 34, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 14px rgba(110, 45, 26, 0.35);
   transition: max-height var(--dur-base) var(--ease-out),
               padding    var(--dur-base) var(--ease-out),
               opacity    var(--dur-base) var(--ease-out);
@@ -37,8 +37,11 @@
 }
 
 .announcement__text strong {
-  color: var(--gold);
-  font-weight: 700;
+  color: var(--paper);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--gold);
 }
 
 .announcement__close {
