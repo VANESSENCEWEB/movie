@@ -11,6 +11,8 @@ import {
   WAZE_QR_URL,
   ROUTE_REFERENCES,
   LOCATION_BENEFITS,
+  TRANSFER_SERVICE,
+  whatsappUrl,
 } from '../data/location.js';
 import { loadReviews, renderStars } from '../utils/google-reviews.js';
 import { prefersReducedMotion } from '../utils/dom.js';
@@ -34,6 +36,38 @@ function benefitCard(benefit) {
       <p class="location-benefit__desc">${benefit.description}</p>
       <ul class="location-benefit__list">${items}</ul>
     </article>
+  `;
+}
+
+function transferPromo() {
+  const waLink = whatsappUrl(TRANSFER_SERVICE.whatsappMessage);
+  return `
+    <aside class="location-transfer" data-location-reveal aria-labelledby="location-transfer-heading">
+      <div class="location-transfer__visual" aria-hidden="true">
+        <svg class="location-transfer__car" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="100" cy="108" rx="72" ry="8" fill="rgba(51,81,63,0.12)"/>
+          <path d="M28 78c4-18 18-28 38-30h68c22 0 36 12 40 30l8 14H20l8-14Z" fill="var(--mangue-600)"/>
+          <path d="M44 48h48l10 18H34l10-18Z" fill="rgba(255,255,255,0.22)"/>
+          <rect x="36" y="56" width="34" height="18" rx="4" fill="rgba(255,255,255,0.9)"/>
+          <rect x="130" y="56" width="34" height="18" rx="4" fill="rgba(255,255,255,0.9)"/>
+          <circle cx="54" cy="92" r="14" fill="#2a2118"/>
+          <circle cx="54" cy="92" r="7" fill="#f5f0e8"/>
+          <circle cx="146" cy="92" r="14" fill="#2a2118"/>
+          <circle cx="146" cy="92" r="7" fill="#f5f0e8"/>
+          <path d="M72 38h20l6 10H66l6-10Z" fill="var(--terracotta-600)"/>
+          <rect x="18" y="70" width="12" height="8" rx="2" fill="var(--gold)"/>
+        </svg>
+      </div>
+      <div class="location-transfer__content">
+        <span class="location-transfer__eyebrow">Transfer aeroporto · hotel</span>
+        <h3 class="location-transfer__title" id="location-transfer-heading">${TRANSFER_SERVICE.title}</h3>
+        <p class="location-transfer__desc">${TRANSFER_SERVICE.description}</p>
+        <a href="${waLink}" class="btn btn--secondary location-transfer__cta" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A10 10 0 0 0 3.6 17l-1.6 5 5.1-1.6A10 10 0 1 0 20.5 3.5z"/></svg>
+          ${TRANSFER_SERVICE.cta}
+        </a>
+      </div>
+    </aside>
   `;
 }
 
@@ -243,6 +277,8 @@ class RFLocationSection extends HTMLElement {
                 <a href="${MAPS_LINKS.profile}" target="_blank" rel="noopener noreferrer">Ver perfil completo no Google Business</a>
                 · Endereço verificado em Boa Viagem, Recife
               </p>
+
+              ${transferPromo()}
             </div>
 
           </div>

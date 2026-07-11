@@ -122,3 +122,13 @@ export const FALLBACK_REVIEWS = {
   source: 'Google',
   reviews: [],
 };
+
+/** Serviço de transfer aeroporto → apartamentos */
+export const TRANSFER_SERVICE = {
+  title: 'Precisará de transfer até nossas acomodações?',
+  description:
+    'Temos esse serviço. Agende com antecedência e garanta um transfer tranquilo até nossos apartamentos.',
+  cta: 'Verificar disponibilidade',
+  whatsappMessage:
+    'Olá! Vou precisar de transfer até o apartamento. Gostaria de verificar disponibilidade, valores e horários. Pode me ajudar?',
+};
