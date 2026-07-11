@@ -4,10 +4,10 @@
 ============================================================ */
 
 .announcement {
-  background-color: #0a0a0a;
-  color: var(--white);
+  background: linear-gradient(90deg, var(--mangue-800) 0%, var(--mangue-700) 50%, var(--mangue-800) 100%);
+  color: var(--paper);
   font-size: var(--fs-xs);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: var(--tracking-wide);
   text-align: center;
   line-height: 1.45;
@@ -18,6 +18,8 @@
   right: 0;
   z-index: calc(var(--z-nav) + 1);
   overflow: hidden;
+  border-bottom: 1px solid rgba(240, 199, 154, 0.2);
+  box-shadow: 0 2px 12px rgba(26, 46, 34, 0.35);
   transition: max-height var(--dur-base) var(--ease-out),
               padding    var(--dur-base) var(--ease-out),
               opacity    var(--dur-base) var(--ease-out);
@@ -35,8 +37,8 @@
 }
 
 .announcement__text strong {
-  color: var(--accent);
-  font-weight: 600;
+  color: var(--gold);
+  font-weight: 700;
 }
 
 .announcement__close {
@@ -44,10 +46,10 @@
   right: var(--space-4);
   top: 50%;
   transform: translateY(-50%);
-  color: var(--white-40);
+  color: rgba(251, 246, 236, 0.65);
   font-size: 14px;
   line-height: 1;
   padding: 4px;
   transition: color var(--dur-fast);
 }
-.announcement__close:hover { color: var(--white); }
+.announcement__close:hover { color: var(--paper); }
