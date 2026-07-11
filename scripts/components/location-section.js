@@ -131,8 +131,6 @@ class RFLocationSection extends HTMLElement {
             </p>
           </header>
 
-          <div class="location-benefits">${benefits}</div>
-
           <div class="location-gbp" data-location-reveal>
 
             <aside class="location-gbp__sidebar">
@@ -248,6 +246,8 @@ class RFLocationSection extends HTMLElement {
             </div>
 
           </div>
+
+          <div class="location-benefits" data-location-reveal>${benefits}</div>
         </div>
         <script type="application/ld+json" data-location-schema></script>
       </section>
