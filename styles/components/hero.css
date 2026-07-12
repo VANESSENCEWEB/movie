@@ -9,7 +9,8 @@
   min-height: 100vh;
   min-height: 100dvh;
   --hero-header-offset: var(--nav-height);
-  --hero-cloud-reserve: 5.5rem;
+  --hero-wave-reserve: clamp(2.75rem, 5vh, 3.25rem);
+  --hero-wave-front: var(--mangue-900);
   margin-top: calc(-1 * var(--hero-header-offset));
   overflow: hidden;
   isolation: isolate;
@@ -46,7 +47,7 @@
 
 @media (max-width: 600px) {
   .hero {
-    --hero-cloud-reserve: 4rem;
+    --hero-wave-reserve: clamp(2.5rem, 4.5vh, 3rem);
   }
 
   .site-content:has(.announcement) {
@@ -173,7 +174,7 @@ rf-hero[data-period="night"] .hero__overlay {
   align-items: center;
   justify-content: center;
   padding-top: calc(var(--hero-header-offset) + var(--space-4));
-  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-6));
+  padding-bottom: calc(var(--hero-wave-reserve, 3.25rem) + var(--space-6));
   gap: var(--space-4);
   min-height: min(100dvh, 100%);
 }
@@ -200,7 +201,7 @@ rf-hero[data-period="night"] .hero__overlay {
 
 .hero__beach-palm {
   position: absolute;
-  bottom: calc(var(--hero-cloud-reserve) + 8%);
+  bottom: calc(var(--hero-wave-reserve) + 8%);
   width: clamp(48px, 8vw, 80px);
   opacity: 0.85;
   animation: palm-sway 8s ease-in-out infinite alternate;
@@ -215,7 +216,7 @@ rf-hero[data-period="night"] .hero__overlay {
 
 .hero__beach-wave {
   position: absolute;
-  bottom: calc(var(--hero-cloud-reserve) - 0.5rem);
+  bottom: calc(var(--hero-wave-reserve) - 0.5rem);
   left: 0;
   right: 0;
   width: 100%;
@@ -364,14 +365,14 @@ rf-hero[data-period="night"] .hero__overlay {
 
 @media (max-width: 700px) {
   .hero {
-    --hero-cloud-reserve: 4.5rem;
+    --hero-wave-reserve: clamp(2.5rem, 4.5vh, 3rem);
     min-height: 100svh;
     min-height: 100dvh;
   }
 
   .hero__container {
     padding-top: calc(var(--hero-header-offset) + var(--space-2));
-    padding-bottom: calc(var(--hero-cloud-reserve) + var(--space-5));
+    padding-bottom: calc(var(--hero-wave-reserve) + var(--space-5));
     gap: var(--space-3);
     justify-content: center;
   }
@@ -423,83 +424,71 @@ rf-hero[data-period="night"] .hero__overlay {
 }
 
 /* ============================================================
-   NUVENS DE TRANSIÇÃO — fundo do hero para a próxima section
-   Três camadas de SVGs com formas orgânicas redondas, criando
-   profundidade. Os prédios "emergem das nuvens".
+   ONDAS DE TRANSIÇÃO — rodapé do hero para a próxima section
+   Três camadas finas com tiling real (loop contínuo).
 ============================================================ */
 
-.hero__clouds {
+.hero__waves {
   position: absolute;
-  bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  height: var(--hero-cloud-reserve, 5.5rem);
-  z-index: 4;
-  pointer-events: none;
-  line-height: 0;
+  bottom: 0;
+  z-index: 5;
+  height: var(--hero-wave-reserve, 3.25rem);
   overflow: hidden;
+  line-height: 0;
+  pointer-events: none;
 }
 
-/* As três camadas se sobrepõem no mesmo bottom */
-.hero__clouds-layer {
+.hero__wave-layer {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
-  height: auto;
+  display: flex;
+  width: 200%;
+  height: 100%;
+  animation: hero-wave-drift linear infinite;
+}
+
+.hero__wave-layer svg {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
   display: block;
 }
 
-/* Camada de trás — mais translúcida, mais lenta */
-.hero__clouds-layer--back {
-  opacity: 0.55;
-  filter: blur(2px);
-  animation: cloud-drift-slow 28s ease-in-out infinite;
+.hero__wave-layer--1 {
+  fill: rgba(0, 156, 59, 0.2);
+  animation-duration: 8s;
 }
 
-/* Camada do meio — meio translúcida */
-.hero__clouds-layer--mid {
-  opacity: 0.85;
-  animation: cloud-drift-mid 22s ease-in-out infinite reverse;
+.hero__wave-layer--2 {
+  fill: rgba(8, 144, 103, 0.12);
+  animation-duration: 11s;
+  animation-direction: reverse;
 }
 
-/* Camada da frente — sólida, conecta visualmente com a próxima section */
-.hero__clouds-layer--front {
-  opacity: 1;
-  animation: cloud-drift-fast 18s ease-in-out infinite;
+.hero__wave-layer--3 {
+  fill: var(--hero-wave-front);
+  animation-duration: 14s;
 }
 
-@keyframes cloud-drift-slow {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(-30px); }
-}
-@keyframes cloud-drift-mid {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(20px); }
-}
-@keyframes cloud-drift-fast {
-  0%, 100% { transform: translateX(0); }
-  50%      { transform: translateX(-12px); }
+@keyframes hero-wave-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* A próxima section continua o fundo branco das nuvens */
-.hero + rf-apartments-teaser,
-.hero + section,
-.hero + .next-section {
-  background: var(--paper);
-  position: relative;
+@media (prefers-reduced-motion: reduce) {
+  .hero__wave-layer { animation: none; }
 }
 
-/* Em mobile: nuvens mais baixas — não cobrem o buscador */
 @media (max-width: 700px) {
-  .hero__clouds-layer--back,
-  .hero__clouds-layer--mid {
+  .hero__wave-layer--1,
+  .hero__wave-layer--2 {
     display: none;
   }
 
-  .hero__clouds-layer--front {
-    opacity: 1;
+  .hero__wave-layer--3 {
     animation: none;
   }
 }

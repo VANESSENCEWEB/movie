@@ -100,6 +100,12 @@
   border: none;
   border-radius: 0;
   --hero-header-offset: var(--site-chrome-height);
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+.site-content--house .hero {
+  --hero-wave-front: var(--paper);
 }
 
 .site-content--home-full .matching-split {

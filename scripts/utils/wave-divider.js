@@ -32,3 +32,25 @@ export function renderWaveDivider(color = 'var(--cream)') {
     </div>
   `;
 }
+
+const HERO_WAVE_PATHS = {
+  a: 'M0,26 C200,10 400,42 600,26 C800,10 1000,42 1200,26 L1200,48 L0,48 Z',
+  b: 'M0,30 C200,44 400,16 600,30 C800,44 1000,16 1200,30 L1200,48 L0,48 Z',
+  c: 'M0,34 C300,18 600,40 900,34 C1050,28 1150,38 1200,34 L1200,48 L0,48 Z',
+};
+
+function tileHero(path) {
+  const svg = `<svg viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true"><path d="${path}"/></svg>`;
+  return svg + svg;
+}
+
+/** Ondas leves no rodapé do hero — transição para a próxima seção */
+export function renderHeroWaves() {
+  return `
+    <div class="hero__waves" aria-hidden="true">
+      <div class="hero__wave-layer hero__wave-layer--1">${tileHero(HERO_WAVE_PATHS.a)}</div>
+      <div class="hero__wave-layer hero__wave-layer--2">${tileHero(HERO_WAVE_PATHS.b)}</div>
+      <div class="hero__wave-layer hero__wave-layer--3">${tileHero(HERO_WAVE_PATHS.c)}</div>
+    </div>
+  `;
+}
