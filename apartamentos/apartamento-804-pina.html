@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../styles/components/button.css" />
   <link rel="stylesheet" href="../styles/components/navbar.css" />
   <link rel="stylesheet" href="../styles/components/menu-overlay.css" />
+  <link rel="stylesheet" href="../styles/components/breadcrumbs.css" />
   <link rel="stylesheet" href="../styles/components/footer.css" />
   <link rel="stylesheet" href="../styles/components/floating-whatsapp.css" />
   <link rel="stylesheet" href="../styles/components/matching.css" />
@@ -29,6 +30,11 @@
     <rf-announcement>🌴 <strong>Reserva direta</strong> — sem taxas de plataforma</rf-announcement>
     <rf-navbar></rf-navbar>
     <main id="main-content">
+      <div class="page-shell__breadcrumbs">
+        <div class="container">
+          <rf-breadcrumbs context="apartment" slug="apartamento-804-pina"></rf-breadcrumbs>
+        </div>
+      </div>
       <rf-apartment-detail slug="apartamento-804-pina"></rf-apartment-detail>
     </main>
     <rf-footer></rf-footer>

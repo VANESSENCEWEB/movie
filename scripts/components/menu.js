@@ -17,20 +17,24 @@
 import { BUSINESS, whatsappUrl } from '../data/location.js';
 import { pageHref } from '../data/site-structure.js';
 
-const NAV_ITEMS = [
-  { num: '01', label: 'Início',       href: pageHref('./index.html')                },
-  { num: '02', label: 'ApartMatch',   href: pageHref('./apartmatch.html'), badge: 'Novidade' },
-  { num: '03', label: 'Apartamentos', href: pageHref('./apartamentos.html')         },
-  { num: '04', label: 'Sobre nós',    href: pageHref('./sobre.html')                },
-  { num: '05', label: 'Localização',  href: pageHref('./index.html#localizacao')    },
-  { num: '06', label: 'Contato',      href: pageHref('./contato.html')              },
-];
+function getNavItems() {
+  return [
+    { num: '01', label: 'Início',       href: pageHref('./index.html')                },
+    { num: '02', label: 'ApartMatch',   href: pageHref('./apartmatch.html'), badge: 'Novidade' },
+    { num: '03', label: 'Apartamentos', href: pageHref('./apartamentos.html')         },
+    { num: '04', label: 'Sobre nós',    href: pageHref('./sobre.html')                },
+    { num: '05', label: 'Localização',  href: pageHref('./index.html#localizacao')    },
+    { num: '06', label: 'Contato',      href: pageHref('./contato.html')              },
+  ];
+}
 
 class RFMenu extends HTMLElement {
   connectedCallback() {
     this._wrapsSel = this.getAttribute('wraps') || '.site-content';
     this._isOpen   = false;
     this._timeline = null;
+
+    const navItems = getNavItems();
 
     this.innerHTML = /* html */`
       <div class="menu-overlay"
@@ -54,7 +58,7 @@ class RFMenu extends HTMLElement {
           </header>
 
           <nav class="menu-overlay__nav" aria-label="Menu principal">
-            ${NAV_ITEMS.map(item => `
+            ${navItems.map(item => `
               <div class="menu-overlay__item">
                 <span class="menu-overlay__num">${item.num}</span>
                 <div class="menu-overlay__link-wrap">
