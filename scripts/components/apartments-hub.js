@@ -3,7 +3,7 @@
  */
 
 import { APARTAMENTOS } from '../data/apartamentos.js';
-import { NEIGHBORHOODS } from '../data/site-structure.js';
+import { NEIGHBORHOODS, pageHref } from '../data/site-structure.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 
 class RFApartmentsHub extends HTMLElement {
@@ -18,7 +18,7 @@ class RFApartmentsHub extends HTMLElement {
               <h2 class="apt-hub__group-title" id="hub-${n.slug}">${n.name}</h2>
               <p class="apt-hub__group-desc">${n.intro}</p>
             </div>
-            <a href="${n.pageUrl}" class="apt-hub__group-link">
+            <a href="${pageHref(n.pageUrl)}" class="apt-hub__group-link">
               Ver página do bairro
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -36,7 +36,9 @@ class RFApartmentsHub extends HTMLElement {
           <button type="button" class="apt-hub__filter" data-filter="pool">Com piscina</button>
           <button type="button" class="apt-hub__filter" data-filter="parking">Com garagem</button>
         </div>
+        <div id="bairros" class="apt-hub__neighborhoods">
         ${groups}
+        </div>
         <section class="apt-hub__booking" id="reservar">
           <div class="apt-hub__booking-inner">
             <h2>Pronto para reservar?</h2>

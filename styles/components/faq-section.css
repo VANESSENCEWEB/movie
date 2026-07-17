@@ -57,3 +57,13 @@
   margin: 0;
   max-width: 640px;
 }
+
+.faq__answer a {
+  color: var(--ocean);
+  font-weight: 500;
+}
+
+.faq-section__more {
+  text-align: center;
+  margin-top: var(--space-7);
+}

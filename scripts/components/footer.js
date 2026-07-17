@@ -4,7 +4,12 @@
 
 import { BUSINESS, MAPS_LINKS, whatsappUrl } from '../data/location.js';
 import { APARTAMENTOS } from '../data/apartamentos.js';
-import { apartmentUrl, pageHref } from '../data/site-structure.js';
+import {
+  apartmentUrl,
+  INFO_HUB_URL,
+  INFO_PAGES,
+  pageHref,
+} from '../data/site-structure.js';
 
 const TRUST_BADGES = [
   { icon: 'star', value: '4.9/5.0', label: '127 avaliações' },
@@ -13,11 +18,11 @@ const TRUST_BADGES = [
 ];
 
 const INFO_LINKS = [
-  { label: 'Caução reembolsável', href: './index.html#faq', icon: 'shield' },
-  { label: 'Check-in / Check-out', href: './index.html#como-funciona', icon: 'clock' },
+  { label: INFO_PAGES.caucao.label, href: INFO_PAGES.caucao.pageUrl, icon: 'shield' },
+  { label: INFO_PAGES['check-in'].label, href: INFO_PAGES['check-in'].pageUrl, icon: 'clock' },
   { label: 'Perguntas frequentes', href: './index.html#faq', icon: 'help' },
-  { label: 'Política de cancelamento', href: './index.html#faq', icon: 'file' },
-  { label: 'Termos de uso', href: '#termos', icon: 'file' },
+  { label: INFO_PAGES.cancelamento.label, href: INFO_PAGES.cancelamento.pageUrl, icon: 'file' },
+  { label: INFO_PAGES.termos.label, href: INFO_PAGES.termos.pageUrl, icon: 'file' },
 ];
 
 const RECIFE_LINKS = [
@@ -38,10 +43,10 @@ const SOCIALS = [
 ];
 
 const LEGAL_LINKS = [
-  { label: 'Privacidade', href: '#privacidade' },
-  { label: 'Termos de uso', href: '#termos' },
-  { label: 'Cookies', href: '#cookies' },
-  { label: 'LGPD', href: '#lgpd' },
+  { label: INFO_PAGES.privacidade.label, href: INFO_PAGES.privacidade.pageUrl },
+  { label: INFO_PAGES.termos.label, href: INFO_PAGES.termos.pageUrl },
+  { label: INFO_PAGES.cookies.label, href: INFO_PAGES.cookies.pageUrl },
+  { label: INFO_PAGES.lgpd.label, href: INFO_PAGES.lgpd.pageUrl },
 ];
 
 const FOOTER_ICONS = {
@@ -118,7 +123,7 @@ class RFFooter extends HTMLElement {
         ${svgIcon(s.icon, 18)}
       </a>
     `).join('');
-    const legalLinks = LEGAL_LINKS.map((l) => `<a href="${l.href}">${l.label}</a>`).join('');
+    const legalLinks = LEGAL_LINKS.map((l) => `<a href="${pageHref(l.href)}">${l.label}</a>`).join('');
 
     this.innerHTML = `
       <footer class="site-footer">
@@ -176,7 +181,14 @@ class RFFooter extends HTMLElement {
 
             <div class="site-footer__col" data-footer-reveal>
               <h4><span class="site-footer__col-line"></span>Informações</h4>
-              <ul>${infoLinks}</ul>
+              <ul>${infoLinks}
+                <li class="site-footer__see-all">
+                  <a href="${pageHref(INFO_HUB_URL)}">
+                    Ver todas as políticas
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                </li>
+              </ul>
             </div>
 
             <div class="site-footer__col" data-footer-reveal>

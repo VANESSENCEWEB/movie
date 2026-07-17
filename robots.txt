@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://recifeflatstemporada.com/sitemap.xml
+
+Disallow: /index-backup.html
+Disallow: /scripts/

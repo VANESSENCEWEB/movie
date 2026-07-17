@@ -1,12 +1,22 @@
 /**
  * Estrutura do site — URLs, bairros, breadcrumbs e SEO.
- * Hierarquia: Início → Apartamentos → Bairro → Imóvel (máx. 3 níveis).
+ *
+ * Hierarquia de conteúdo (funil de imóveis):
+ *   Início → Apartamentos → Bairro → Imóvel
+ *
+ * Hierarquia institucional:
+ *   Início → Informações → [Política]
+ *   Início → Sobre | Contato | ApartMatch
  */
 
 import { getApartmentBySlug } from './apartamentos.js';
-import { isNestedApartmentPage, pageHref } from '../utils/paths.js';
+import { getPathDepth, isNestedApartmentPage, pageHref } from '../utils/paths.js';
 
 /** @typedef {{ slug: string, name: string, pageUrl: string, description: string, intro: string, highlights: string[] }} Neighborhood */
+
+/** @typedef {{ slug: string, label: string, pageUrl: string, category: 'reserva'|'legal', icon: string, description: string }} InfoPage */
+
+/** @typedef {{ slug: string, label: string, pageUrl: string, breadcrumbLabel: string }} StaticPage */
 
 /** @type {Record<string, Neighborhood>} */
 export const NEIGHBORHOODS = {
@@ -40,25 +50,125 @@ export const NEIGHBORHOODS = {
   },
 };
 
+/** Páginas informativas e legais — /informacoes/ */
+export const INFO_PAGES = {
+  caucao: {
+    slug: 'caucao',
+    label: 'Caução reembolsável',
+    pageUrl: './informacoes/caucao.html',
+    category: 'reserva',
+    icon: 'shield',
+    description: 'Valor, pagamento e prazo de devolução da caução.',
+  },
+  cancelamento: {
+    slug: 'cancelamento',
+    label: 'Política de cancelamento',
+    pageUrl: './informacoes/cancelamento.html',
+    category: 'reserva',
+    icon: 'file',
+    description: 'Prazos, reembolso e alteração de datas.',
+  },
+  'check-in': {
+    slug: 'check-in',
+    label: 'Check-in / Check-out',
+    pageUrl: './informacoes/check-in.html',
+    category: 'reserva',
+    icon: 'clock',
+    description: 'Horários, documentos e instruções de chegada e saída.',
+  },
+  privacidade: {
+    slug: 'privacidade',
+    label: 'Privacidade',
+    pageUrl: './informacoes/privacidade.html',
+    category: 'legal',
+    icon: 'file',
+    description: 'Como tratamos seus dados pessoais.',
+  },
+  termos: {
+    slug: 'termos',
+    label: 'Termos de uso',
+    pageUrl: './informacoes/termos.html',
+    category: 'legal',
+    icon: 'file',
+    description: 'Condições de uso do site e das reservas.',
+  },
+  cookies: {
+    slug: 'cookies',
+    label: 'Cookies',
+    pageUrl: './informacoes/cookies.html',
+    category: 'legal',
+    icon: 'file',
+    description: 'Uso de cookies e tecnologias similares.',
+  },
+  lgpd: {
+    slug: 'lgpd',
+    label: 'LGPD',
+    pageUrl: './informacoes/lgpd.html',
+    category: 'legal',
+    icon: 'shield',
+    description: 'Seus direitos sob a Lei Geral de Proteção de Dados.',
+  },
+};
+
+/** Páginas estáticas na raiz */
+export const STATIC_PAGES = {
+  sobre: {
+    slug: 'sobre',
+    label: 'Sobre nós',
+    pageUrl: './sobre.html',
+    breadcrumbLabel: 'Sobre nós',
+  },
+  contato: {
+    slug: 'contato',
+    label: 'Contato',
+    pageUrl: './contato.html',
+    breadcrumbLabel: 'Contato',
+  },
+  apartmatch: {
+    slug: 'apartmatch',
+    label: 'ApartMatch',
+    pageUrl: './apartmatch.html',
+    breadcrumbLabel: 'ApartMatch',
+  },
+  apartamentos: {
+    slug: 'apartamentos',
+    label: 'Apartamentos',
+    pageUrl: './apartamentos.html',
+    breadcrumbLabel: 'Apartamentos',
+  },
+};
+
+export const INFO_HUB_URL = './informacoes/index.html';
+
 /** @param {string} neighborhoodName */
 export function neighborhoodKeyFromName(neighborhoodName) {
   const map = { 'Boa Viagem': 'boa-viagem', Pina: 'pina' };
   return map[neighborhoodName] || neighborhoodName.toLowerCase().replace(/\s+/g, '-');
 }
 
-/** Páginas em /apartamentos/*.html (paths relativos precisam de ../). */
-export { isNestedApartmentPage, assetUrl, pageHref } from '../utils/paths.js';
+export { isNestedApartmentPage, assetUrl, pageHref, getPathDepth } from '../utils/paths.js';
 
 /** @param {string} slug */
 export function getNeighborhood(slug) {
   return NEIGHBORHOODS[slug] || null;
 }
 
+/** @param {string} slug */
+export function getInfoPage(slug) {
+  return INFO_PAGES[slug] || null;
+}
+
+/** @param {string} slug */
+export function infoPageUrl(slug) {
+  const page = getInfoPage(slug);
+  if (!page) return pageHref(INFO_HUB_URL);
+  return pageHref(page.pageUrl);
+}
+
 /** @param {string} apartmentSlug */
 export function apartmentUrl(apartmentSlug) {
-  return isNestedApartmentPage()
-    ? `./${apartmentSlug}.html`
-    : `./apartamentos/${apartmentSlug}.html`;
+  if (isNestedApartmentPage()) return `./${apartmentSlug}.html`;
+  return pageHref(`./apartamentos/${apartmentSlug}.html`);
 }
 
 /** @param {string} neighborhoodSlug */
@@ -69,13 +179,14 @@ export function neighborhoodUrl(neighborhoodSlug) {
 
 /**
  * @typedef {{ label: string, href?: string, current?: boolean }} Crumb
- * @param {'home'|'apartments'|'neighborhood'|'apartment'} type
+ * @param {'home'|'apartments'|'neighborhood'|'apartment'|'info'|'info-hub'|'sobre'|'contato'|'apartmatch'} type
  * @param {{ slug?: string }} [params]
  * @returns {Crumb[]}
  */
 export function getBreadcrumbs(type, params = {}) {
   const home = { label: 'Início', href: './index.html' };
   const hub  = { label: 'Apartamentos', href: './apartamentos.html' };
+  const infoHub = { label: 'Informações', href: INFO_HUB_URL };
 
   switch (type) {
     case 'home':
@@ -99,7 +210,42 @@ export function getBreadcrumbs(type, params = {}) {
         { label: apt.name, current: true },
       ];
     }
+    case 'info-hub':
+      return [home, { label: 'Informações', current: true }];
+    case 'info': {
+      const info = getInfoPage(params.slug);
+      if (!info) return [home, { label: 'Informações', current: true }];
+      return [home, infoHub, { label: info.label, current: true }];
+    }
+    case 'sobre':
+      return [home, { label: STATIC_PAGES.sobre.breadcrumbLabel, current: true }];
+    case 'contato':
+      return [home, { label: STATIC_PAGES.contato.breadcrumbLabel, current: true }];
+    case 'apartmatch':
+      return [home, { label: STATIC_PAGES.apartmatch.breadcrumbLabel, current: true }];
     default:
       return [home];
   }
+}
+
+/** URLs públicas para sitemap (paths relativos à raiz do site). */
+export function getAllPublicPaths() {
+  const paths = [
+    '/',
+    '/index.html',
+    '/apartamentos.html',
+    '/boa-viagem.html',
+    '/pina.html',
+    '/sobre.html',
+    '/contato.html',
+    '/apartmatch.html',
+    '/informacoes/',
+    '/informacoes/index.html',
+  ];
+
+  Object.values(INFO_PAGES).forEach((p) => {
+    paths.push(p.pageUrl.replace('./', '/'));
+  });
+
+  return paths;
 }

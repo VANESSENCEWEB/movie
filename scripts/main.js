@@ -37,6 +37,8 @@ import './components/stats-banner.js';
 import './components/booking-promo.js';
 import './components/apartment-detail.js';
 import './components/contact-page.js';
+import './components/info-page.js';
+import './components/info-hub.js';
 import { initReveal } from './utils/reveal.js';
 
 function bootReveal() {

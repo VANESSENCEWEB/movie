@@ -1,22 +1,57 @@
 # Recife Flats Temporada — Arquitetura do site
 
-Site institucional com componentes reutilizáveis em **vanilla HTML/CSS/JS**.
-Sem framework. Sem build step. Pode subir direto na Netlify.
+Site institucional de hospedagem temporária com **Web Components nativos** (`rf-*`), CSS tokenizado e **sem build step**. Deploy direto na Vercel ou Netlify.
+
+Domínio de produção: `https://recifeflatstemporada.com`
 
 ---
 
-## Por que essa estrutura
+## Hierarquia de páginas (como classificar)
 
-A pergunta de origem foi: "como reutilizar a `nav` (e outros pedaços) em
-várias páginas?". A resposta é **Web Components nativos** + **CSS tokenizado**.
+O site segue **dois eixos**: o funil de imóveis (descoberta → reserva) e as páginas institucionais/legais.
 
-- **Web Components** são `customElements` do navegador. Você define uma classe
-  uma vez (`<rf-navbar>`), e usa em qualquer HTML como uma tag comum. Quando
-  precisar mudar a navbar do site todo, mexe num único arquivo.
-- **CSS por componente** (BEM) com **tokens centralizados** garante que cores,
-  espaçamentos e fontes nasçam de um único lugar.
-- **Sem framework** mantém o site rápido, simples de hospedar e fácil de
-  manter — alinhado com o que já existe no `recife-flats-sistema`.
+```
+/  (index.html)                          ← HOME — hero, destaques, FAQ
+│
+├── FUNIL DE IMÓVEIS
+│   ├── /apartamentos.html               ← HUB — todos os apartamentos + filtros
+│   ├── /boa-viagem.html                 ← BAIRRO — 3 apartamentos em Boa Viagem
+│   ├── /pina.html                       ← BAIRRO — 1 apartamento no Pina
+│   └── /apartamentos/{slug}.html        ← IMÓVEL — página de detalhe
+│
+├── INSTITUCIONAL
+│   ├── /sobre.html
+│   ├── /contato.html
+│   ├── /apartmatch.html
+│   └── /bio.html                        ← link-in-bio (sem navbar/footer)
+│
+└── INFORMAÇÕES / LEGAL
+    └── /informacoes/
+        ├── index.html                   ← hub de políticas
+        ├── caucao.html
+        ├── cancelamento.html
+        ├── check-in.html
+        ├── privacidade.html
+        ├── termos.html
+        ├── cookies.html
+        └── lgpd.html
+```
+
+### Breadcrumbs (navegação hierárquica)
+
+Componente: `<rf-breadcrumbs context="..." slug="...">`
+
+| Página | Contexto | Trilha |
+|--------|----------|--------|
+| Home | — | — |
+| Apartamentos | `apartments` | Início → Apartamentos |
+| Boa Viagem / Pina | `neighborhood` + slug | Início → Apartamentos → Bairro |
+| Detalhe do apto | `apartment` + slug | Início → Apartamentos → Bairro → Imóvel |
+| Hub informações | `info-hub` | Início → Informações |
+| Política legal | `info` + slug | Início → Informações → Política |
+| Sobre / Contato / ApartMatch | `sobre` / `contato` / `apartmatch` | Início → Página |
+
+Lógica centralizada em `scripts/data/site-structure.js` → `getBreadcrumbs()`.
 
 ---
 
@@ -24,45 +59,143 @@ várias páginas?". A resposta é **Web Components nativos** + **CSS tokenizado*
 
 ```
 recife-flats/
-├── index.html                  ← exemplo: home com hero+vídeo
-├── apartamentos.html           ← exemplo: página interna sem hero
-├── README.md
+├── index.html
+├── apartamentos.html
+├── boa-viagem.html
+├── pina.html
+├── sobre.html
+├── contato.html
+├── apartmatch.html
+├── bio.html
+├── sitemap.xml
+├── robots.txt
+├── vercel.json
+│
+├── apartamentos/                  ← páginas de IMÓVEL (detalhe)
+│   ├── apartamento-2-quartos-boa-viagem.html
+│   ├── flat-golden-view-1006.html
+│   ├── studio-203-boa-viagem.html
+│   └── apartamento-804-pina.html
+│
+├── informacoes/                   ← páginas LEGAIS e de política
+│   ├── index.html
+│   ├── caucao.html
+│   ├── cancelamento.html
+│   ├── check-in.html
+│   ├── privacidade.html
+│   ├── termos.html
+│   ├── cookies.html
+│   └── lgpd.html
 │
 ├── assets/
-│   ├── images/                 ← fotos dos apartamentos, ícones SVG, etc.
-│   ├── videos/                 ← vídeos do hero (MP4 + WebM otimizados)
-│   └── fonts/                  ← (opcional) fontes self-hosted
+│   ├── images/                    ← fotos dos apartamentos
+│   └── videos/                    ← vídeos do hero (MP4 + WebM)
+│
+├── data/
+│   └── hero/home/                 ← JSON dia/noite do hero
 │
 ├── styles/
-│   ├── tokens.css              ← variáveis de design: cores, fontes, espaços
-│   ├── base.css                ← reset, defaults do body, foco acessível
-│   ├── utilities.css           ← .container, .eyebrow, .sr-only, .stack…
-│   │
-│   ├── components/             ← UM arquivo CSS por componente
-│   │   ├── announcement.css
-│   │   ├── button.css
-│   │   ├── navbar.css
-│   │   ├── menu-overlay.css
-│   │   └── hero.css
-│   │
-│   └── pages/                  ← CSS específico de uma página (raro)
-│       └── home.css
+│   ├── tokens.css                 ← variáveis de design
+│   ├── base.css                   ← reset, defaults, foco
+│   ├── design-system.css
+│   ├── utilities.css              ← .container, .eyebrow, .sr-only
+│   ├── components/                ← UM CSS por componente
+│   └── pages/                     ← CSS específico de página
 │
 └── scripts/
-    ├── main.js                 ← ponto de entrada. importa os componentes.
-    │
-    ├── components/             ← UM arquivo JS por Web Component
-    │   ├── announcement.js     ← <rf-announcement>
-    │   ├── navbar.js           ← <rf-navbar>
-    │   ├── menu.js             ← <rf-menu>
-    │   └── hero.js             ← <rf-hero>
-    │
-    ├── modules/                ← lógica reutilizável (futuro)
-    │   └── (ex: scroll-effects.js, form-validation.js)
-    │
-    └── utils/                  ← helpers minimalistas
-        ├── dom.js              ← $, $$, on, prefersReducedMotion
-        └── split-text.js       ← quebra texto em letras pra animar
+    ├── main.js                    ← ponto de entrada
+    ├── bio-main.js                ← entrada da página bio
+    ├── components/                ← UM JS por Web Component
+    ├── data/                      ← dados centralizados
+    │   ├── site-structure.js      ← URLs, bairros, breadcrumbs, INFO_PAGES
+    │   ├── site-policies.js       ← conteúdo das páginas legais
+    │   ├── apartamentos.js        ← catálogo dos 4 imóveis
+    │   ├── apartment-detail-data.js
+    │   └── location.js            ← endereço, WhatsApp, mapas
+    ├── modules/                   ← lógica reutilizável
+    └── utils/
+        ├── paths.js               ← pageHref(), assetUrl() para subpastas
+        └── dom.js
+```
+
+---
+
+## Camada de dados (fonte única da verdade)
+
+| Arquivo | Responsabilidade |
+|---------|------------------|
+| `site-structure.js` | Bairros (`NEIGHBORHOODS`), páginas legais (`INFO_PAGES`), breadcrumbs, URLs |
+| `site-policies.js` | Texto completo das políticas (caução, cancelamento, LGPD…) |
+| `apartamentos.js` | Lista dos 4 apartamentos + helpers |
+| `apartment-detail-data.js` | Conteúdo estendido por imóvel (galeria, regras, avaliações) |
+| `location.js` | Dados do negócio, WhatsApp, mapas |
+
+**Adicionar um apartamento novo:**
+1. Criar `apartamentos/{slug}.html` (copiar template existente)
+2. Adicionar entrada em `apartamentos.js`
+3. Adicionar conteúdo em `apartment-detail-data.js`
+4. Adicionar fotos em `assets/images/apartamentos/`
+5. Atualizar `sitemap.xml`
+
+**Adicionar uma política nova:**
+1. Adicionar em `site-policies.js` e `INFO_PAGES` em `site-structure.js`
+2. Criar `informacoes/{slug}.html` com `<rf-info-page slug="...">`
+3. Atualizar footer (automático via `INFO_PAGES`)
+
+---
+
+## Chrome do site (padrão em todas as páginas)
+
+Toda página pública (exceto `bio.html`) segue:
+
+```html
+<rf-menu wraps=".site-content"></rf-menu>
+<div class="site-content">
+  <rf-announcement>...</rf-announcement>
+  <rf-navbar></rf-navbar>
+  <main>
+    <rf-breadcrumbs ...></rf-breadcrumbs>   <!-- quando aplicável -->
+    <!-- conteúdo -->
+  </main>
+  <rf-footer></rf-footer>
+</div>
+<rf-matching-wizard></rf-matching-wizard>
+<rf-floating-whatsapp></rf-floating-whatsapp>
+```
+
+A home usa `<rf-navbar over-hero hero-target="#hero">` dentro de `<header class="site-chrome">`.
+
+---
+
+## Componentes principais
+
+| Tag | Arquivo | Função |
+|-----|---------|--------|
+| `<rf-navbar>` | `navbar.js` | Header fixo, idioma PT/EN, botão menu |
+| `<rf-menu>` | `menu.js` | Overlay de navegação (GSAP) |
+| `<rf-footer>` | `footer.js` | Rodapé com links, legal, contato |
+| `<rf-breadcrumbs>` | `breadcrumbs.js` | Trilha hierárquica SEO |
+| `<rf-hero>` | `hero.js` | Hero com vídeo dia/noite |
+| `<rf-apartments-hub>` | `apartments-hub.js` | Listagem geral por bairro |
+| `<rf-neighborhood-hub>` | `neighborhood-hub.js` | Página de bairro |
+| `<rf-apartment-detail>` | `apartment-detail.js` | Detalhe completo do imóvel |
+| `<rf-info-page>` | `info-page.js` | Página legal a partir de `site-policies.js` |
+| `<rf-info-hub>` | `info-hub.js` | Índice de políticas |
+| `<rf-faq-section>` | `faq-section.js` | FAQ da home |
+
+Registro: importar em `scripts/main.js`.
+
+---
+
+## Paths relativos em subpastas
+
+`scripts/utils/paths.js` resolve automaticamente `../` para páginas em:
+- `/apartamentos/*.html`
+- `/informacoes/*.html`
+
+```js
+import { pageHref, assetUrl } from '../data/site-structure.js';
+// pageHref('./index.html') → '../index.html' quando dentro de subpasta
 ```
 
 ---
@@ -70,186 +203,72 @@ recife-flats/
 ## Convenções
 
 ### Nomenclatura
+- Componentes: prefixo `rf-` (ex.: `<rf-navbar>`)
+- CSS: BEM (`.navbar__logo`, `.menu-overlay__link`)
+- Variáveis: `--space-4`, `--ocean`, `--font-display`
 
-- **Componentes JS**: prefixo `rf-` (Recife Flats) — `<rf-navbar>`, `<rf-hero>`.
-  Web Components exigem hífen no nome.
-- **Classes CSS**: padrão **BEM** — `.menu-overlay`, `.menu-overlay__link`,
-  `.menu-overlay__link--active`.
-- **Variáveis CSS**: kebab-case com prefixo de categoria — `--space-4`,
-  `--fs-lg`, `--ease-out`, `--clay-light`.
-
-### Ordem de carregamento do CSS
-
-Sempre nessa ordem:
-
-```html
-1. tokens.css        ← define variáveis (não tem regras de visual)
-2. base.css          ← reset + defaults globais
-3. utilities.css     ← classes utilitárias (.container, etc.)
-4. components/*.css  ← componentes (a ordem entre eles não importa)
-5. pages/*.css       ← último, pode sobrescrever componentes da página
+### Ordem do CSS
+```
+tokens.css → base.css → design-system.css → utilities.css → components/*.css → pages/*.css
 ```
 
-### Hierarquia de container
-
-Todo conteúdo do site deve viver dentro de `.container`. Ele é a coluna
-central de **1440px max**, com padding lateral fluido. É isso que faz
-o início do menu, o logo, o hero, e qualquer seção abaixo ficarem
-**verticalmente alinhados** na mesma "calha".
-
-```html
-<section>
-  <div class="container">
-    <!-- conteúdo aqui -->
-  </div>
-</section>
-```
+### Container
+Todo conteúdo dentro de `.container` (max 1440px, padding fluido).
 
 ---
 
-## Como criar um novo componente
+## SEO e deploy
 
-Vamos criar um `<rf-footer>` como exemplo.
-
-### 1. Crie o CSS
-
-`styles/components/footer.css`:
-
-```css
-.footer {
-  background: var(--ocean);
-  color: var(--white);
-  padding-block: var(--space-9);
-}
-.footer__grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: var(--space-8);
-}
-```
-
-### 2. Crie o Web Component
-
-`scripts/components/footer.js`:
-
-```js
-class RFFooter extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `
-      <footer class="footer">
-        <div class="container footer__grid">
-          <!-- conteúdo -->
-        </div>
-      </footer>
-    `;
-  }
-}
-customElements.define('rf-footer', RFFooter);
-```
-
-### 3. Registre em `main.js`
-
-```js
-import './components/footer.js';
-```
-
-### 4. Inclua o CSS no HTML
-
-```html
-<link rel="stylesheet" href="/styles/components/footer.css">
-```
-
-### 5. Use em qualquer página
-
-```html
-<rf-footer></rf-footer>
-```
-
-Pronto. Toda página que incluir o `main.js` e o CSS pode usar `<rf-footer>`.
-Mudar o footer = mexer em **um** arquivo, e propaga para o site inteiro.
+- `sitemap.xml` — todas as URLs públicas
+- `robots.txt` — bloqueia backup e `/scripts/`
+- `vercel.json` — cache de assets + rewrite `/informacoes` → index
 
 ---
 
-## Como funciona o menu (catálogo que abre virando)
+## Páginas obrigatórias para site de hospedagem
 
-O comportamento envolve **três** elementos coordenados:
+| Requisito | Status | Onde |
+|-----------|--------|------|
+| Catálogo de imóveis | ✅ | `apartamentos.html` |
+| Página por bairro | ✅ | `boa-viagem.html`, `pina.html` |
+| Detalhe por imóvel | ✅ | `/apartamentos/{slug}.html` |
+| Caução / depósito | ✅ | `/informacoes/caucao.html` |
+| Cancelamento | ✅ | `/informacoes/cancelamento.html` |
+| Check-in / check-out | ✅ | `/informacoes/check-in.html` |
+| Privacidade + LGPD | ✅ | `/informacoes/privacidade.html`, `lgpd.html` |
+| Termos de uso | ✅ | `/informacoes/termos.html` |
+| Cookies | ✅ | `/informacoes/cookies.html` |
+| FAQ | ✅ | Home `#faq` + link para políticas |
+| Contato | ✅ | `contato.html` + WhatsApp flutuante |
+| Breadcrumbs | ✅ | Componente em todas as páginas do funil |
+| Sitemap | ✅ | `sitemap.xml` |
 
-1. **`<rf-navbar>`** — botão "Menu" dispara o evento global `rf-menu-toggle`.
-2. **`<rf-menu>`** — escuta esse evento, abre/fecha sua própria timeline GSAP.
-   Anima o `.site-content` (quem é definido pelo atributo `wraps=".site-content"`)
-   com rotação 3D + escala + filtro, criando o efeito de página virando.
-3. **`.site-content`** — todo o resto do site fica dentro dele.
+---
 
-A comunicação é via **CustomEvent** no `window`, sem acoplamento direto entre
-os componentes:
+## Como criar uma nova página
+
+1. Copie o shell de `sobre.html` ou `informacoes/caucao.html`
+2. Ajuste `<rf-breadcrumbs context="...">` e CSS de página
+3. Inclua os CSS de componentes necessários
+4. Registre novos componentes em `main.js` se precisar
+5. Adicione URL em `sitemap.xml`
+
+---
+
+## Menu (comunicação entre componentes)
 
 ```
 [botão menu] → window: 'rf-menu-toggle' → [rf-menu] abre
-[rf-menu] → window: 'rf-menu-state'   → [rf-navbar] sincroniza ícone
+[rf-menu]    → window: 'rf-menu-state'   → [rf-navbar] sincroniza ícone
 ```
 
 ---
 
-## Como funciona o hero com vídeo
+## Performance (próximos passos)
 
-```html
-<rf-hero
-  video="/assets/videos/recife-loop.mp4"
-  video-webm="/assets/videos/recife-loop.webm"
-  poster="/assets/images/hero-poster.jpg"
-  title='Sua temporada em <em>Recife</em> começa por aqui'
-  description="..."
-  primary-href="#apartamentos"
-  primary-label="Ver apartamentos">
-  <ul slot="stats" hidden>
-    <li data-num="4"   data-label="Apartamentos"></li>
-    <li data-num="200+" data-label="Hóspedes felizes"></li>
-    <li data-num="4.9" data-label="Nota média"></li>
-  </ul>
-</rf-hero>
-```
+- Unificar CSS por página em um bundle
+- Self-host de fontes
+- Comprimir imagens e vídeo do hero
+- Cache headers (já em `vercel.json`)
 
-### Dicas para o vídeo do hero
-
-- **Formatos**: forneça WebM (VP9) e MP4 (H.264). WebM é menor; MP4 é fallback.
-- **Tamanho-alvo**: ≤ 3 MB para o MP4 1080p. Comprima em [HandBrake](https://handbrake.fr/)
-  com preset *Fast 1080p30* e mexa no bitrate até chegar perto disso.
-- **Duração**: 8–15 segundos. Loop perfeito = primeiro e último frame iguais.
-- **Sem áudio**: o `<video>` está `muted` (exigência de autoplay nos navegadores)
-  e nem renderiza a faixa de áudio. Exporte sem áudio para economizar bytes.
-- **Poster**: imagem estática do primeiro frame, otimizada (WebP, ~80kb).
-  Aparece instantaneamente enquanto o vídeo baixa.
-- **Mobile**: o atributo `playsinline` impede o vídeo de abrir em fullscreen
-  no iOS. Já está incluído.
-
----
-
-## Acessibilidade
-
-- Toda imagem decorativa tem `aria-hidden="true"`.
-- Botões têm `aria-label` quando o texto não é visível (ex: mobile).
-- O menu é `role="dialog"` com `aria-modal="true"` e `aria-hidden` sincronizado.
-- O foco recebe `outline: 2px solid var(--sand)` (definido em `base.css`).
-- `prefers-reduced-motion` é respeitado: animações são desligadas (ver `tokens.css`).
-- ESC fecha o menu.
-
----
-
-## Performance
-
-- **HTML, CSS, JS** servidos diretamente (sem build). Latência mínima.
-- **GSAP via CDN** com cache compartilhado entre sites.
-- **Fontes do Google** com `preconnect` para reduzir DNS lookup.
-- **Lazy loading**: imagens não críticas devem usar `loading="lazy"`.
-- **Web Components** só rodam quando seu elemento aparece no DOM.
-
----
-
-## Próximos componentes sugeridos
-
-- `<rf-apartment-card>` — card de apartamento (recebe dados via atributos
-  ou fetch do Supabase).
-- `<rf-testimonials>` — carrossel de depoimentos.
-- `<rf-footer>` — rodapé global.
-- `<rf-booking-form>` — formulário "Verificar disponibilidade" do print.
-- `<rf-gallery>` — galeria de fotos de um apartamento.
+Ver discussão de Lighthouse no histórico do projeto.
