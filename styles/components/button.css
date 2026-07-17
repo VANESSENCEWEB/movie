@@ -1,5 +1,8 @@
 /* ============================================================
    BUTTON — Terracotta / Mangue / Sand
+   Estrutura: [ícone?] + label + [ícone trailing?]
+   Padding padrão: 12px 24px · Radius 8px (2026)
+   Hero/destaque: .btn--pill mantém cápsula
 ============================================================ */
 
 .btn {
@@ -7,19 +10,47 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 22px;
-  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  border-radius: var(--radius-s);
   border: 1px solid transparent;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.875rem;
+  line-height: 1.2;
   white-space: nowrap;
   position: relative;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform var(--dur-fast) ease,
               background var(--dur-base) ease,
               box-shadow var(--dur-base) ease,
               border-color var(--dur-base) ease,
               color var(--dur-base) ease;
+}
+
+.btn__icon {
+  flex-shrink: 0;
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.btn__icon--trailing {
+  margin-inline-start: 2px;
+}
+
+.btn__label {
+  display: inline-block;
+}
+
+/* Ícones soltos (markup legado) continuam alinhados */
+.btn > svg:not([class]) {
+  flex-shrink: 0;
+  width: 1.125em;
+  height: 1.125em;
+}
+
+.btn--pill {
+  border-radius: var(--radius-pill);
 }
 
 .btn:hover { transform: translateY(-2px); }
@@ -59,8 +90,6 @@
   color: var(--ink-soft);
   background: none;
   border: 1.5px solid var(--line);
-  border-radius: var(--radius-pill);
-  padding: 12px 22px;
 }
 
 .btn--ghost:hover {
@@ -69,8 +98,10 @@
   background: rgba(42, 33, 24, 0.04);
 }
 
-.btn--ghost svg { transition: transform var(--dur-base); }
-.btn--ghost:hover svg { transform: translateX(4px); }
+.btn--ghost svg,
+.btn__icon--trailing { transition: transform var(--dur-base); }
+.btn--ghost:hover svg,
+.btn--ghost:hover .btn__icon--trailing { transform: translateX(4px); }
 
 .btn--sun {
   background: var(--gold);
@@ -111,7 +142,7 @@
 }
 
 .btn--sm {
-  padding: 8px 16px;
+  padding: 10px 20px;
   font-size: 0.82rem;
 }
 

@@ -203,12 +203,12 @@ class RFHero extends HTMLElement {
             ` : ''}
 
             <div class="hero__cta" data-hero-cta>
-              <a href="./apartamentos.html" class="btn btn--shiny">
-                <span>${copy.ctaPrimary}</span>
+              <a href="./apartamentos.html" class="btn btn--shiny btn--pill">
+                <span class="btn__label">${copy.ctaPrimary}</span>
               </a>
-              <a href="${waLink}" class="btn btn--outline-hero" target="_blank" rel="noopener noreferrer" data-hero-wa>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A10 10 0 0 0 3.6 17l-1.6 5 5.1-1.6A10 10 0 1 0 20.5 3.5z"/></svg>
-                ${copy.ctaWhatsapp}
+              <a href="${waLink}" class="btn btn--outline-hero btn--pill" target="_blank" rel="noopener noreferrer" data-hero-wa>
+                <svg class="btn__icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A10 10 0 0 0 3.6 17l-1.6 5 5.1-1.6A10 10 0 1 0 20.5 3.5z"/></svg>
+                <span class="btn__label">${copy.ctaWhatsapp}</span>
               </a>
             </div>
 
