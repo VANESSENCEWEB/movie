@@ -4,7 +4,7 @@
  * Uso: <rf-neighborhood-hub slug="boa-viagem"></rf-neighborhood-hub>
  */
 
-import { getNeighborhood } from '../data/site-structure.js';
+import { getNeighborhood, apartmentsHubUrl, neighborhoodUrl } from '../data/site-structure.js';
 import { getApartmentsByNeighborhood } from '../data/apartamentos.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 
@@ -56,8 +56,8 @@ class RFNeighborhoodHub extends HTMLElement {
             <h2>Quer comparar com outro bairro?</h2>
             <p>Veja todos os imóveis ou explore ${slug === 'boa-viagem' ? 'Pina' : 'Boa Viagem'}.</p>
             <div class="nb-hub__cta-actions">
-              <a href="./apartamentos.html" class="btn btn--secondary">Todos os apartamentos</a>
-              <a href="./${slug === 'boa-viagem' ? 'pina' : 'boa-viagem'}.html" class="btn btn--primary">
+              <a href="${apartmentsHubUrl()}" class="btn btn--secondary">Todos os apartamentos</a>
+              <a href="${neighborhoodUrl(slug === 'boa-viagem' ? 'pina' : 'boa-viagem')}" class="btn btn--primary">
                 Ver ${slug === 'boa-viagem' ? 'Pina' : 'Boa Viagem'}
               </a>
             </div>

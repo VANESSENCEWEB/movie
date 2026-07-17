@@ -3,6 +3,8 @@
  */
 
 import { whatsappUrl } from '../data/location.js';
+import { APARTMENTS_HUB_URL } from '../data/site-structure.js';
+import { pageHref } from '../utils/paths.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 import { renderWaveDivider } from '../utils/wave-divider.js';
 
@@ -68,7 +70,7 @@ class RFReservationSteps extends HTMLElement {
             <a href="${whatsappUrl('Olá! Quero verificar disponibilidade para minhas datas.')}" class="btn btn--primary" target="_blank" rel="noopener noreferrer">
               Pedir disponibilidade
             </a>
-            <a href="./apartamentos.html" class="btn btn--outline">Comparar apartamentos</a>
+            <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--outline">Comparar apartamentos</a>
           </div>
         </div>
         ${renderWaveDivider('var(--sand-200)')}

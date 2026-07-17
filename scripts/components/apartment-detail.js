@@ -4,7 +4,7 @@
 
 import { getApartmentBySlug, resolveImages, FALLBACK_IMAGE, APARTAMENTOS } from '../data/apartamentos.js';
 import { getApartmentDetailExtras } from '../data/apartment-detail-data.js';
-import { getNeighborhood, apartmentUrl, pageHref } from '../data/site-structure.js';
+import { getNeighborhood, apartmentUrl, APARTMENTS_HUB_URL, pageHref } from '../data/site-structure.js';
 import { BUSINESS, whatsappUrl, MAPS_EMBED_URL } from '../data/location.js';
 import { initApartmentDetailPage } from '../utils/apartment-detail-page.js';
 
@@ -124,7 +124,7 @@ class RFApartmentDetail extends HTMLElement {
       this.innerHTML = `
         <section class="apt-page apt-page--error">
           <div class="container"><h1>Apartamento não encontrado</h1>
-          <p><a href="${pageHref('./apartamentos.html')}" class="btn btn--primary">Ver apartamentos</a></p></div>
+          <p><a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--primary">Ver apartamentos</a></p></div>
         </section>`;
       return;
     }
@@ -383,7 +383,7 @@ class RFApartmentDetail extends HTMLElement {
             </header>
             <div class="apts-grid">${renderOtherApartments(apt.slug)}</div>
             <div class="apts-cta">
-              <a href="${pageHref('./apartamentos.html')}" class="btn-ver-todos">Ver todos os apartamentos</a>
+              <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn-ver-todos">Ver todos os apartamentos</a>
             </div>
           </div>
         </section>

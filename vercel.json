@@ -15,10 +15,22 @@
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     }
   ],
+  "redirects": [
+    { "source": "/apartamentos.html", "destination": "/apartamentos/", "permanent": true },
+    { "source": "/boa-viagem.html", "destination": "/apartamentos/boa-viagem/", "permanent": true },
+    { "source": "/pina.html", "destination": "/apartamentos/pina/", "permanent": true },
+    { "source": "/apartamentos/apartamento-2-quartos-boa-viagem.html", "destination": "/apartamentos/boa-viagem/apartamento-2-quartos-boa-viagem.html", "permanent": true },
+    { "source": "/apartamentos/flat-golden-view-1006.html", "destination": "/apartamentos/boa-viagem/flat-golden-view-1006.html", "permanent": true },
+    { "source": "/apartamentos/studio-203-boa-viagem.html", "destination": "/apartamentos/boa-viagem/studio-203-boa-viagem.html", "permanent": true },
+    { "source": "/apartamentos/apartamento-804-pina.html", "destination": "/apartamentos/pina/apartamento-804-pina.html", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/informacoes", "destination": "/informacoes/index.html" },
     { "source": "/conheca-recife", "destination": "/conheca-recife/index.html" },
     { "source": "/blog", "destination": "/blog/index.html" },
-    { "source": "/apartamentos/:slug", "destination": "/apartamentos/:slug.html" }
+    { "source": "/apartamentos", "destination": "/apartamentos/index.html" },
+    { "source": "/apartamentos/boa-viagem", "destination": "/apartamentos/boa-viagem/index.html" },
+    { "source": "/apartamentos/pina", "destination": "/apartamentos/pina/index.html" },
+    { "source": "/apartamentos/:neighborhood/:slug", "destination": "/apartamentos/:neighborhood/:slug.html" }
   ]
 }

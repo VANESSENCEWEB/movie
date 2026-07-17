@@ -4,7 +4,7 @@
  */
 
 import { getBlogPost } from '../data/site-blog.js';
-import { pageHref, BLOG_HUB_URL } from '../data/site-structure.js';
+import { pageHref, BLOG_HUB_URL, APARTMENTS_HUB_URL } from '../data/site-structure.js';
 
 function renderSection(section) {
   const paragraphs = section.paragraphs.map((p) => `<p>${p}</p>`).join('');
@@ -64,7 +64,7 @@ class RFBlogPost extends HTMLElement {
           ${sections}
           <footer class="blog-post__footer">
             <a href="${pageHref(BLOG_HUB_URL)}" class="btn btn--secondary">← Voltar ao blog</a>
-            <a href="${pageHref('./apartamentos.html')}" class="btn btn--primary">Ver apartamentos</a>
+            <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--primary">Ver apartamentos</a>
           </footer>
         </div>
       </article>

@@ -39,10 +39,14 @@
 /  (index.html)
 │
 ├── IMÓVEIS
-│   ├── /apartamentos.html
-│   ├── /boa-viagem.html
-│   ├── /pina.html
-│   └── /apartamentos/{slug}.html
+│   └── /apartamentos/
+│       ├── index.html              ← hub (todos os imóveis)
+│       ├── boa-viagem/
+│       │   ├── index.html          ← bairro
+│       │   └── {slug}.html         ← imóvel
+│       └── pina/
+│           ├── index.html
+│           └── {slug}.html
 │
 ├── INFORMAÇÕES  →  scripts/data/site-policies.js
 │   └── /informacoes/
@@ -106,8 +110,8 @@ O footer (`scripts/components/footer.js`) lê os links de `site-structure.js`:
 | Gastronomia | `/conheca-recife/gastronomia.html` |
 | Dicas locais | `/conheca-recife/dicas-locais.html` |
 | O que fazer em Recife | `/conheca-recife/o-que-fazer.html` |
-| Boa Viagem | `/boa-viagem.html` |
-| Pina | `/pina.html` |
+| Boa Viagem | `/apartamentos/boa-viagem/` |
+| Pina | `/apartamentos/pina/` |
 
 ### Coluna «Blog»
 - Hub do blog + artigos em destaque

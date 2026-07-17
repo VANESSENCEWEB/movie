@@ -19,7 +19,7 @@ class RFBookingPromo extends HTMLElement {
             </p>
           </header>
           <div class="section-body booking-promo__form-wrap" data-promo-reveal>
-            <rf-booking-search action="./apartamentos.html"></rf-booking-search>
+            <rf-booking-search></rf-booking-search>
           </div>
         </div>
       </section>

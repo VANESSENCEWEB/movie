@@ -9,8 +9,15 @@
  *   Início → Sobre | Contato | ApartMatch
  */
 
-import { getApartmentBySlug } from './apartamentos.js';
-import { getPathDepth, isNestedApartmentPage, pageHref } from '../utils/paths.js';
+import { getApartmentBySlug, APARTAMENTOS } from './apartamentos.js';
+import {
+  getCurrentNeighborhoodSlug,
+  isApartmentDetailPage,
+  isNeighborhoodHubPage,
+  pageHref,
+} from '../utils/paths.js';
+
+export const APARTMENTS_HUB_URL = './apartamentos/index.html';
 
 /** @typedef {{ slug: string, name: string, pageUrl: string, description: string, intro: string, highlights: string[] }} Neighborhood */
 
@@ -25,7 +32,7 @@ export const NEIGHBORHOODS = {
   'boa-viagem': {
     slug: 'boa-viagem',
     name: 'Boa Viagem',
-    pageUrl: './boa-viagem.html',
+    pageUrl: './apartamentos/boa-viagem/index.html',
     description:
       'Aluguel por temporada em Boa Viagem, Recife — praia, comércio e mobilidade a pé.',
     intro:
@@ -39,7 +46,7 @@ export const NEIGHBORHOODS = {
   pina: {
     slug: 'pina',
     name: 'Pina',
-    pageUrl: './pina.html',
+    pageUrl: './apartamentos/pina/index.html',
     description:
       'Apartamento para temporada no Pina, Recife — ao lado do RioMar e bem conectado à cidade.',
     intro:
@@ -135,7 +142,7 @@ export const STATIC_PAGES = {
   apartamentos: {
     slug: 'apartamentos',
     label: 'Apartamentos',
-    pageUrl: './apartamentos.html',
+    pageUrl: APARTMENTS_HUB_URL,
     breadcrumbLabel: 'Apartamentos',
   },
 };
@@ -179,7 +186,7 @@ export const RECIFE_PAGES = {
   'boa-viagem': {
     slug: 'boa-viagem',
     label: 'Boa Viagem',
-    pageUrl: './boa-viagem.html',
+    pageUrl: './apartamentos/boa-viagem/index.html',
     category: 'bairro',
     icon: 'pin',
     description: 'Apartamentos perto da praia.',
@@ -187,7 +194,7 @@ export const RECIFE_PAGES = {
   pina: {
     slug: 'pina',
     label: 'Pina',
-    pageUrl: './pina.html',
+    pageUrl: './apartamentos/pina/index.html',
     category: 'bairro',
     icon: 'pin',
     description: 'Ao lado do RioMar Shopping.',
@@ -217,7 +224,7 @@ export function neighborhoodKeyFromName(neighborhoodName) {
   return map[neighborhoodName] || neighborhoodName.toLowerCase().replace(/\s+/g, '-');
 }
 
-export { isNestedApartmentPage, assetUrl, pageHref, getPathDepth } from '../utils/paths.js';
+export { isNestedApartmentPage, isApartmentDetailPage, assetUrl, pageHref, getPathDepth } from '../utils/paths.js';
 
 /** @param {string} slug */
 export function getNeighborhood(slug) {
@@ -250,14 +257,31 @@ export function infoPageUrl(slug) {
 
 /** @param {string} apartmentSlug */
 export function apartmentUrl(apartmentSlug) {
-  if (isNestedApartmentPage()) return `./${apartmentSlug}.html`;
-  return pageHref(`./apartamentos/${apartmentSlug}.html`);
+  const apt = getApartmentBySlug(apartmentSlug);
+  if (!apt) return pageHref(APARTMENTS_HUB_URL);
+
+  const neighborhood = apt.neighborhoodSlug;
+  const current = getCurrentNeighborhoodSlug();
+
+  if (
+    (isApartmentDetailPage() || isNeighborhoodHubPage())
+    && current === neighborhood
+  ) {
+    return `./${apartmentSlug}.html`;
+  }
+
+  return pageHref(`./apartamentos/${neighborhood}/${apartmentSlug}.html`);
 }
 
 /** @param {string} neighborhoodSlug */
 export function neighborhoodUrl(neighborhoodSlug) {
-  const url = NEIGHBORHOODS[neighborhoodSlug]?.pageUrl || './apartamentos.html';
+  const url = NEIGHBORHOODS[neighborhoodSlug]?.pageUrl || APARTMENTS_HUB_URL;
   return pageHref(url);
+}
+
+/** @param {string} [path] */
+export function apartmentsHubUrl(path = APARTMENTS_HUB_URL) {
+  return pageHref(path);
 }
 
 /**
@@ -268,7 +292,7 @@ export function neighborhoodUrl(neighborhoodSlug) {
  */
 export function getBreadcrumbs(type, params = {}) {
   const home = { label: 'Início', href: './index.html' };
-  const hub  = { label: 'Apartamentos', href: './apartamentos.html' };
+  const hub  = { label: 'Apartamentos', href: APARTMENTS_HUB_URL };
   const infoHub = { label: 'Informações', href: INFO_HUB_URL };
   const recifeHub = { label: 'Conheça Recife', href: RECIFE_HUB_URL };
   const blogHub = { label: 'Blog', href: BLOG_HUB_URL };
@@ -291,7 +315,7 @@ export function getBreadcrumbs(type, params = {}) {
       return [
         home,
         hub,
-        { label: apt.neighborhood, href: n?.pageUrl || './apartamentos.html' },
+        { label: apt.neighborhood, href: n?.pageUrl || APARTMENTS_HUB_URL },
         { label: apt.name, current: true },
       ];
     }
@@ -334,9 +358,12 @@ export function getAllPublicPaths() {
   const paths = [
     '/',
     '/index.html',
-    '/apartamentos.html',
-    '/boa-viagem.html',
-    '/pina.html',
+    '/apartamentos/',
+    '/apartamentos/index.html',
+    '/apartamentos/boa-viagem/',
+    '/apartamentos/boa-viagem/index.html',
+    '/apartamentos/pina/',
+    '/apartamentos/pina/index.html',
     '/sobre.html',
     '/contato.html',
     '/apartmatch.html',
@@ -347,6 +374,10 @@ export function getAllPublicPaths() {
     '/blog/',
     '/blog/index.html',
   ];
+
+  APARTAMENTOS.forEach((apt) => {
+    paths.push(`/apartamentos/${apt.neighborhoodSlug}/${apt.slug}.html`);
+  });
 
   Object.values(INFO_PAGES).forEach((p) => {
     paths.push(p.pageUrl.replace('./', '/'));

@@ -2,7 +2,7 @@
  * <rf-guide-hub> — Índice "Conheça Recife"
  */
 
-import { RECIFE_PAGES, RECIFE_HUB_URL, pageHref, recifePageUrl } from '../data/site-structure.js';
+import { RECIFE_PAGES, RECIFE_HUB_URL, APARTMENTS_HUB_URL, pageHref, recifePageUrl } from '../data/site-structure.js';
 
 class RFGuideHub extends HTMLElement {
   connectedCallback() {
@@ -51,7 +51,7 @@ class RFGuideHub extends HTMLElement {
         </div>
         <div class="container content-hub__footer">
           <a href="${pageHref('./blog/index.html')}" class="btn btn--secondary">Ler no blog</a>
-          <a href="${pageHref('./apartamentos.html')}" class="btn btn--primary">Ver apartamentos</a>
+          <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--primary">Ver apartamentos</a>
         </div>
       </article>
     `;

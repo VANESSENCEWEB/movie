@@ -3,6 +3,8 @@
  */
 
 import { whatsappUrl } from '../data/location.js';
+import { APARTMENTS_HUB_URL } from '../data/site-structure.js';
+import { pageHref } from '../utils/paths.js';
 import { TESTIMONIALS_SHORT, renderTestimonialAvatar } from '../data/testimonials.js';
 
 function testimonialCard(t) {
@@ -108,7 +110,7 @@ class RFHomeSections extends HTMLElement {
             <p>Conte suas datas — respondemos em até 1 hora com disponibilidade e valores.</p>
             <div class="cta-banner__actions">
               <a href="${whatsappUrl('Olá! Gostaria de reservar um apartamento em Recife.')}" class="btn btn--coral" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
-              <a href="./apartamentos.html" class="btn btn--ghost">Ver os 4 apartamentos</a>
+              <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--ghost">Ver os 4 apartamentos</a>
             </div>
           </div>
         </div>

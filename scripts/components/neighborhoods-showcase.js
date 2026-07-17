@@ -4,7 +4,7 @@
 
 import { NEIGHBORHOODS } from '../data/site-structure.js';
 import { APARTAMENTOS } from '../data/apartamentos.js';
-import { assetUrl } from '../utils/paths.js';
+import { assetUrl, pageHref } from '../utils/paths.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 
 const COVER = {
@@ -19,15 +19,15 @@ class RFNeighborhoodsShowcase extends HTMLElement {
       const img = assetUrl(COVER[n.slug] || './assets/images/boa_viagem-01.avif.png');
       return `
         <article class="dest-card" data-dest-reveal>
-          <a href="${n.pageUrl}" class="dest-card__media">
+          <a href="${pageHref(n.pageUrl)}" class="dest-card__media">
             <img src="${img}" alt="Apartamentos em ${n.name}, Recife" loading="lazy">
             <span class="dest-card__count">${count} imóve${count > 1 ? 'is' : 'l'}</span>
           </a>
           <div class="dest-card__body">
             <span class="dest-card__region">Pernambuco · Recife</span>
-            <h3 class="dest-card__title"><a href="${n.pageUrl}">${n.name}</a></h3>
+            <h3 class="dest-card__title"><a href="${pageHref(n.pageUrl)}">${n.name}</a></h3>
             <p class="dest-card__text">${n.description}</p>
-            <a href="${n.pageUrl}" class="btn btn--secondary btn--sm">Explorar ${n.name}</a>
+            <a href="${pageHref(n.pageUrl)}" class="btn btn--secondary btn--sm">Explorar ${n.name}</a>
           </div>
         </article>
       `;

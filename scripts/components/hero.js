@@ -20,6 +20,8 @@ import {
   pickActiveAsset,
 } from '../modules/hero-assets.js';
 import { applyHeroCopy, getHeroCopy, getLang } from '../utils/i18n.js';
+import { APARTMENTS_HUB_URL } from '../data/site-structure.js';
+import { pageHref } from '../utils/paths.js';
 
 const PERIOD_CHECK_MS = 60_000;
 
@@ -203,7 +205,7 @@ class RFHero extends HTMLElement {
             ` : ''}
 
             <div class="hero__cta" data-hero-cta>
-              <a href="./apartamentos.html" class="btn btn--shiny btn--pill">
+              <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--shiny btn--pill">
                 <span class="btn__label">${copy.ctaPrimary}</span>
               </a>
               <a href="${waLink}" class="btn btn--outline-hero btn--pill" target="_blank" rel="noopener noreferrer" data-hero-wa>
@@ -214,7 +216,7 @@ class RFHero extends HTMLElement {
 
             ${noSearch ? '' : `
               <div class="hero__search" data-hero-search>
-                <rf-booking-search variant="hero" action="./apartamentos.html"></rf-booking-search>
+                <rf-booking-search variant="hero" action="${pageHref(APARTMENTS_HUB_URL)}"></rf-booking-search>
               </div>
             `}
           </div>

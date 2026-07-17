@@ -3,7 +3,7 @@
  */
 
 import { APARTAMENTOS } from '../data/apartamentos.js';
-import { NEIGHBORHOODS, pageHref } from '../data/site-structure.js';
+import { NEIGHBORHOODS, APARTMENTS_HUB_URL, pageHref } from '../data/site-structure.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 
 class RFApartmentsHub extends HTMLElement {
@@ -43,7 +43,7 @@ class RFApartmentsHub extends HTMLElement {
           <div class="apt-hub__booking-inner">
             <h2>Pronto para reservar?</h2>
             <p>Escolha as datas e fale conosco pelo WhatsApp.</p>
-            <rf-booking-search action="./apartamentos.html#reservar"></rf-booking-search>
+            <rf-booking-search action="${pageHref(`${APARTMENTS_HUB_URL}#reservar`)}"></rf-booking-search>
           </div>
         </section>
       </div>

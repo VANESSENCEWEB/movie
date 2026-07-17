@@ -6,13 +6,16 @@
  *   <rf-booking-search variant="hero"></rf-booking-search>
  *
  * Atributos opcionais:
- *   action  : URL para onde o form vai (default: /apartamentos.html)
+ *   action  : URL para onde o form vai (default: /apartamentos/)
  *   variant : "hero" para painel escuro no hero (auto-detecta se dentro de .hero)
  */
 
+import { APARTMENTS_HUB_URL } from '../data/site-structure.js';
+import { pageHref } from '../utils/paths.js';
+
 class RFBookingSearch extends HTMLElement {
   connectedCallback() {
-    const action = this.getAttribute('action') || './apartamentos.html';
+    const action = this.getAttribute('action') || pageHref(APARTMENTS_HUB_URL);
     const inHero = this.hasAttribute('variant')
       ? this.getAttribute('variant') === 'hero'
       : Boolean(this.closest('.hero'));

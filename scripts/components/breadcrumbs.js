@@ -1,5 +1,6 @@
 /**
  * <rf-breadcrumbs> — Navegação hierárquica para SEO e usabilidade.
+ * Inclui JSON-LD BreadcrumbList para rich results no Google.
  *
  * Uso:
  *   <rf-breadcrumbs context="apartments"></rf-breadcrumbs>
@@ -8,7 +9,26 @@
  */
 
 import { getBreadcrumbs, pageHref } from '../data/site-structure.js';
+import { absolutePageUrl } from '../utils/paths.js';
 import { getBlogPost } from '../data/site-blog.js';
+
+function breadcrumbSchema(crumbs) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((crumb, i) => {
+      const item = {
+        '@type': 'ListItem',
+        position: i + 1,
+        name: crumb.label,
+      };
+      if (crumb.href && !crumb.current) {
+        item.item = absolutePageUrl(crumb.href);
+      }
+      return item;
+    }),
+  };
+}
 
 class RFBreadcrumbs extends HTMLElement {
   connectedCallback() {
@@ -26,6 +46,16 @@ class RFBreadcrumbs extends HTMLElement {
       }
       return `<li class="breadcrumbs__item"><a href="${pageHref(crumb.href)}">${crumb.label}</a></li>`;
     }).join('');
+
+    const schemaId = 'rf-breadcrumb-schema';
+    let schemaEl = document.getElementById(schemaId);
+    if (!schemaEl) {
+      schemaEl = document.createElement('script');
+      schemaEl.id = schemaId;
+      schemaEl.type = 'application/ld+json';
+      document.head.appendChild(schemaEl);
+    }
+    schemaEl.textContent = JSON.stringify(breadcrumbSchema(crumbs));
 
     this.innerHTML = `
       <nav class="breadcrumbs" aria-label="Navegação estrutural">

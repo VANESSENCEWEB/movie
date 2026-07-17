@@ -3,7 +3,7 @@
  */
 
 import { getAllBlogPosts } from '../data/site-blog.js';
-import { pageHref, BLOG_HUB_URL } from '../data/site-structure.js';
+import { pageHref, BLOG_HUB_URL, APARTMENTS_HUB_URL } from '../data/site-structure.js';
 
 class RFBlogHub extends HTMLElement {
   connectedCallback() {
@@ -39,7 +39,7 @@ class RFBlogHub extends HTMLElement {
         </div>
         <div class="container blog-hub__cta">
           <a href="${pageHref('./conheca-recife/index.html')}" class="btn btn--secondary">Conheça Recife</a>
-          <a href="${pageHref('./apartamentos.html')}" class="btn btn--primary">Ver apartamentos</a>
+          <a href="${pageHref(APARTMENTS_HUB_URL)}" class="btn btn--primary">Ver apartamentos</a>
         </div>
       </div>
     `;

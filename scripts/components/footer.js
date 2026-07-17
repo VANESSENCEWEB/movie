@@ -6,6 +6,7 @@ import { BUSINESS, MAPS_LINKS, whatsappUrl } from '../data/location.js';
 import { APARTAMENTOS } from '../data/apartamentos.js';
 import {
   apartmentUrl,
+  APARTMENTS_HUB_URL,
   INFO_HUB_URL,
   RECIFE_HUB_URL,
   BLOG_HUB_URL,
@@ -162,7 +163,7 @@ class RFFooter extends HTMLElement {
               <h4><span class="site-footer__col-line"></span>Apartamentos</h4>
               <ul>${aptLinks}
                 <li class="site-footer__see-all">
-                  <a href="${pageHref('./apartamentos.html')}">
+                  <a href="${pageHref(APARTMENTS_HUB_URL)}">
                     Ver todos os apartamentos
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                   </a>

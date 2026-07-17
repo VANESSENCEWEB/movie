@@ -15,12 +15,12 @@
  */
 
 import { BUSINESS, whatsappUrl } from '../data/location.js';
-import { pageHref } from '../data/site-structure.js';
+import { pageHref, APARTMENTS_HUB_URL } from '../data/site-structure.js';
 
 function getNavItems() {
   return [
     { num: '01', label: 'Início',         href: pageHref('./index.html')                    },
-    { num: '02', label: 'Apartamentos',   href: pageHref('./apartamentos.html')             },
+    { num: '02', label: 'Apartamentos',   href: pageHref(APARTMENTS_HUB_URL)             },
     { num: '03', label: 'Conheça Recife', href: pageHref('./conheca-recife/index.html')     },
     { num: '04', label: 'Blog',           href: pageHref('./blog/index.html')               },
     { num: '05', label: 'ApartMatch',     href: pageHref('./apartmatch.html'), badge: 'Novo' },
