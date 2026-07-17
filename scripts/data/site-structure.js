@@ -16,6 +16,8 @@ import { getPathDepth, isNestedApartmentPage, pageHref } from '../utils/paths.js
 
 /** @typedef {{ slug: string, label: string, pageUrl: string, category: 'reserva'|'legal', icon: string, description: string }} InfoPage */
 
+/** @typedef {{ slug: string, label: string, pageUrl: string, category: 'guia'|'bairro', icon: string, description: string }} RecifePage */
+
 /** @typedef {{ slug: string, label: string, pageUrl: string, breadcrumbLabel: string }} StaticPage */
 
 /** @type {Record<string, Neighborhood>} */
@@ -140,6 +142,75 @@ export const STATIC_PAGES = {
 
 export const INFO_HUB_URL = './informacoes/index.html';
 
+/** Guias "Conheça Recife" — /conheca-recife/ */
+export const RECIFE_PAGES = {
+  praias: {
+    slug: 'praias',
+    label: 'Praias',
+    pageUrl: './conheca-recife/praias.html',
+    category: 'guia',
+    icon: 'beach',
+    description: 'Boa Viagem, Pina e passeios de praia.',
+  },
+  gastronomia: {
+    slug: 'gastronomia',
+    label: 'Gastronomia',
+    pageUrl: './conheca-recife/gastronomia.html',
+    category: 'guia',
+    icon: 'food',
+    description: 'Culinária pernambucana e onde comer.',
+  },
+  'dicas-locais': {
+    slug: 'dicas-locais',
+    label: 'Dicas locais',
+    pageUrl: './conheca-recife/dicas-locais.html',
+    category: 'guia',
+    icon: 'map',
+    description: 'Transporte, compras e rotina prática.',
+  },
+  'o-que-fazer': {
+    slug: 'o-que-fazer',
+    label: 'O que fazer em Recife',
+    pageUrl: './conheca-recife/o-que-fazer.html',
+    category: 'guia',
+    icon: 'compass',
+    description: 'Roteiros, cultura e passeios.',
+  },
+  'boa-viagem': {
+    slug: 'boa-viagem',
+    label: 'Boa Viagem',
+    pageUrl: './boa-viagem.html',
+    category: 'bairro',
+    icon: 'pin',
+    description: 'Apartamentos perto da praia.',
+  },
+  pina: {
+    slug: 'pina',
+    label: 'Pina',
+    pageUrl: './pina.html',
+    category: 'bairro',
+    icon: 'pin',
+    description: 'Ao lado do RioMar Shopping.',
+  },
+};
+
+export const RECIFE_HUB_URL = './conheca-recife/index.html';
+export const BLOG_HUB_URL = './blog/index.html';
+
+/** Links do footer — coluna Informações (todas as políticas + FAQ) */
+export function getFooterInfoLinks() {
+  return [
+    ...Object.values(INFO_PAGES).filter((p) => p.category === 'reserva'),
+    { slug: 'faq', label: 'Perguntas frequentes', pageUrl: './index.html#faq', icon: 'help', category: 'reserva' },
+    ...Object.values(INFO_PAGES).filter((p) => p.category === 'legal'),
+  ];
+}
+
+/** Links do footer — coluna Conheça Recife */
+export function getFooterRecifeLinks() {
+  return Object.values(RECIFE_PAGES);
+}
+
 /** @param {string} neighborhoodName */
 export function neighborhoodKeyFromName(neighborhoodName) {
   const map = { 'Boa Viagem': 'boa-viagem', Pina: 'pina' };
@@ -151,6 +222,18 @@ export { isNestedApartmentPage, assetUrl, pageHref, getPathDepth } from '../util
 /** @param {string} slug */
 export function getNeighborhood(slug) {
   return NEIGHBORHOODS[slug] || null;
+}
+
+/** @param {string} slug */
+export function getRecifePage(slug) {
+  return RECIFE_PAGES[slug] || null;
+}
+
+/** @param {string} slug */
+export function recifePageUrl(slug) {
+  const page = getRecifePage(slug);
+  if (!page) return pageHref(RECIFE_HUB_URL);
+  return pageHref(page.pageUrl);
 }
 
 /** @param {string} slug */
@@ -179,7 +262,7 @@ export function neighborhoodUrl(neighborhoodSlug) {
 
 /**
  * @typedef {{ label: string, href?: string, current?: boolean }} Crumb
- * @param {'home'|'apartments'|'neighborhood'|'apartment'|'info'|'info-hub'|'sobre'|'contato'|'apartmatch'} type
+ * @param {'home'|'apartments'|'neighborhood'|'apartment'|'info'|'info-hub'|'recife'|'recife-hub'|'blog'|'blog-post'|'sobre'|'contato'|'apartmatch'} type
  * @param {{ slug?: string }} [params]
  * @returns {Crumb[]}
  */
@@ -187,6 +270,8 @@ export function getBreadcrumbs(type, params = {}) {
   const home = { label: 'Início', href: './index.html' };
   const hub  = { label: 'Apartamentos', href: './apartamentos.html' };
   const infoHub = { label: 'Informações', href: INFO_HUB_URL };
+  const recifeHub = { label: 'Conheça Recife', href: RECIFE_HUB_URL };
+  const blogHub = { label: 'Blog', href: BLOG_HUB_URL };
 
   switch (type) {
     case 'home':
@@ -217,6 +302,22 @@ export function getBreadcrumbs(type, params = {}) {
       if (!info) return [home, { label: 'Informações', current: true }];
       return [home, infoHub, { label: info.label, current: true }];
     }
+    case 'recife-hub':
+      return [home, { label: 'Conheça Recife', current: true }];
+    case 'recife': {
+      const guide = getRecifePage(params.slug);
+      if (!guide || guide.category === 'bairro') {
+        const n = getNeighborhood(params.slug);
+        if (n) return [home, hub, { label: n.name, current: true }];
+      }
+      if (!guide) return [home, { label: 'Conheça Recife', current: true }];
+      return [home, recifeHub, { label: guide.label, current: true }];
+    }
+    case 'blog-hub':
+      return [home, { label: 'Blog', current: true }];
+    case 'blog-post': {
+      return [home, blogHub, { label: params.label || 'Artigo', current: true }];
+    }
     case 'sobre':
       return [home, { label: STATIC_PAGES.sobre.breadcrumbLabel, current: true }];
     case 'contato':
@@ -241,9 +342,17 @@ export function getAllPublicPaths() {
     '/apartmatch.html',
     '/informacoes/',
     '/informacoes/index.html',
+    '/conheca-recife/',
+    '/conheca-recife/index.html',
+    '/blog/',
+    '/blog/index.html',
   ];
 
   Object.values(INFO_PAGES).forEach((p) => {
+    paths.push(p.pageUrl.replace('./', '/'));
+  });
+
+  Object.values(RECIFE_PAGES).filter((p) => p.category === 'guia').forEach((p) => {
     paths.push(p.pageUrl.replace('./', '/'));
   });
 

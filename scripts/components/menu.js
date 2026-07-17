@@ -19,13 +19,14 @@ import { pageHref } from '../data/site-structure.js';
 
 function getNavItems() {
   return [
-    { num: '01', label: 'Início',       href: pageHref('./index.html')                },
-    { num: '02', label: 'ApartMatch',   href: pageHref('./apartmatch.html'), badge: 'Novidade' },
-    { num: '03', label: 'Apartamentos', href: pageHref('./apartamentos.html')         },
-    { num: '04', label: 'Bairros',      href: pageHref('./apartamentos.html#bairros') },
-    { num: '05', label: 'Sobre nós',    href: pageHref('./sobre.html')                },
-    { num: '06', label: 'Informações',  href: pageHref('./informacoes/index.html')    },
-    { num: '07', label: 'Contato',      href: pageHref('./contato.html')              },
+    { num: '01', label: 'Início',         href: pageHref('./index.html')                    },
+    { num: '02', label: 'Apartamentos',   href: pageHref('./apartamentos.html')             },
+    { num: '03', label: 'Conheça Recife', href: pageHref('./conheca-recife/index.html')     },
+    { num: '04', label: 'Blog',           href: pageHref('./blog/index.html')               },
+    { num: '05', label: 'ApartMatch',     href: pageHref('./apartmatch.html'), badge: 'Novo' },
+    { num: '06', label: 'Informações',    href: pageHref('./informacoes/index.html')        },
+    { num: '07', label: 'Sobre nós',      href: pageHref('./sobre.html')                    },
+    { num: '08', label: 'Contato',        href: pageHref('./contato.html')                  },
   ];
 }
 

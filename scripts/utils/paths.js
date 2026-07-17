@@ -1,13 +1,14 @@
 /**
- * Helpers de path para páginas em subpastas (/apartamentos/, /informacoes/).
+ * Helpers de path para páginas em subpastas.
  */
+
+const NESTED_PREFIXES = ['/apartamentos/', '/informacoes/', '/conheca-recife/', '/blog/'];
 
 /** @returns {number} Níveis acima da raiz do site (0 = raiz). */
 export function getPathDepth() {
   if (typeof window === 'undefined') return 0;
   const path = window.location.pathname;
-  if (path.includes('/apartamentos/') || path.includes('/informacoes/')) return 1;
-  return 0;
+  return NESTED_PREFIXES.some((prefix) => path.includes(prefix)) ? 1 : 0;
 }
 
 /** Página dentro de /apartamentos/*.html */
@@ -15,12 +16,7 @@ export function isNestedApartmentPage() {
   return typeof window !== 'undefined' && window.location.pathname.includes('/apartamentos/');
 }
 
-/** Página dentro de /informacoes/*.html */
-export function isNestedInfoPage() {
-  return typeof window !== 'undefined' && window.location.pathname.includes('/informacoes/');
-}
-
-/** Qualquer subpasta com paths relativos que precisam de ../ */
+/** Página dentro de subpasta com paths relativos que precisam de ../ */
 export function isNestedPage() {
   return getPathDepth() > 0;
 }

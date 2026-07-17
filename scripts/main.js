@@ -39,6 +39,10 @@ import './components/apartment-detail.js';
 import './components/contact-page.js';
 import './components/info-page.js';
 import './components/info-hub.js';
+import './components/guide-page.js';
+import './components/guide-hub.js';
+import './components/blog-hub.js';
+import './components/blog-post.js';
 import { initReveal } from './utils/reveal.js';
 
 function bootReveal() {

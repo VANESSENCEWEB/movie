@@ -17,6 +17,8 @@
   ],
   "rewrites": [
     { "source": "/informacoes", "destination": "/informacoes/index.html" },
+    { "source": "/conheca-recife", "destination": "/conheca-recife/index.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/apartamentos/:slug", "destination": "/apartamentos/:slug.html" }
   ]
 }

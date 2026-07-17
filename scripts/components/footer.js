@@ -7,7 +7,10 @@ import { APARTAMENTOS } from '../data/apartamentos.js';
 import {
   apartmentUrl,
   INFO_HUB_URL,
-  INFO_PAGES,
+  RECIFE_HUB_URL,
+  BLOG_HUB_URL,
+  getFooterInfoLinks,
+  getFooterRecifeLinks,
   pageHref,
 } from '../data/site-structure.js';
 
@@ -15,23 +18,6 @@ const TRUST_BADGES = [
   { icon: 'star', value: '4.9/5.0', label: '127 avaliações' },
   { icon: 'lock', value: 'Pagamento seguro', label: 'Dados protegidos' },
   { icon: 'headset', value: 'Suporte 24/7', label: 'Sempre online' },
-];
-
-const INFO_LINKS = [
-  { label: INFO_PAGES.caucao.label, href: INFO_PAGES.caucao.pageUrl, icon: 'shield' },
-  { label: INFO_PAGES['check-in'].label, href: INFO_PAGES['check-in'].pageUrl, icon: 'clock' },
-  { label: 'Perguntas frequentes', href: './index.html#faq', icon: 'help' },
-  { label: INFO_PAGES.cancelamento.label, href: INFO_PAGES.cancelamento.pageUrl, icon: 'file' },
-  { label: INFO_PAGES.termos.label, href: INFO_PAGES.termos.pageUrl, icon: 'file' },
-];
-
-const RECIFE_LINKS = [
-  { label: 'Praias', href: './boa-viagem.html', icon: 'beach' },
-  { label: 'Gastronomia', href: './sobre.html', icon: 'food' },
-  { label: 'Dicas locais', href: './sobre.html', icon: 'map' },
-  { label: 'Boa Viagem', href: './boa-viagem.html', icon: 'pin' },
-  { label: 'Pina', href: './pina.html', icon: 'pin' },
-  { label: 'O que fazer em Recife', href: './index.html#localizacao', icon: 'compass' },
 ];
 
 const SOCIALS = [
@@ -42,12 +28,9 @@ const SOCIALS = [
   { label: 'YouTube', href: 'https://youtube.com/@recifeflats', icon: 'youtube' },
 ];
 
-const LEGAL_LINKS = [
-  { label: INFO_PAGES.privacidade.label, href: INFO_PAGES.privacidade.pageUrl },
-  { label: INFO_PAGES.termos.label, href: INFO_PAGES.termos.pageUrl },
-  { label: INFO_PAGES.cookies.label, href: INFO_PAGES.cookies.pageUrl },
-  { label: INFO_PAGES.lgpd.label, href: INFO_PAGES.lgpd.pageUrl },
-];
+const LEGAL_LINKS = getFooterInfoLinks()
+  .filter((l) => l.slug && ['privacidade', 'termos', 'cookies', 'lgpd'].includes(l.slug))
+  .map((l) => ({ label: l.label, href: l.pageUrl }));
 
 const FOOTER_ICONS = {
   star: '<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8l-6.2 3.2 1.2-6.8-5-4.9 6.9-1L12 2Z"/>',
@@ -116,8 +99,16 @@ class RFFooter extends HTMLElement {
     `).join('');
 
     const trustCards = TRUST_BADGES.map(trustCard).join('');
-    const infoLinks = INFO_LINKS.map(linkItem).join('');
-    const recifeLinks = RECIFE_LINKS.map(linkItem).join('');
+    const infoLinks = getFooterInfoLinks().map((l) => linkItem({
+      label: l.label,
+      href: l.pageUrl,
+      icon: l.icon || 'file',
+    })).join('');
+    const recifeLinks = getFooterRecifeLinks().map((l) => linkItem({
+      label: l.label,
+      href: l.pageUrl,
+      icon: l.icon || 'pin',
+    })).join('');
     const socials = SOCIALS.map((s) => `
       <a href="${s.href}" target="_blank" rel="noopener noreferrer" aria-label="${s.label}">
         ${svgIcon(s.icon, 18)}
@@ -193,7 +184,38 @@ class RFFooter extends HTMLElement {
 
             <div class="site-footer__col" data-footer-reveal>
               <h4><span class="site-footer__col-line"></span>Conheça Recife</h4>
-              <ul>${recifeLinks}</ul>
+              <ul>${recifeLinks}
+                <li class="site-footer__see-all">
+                  <a href="${pageHref(RECIFE_HUB_URL)}">
+                    Ver todos os guias
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="site-footer__col" data-footer-reveal>
+              <h4><span class="site-footer__col-line"></span>Blog</h4>
+              <ul>
+                <li>
+                  <a href="${pageHref(BLOG_HUB_URL)}">
+                    <span class="site-footer__link-icon">${svgIcon('file', 14)}</span>
+                    Dicas de temporada
+                  </a>
+                </li>
+                <li>
+                  <a href="${pageHref('./blog/guia-boa-viagem-temporada.html')}">
+                    <span class="site-footer__link-icon">${svgIcon('home', 14)}</span>
+                    Guia Boa Viagem
+                  </a>
+                </li>
+                <li>
+                  <a href="${pageHref('./blog/o-que-fazer-recife-3-dias.html')}">
+                    <span class="site-footer__link-icon">${svgIcon('compass', 14)}</span>
+                    Recife em 3 dias
+                  </a>
+                </li>
+              </ul>
             </div>
 
             <div class="site-footer__col site-footer__col--support" data-footer-reveal>

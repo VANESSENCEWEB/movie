@@ -8,12 +8,16 @@
  */
 
 import { getBreadcrumbs, pageHref } from '../data/site-structure.js';
+import { getBlogPost } from '../data/site-blog.js';
 
 class RFBreadcrumbs extends HTMLElement {
   connectedCallback() {
     const context = this.getAttribute('context') || 'apartments';
     const slug    = this.getAttribute('slug') || '';
-    const crumbs  = getBreadcrumbs(context, { slug });
+    const label   = this.getAttribute('label')
+      || (context === 'blog-post' && slug ? getBlogPost(slug)?.title : '')
+      || '';
+    const crumbs  = getBreadcrumbs(context, { slug, label });
 
     const items = crumbs.map((crumb, i) => {
       const isLast = crumb.current || i === crumbs.length - 1;
