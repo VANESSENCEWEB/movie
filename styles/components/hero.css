@@ -9,6 +9,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   --hero-header-offset: var(--nav-height);
+  --hero-cloud-reserve: 5.5rem;
   margin-top: calc(-1 * var(--hero-header-offset));
   overflow: hidden;
   isolation: isolate;
@@ -44,6 +45,10 @@
 }
 
 @media (max-width: 600px) {
+  .hero {
+    --hero-cloud-reserve: 4rem;
+  }
+
   .site-content:has(.announcement) {
     --site-announcement-offset: var(--announcement-height-mobile);
   }
@@ -168,7 +173,7 @@ rf-hero[data-period="night"] .hero__overlay {
   align-items: center;
   justify-content: center;
   padding-top: calc(var(--hero-header-offset) + var(--space-4));
-  padding-bottom: var(--space-8);
+  padding-bottom: calc(var(--hero-cloud-reserve, 5.5rem) + var(--space-6));
   gap: var(--space-4);
   min-height: min(100dvh, 100%);
 }
@@ -184,6 +189,51 @@ rf-hero[data-period="night"] .hero__overlay {
   padding-bottom: 0;
   margin-top: clamp(0.25rem, 2vh, 1.5rem);
   transform: none;
+}
+.hero__beach {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero__beach-palm {
+  position: absolute;
+  bottom: calc(var(--hero-cloud-reserve) + 8%);
+  width: clamp(48px, 8vw, 80px);
+  opacity: 0.85;
+  animation: palm-sway 8s ease-in-out infinite alternate;
+}
+
+.hero__beach-palm--left { left: 4%; }
+.hero__beach-palm--right {
+  right: 6%;
+  transform: scaleX(-1);
+  animation-delay: -3s;
+}
+
+.hero__beach-wave {
+  position: absolute;
+  bottom: calc(var(--hero-cloud-reserve) - 0.5rem);
+  left: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0.9;
+}
+
+@keyframes palm-sway {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(3deg); }
+}
+
+.hero__beach-palm--right {
+  animation-name: palm-sway-right;
+}
+
+@keyframes palm-sway-right {
+  from { transform: scaleX(-1) rotate(-2deg); }
+  to   { transform: scaleX(-1) rotate(3deg); }
 }
 
 /* --- Eyebrow design system --- */
@@ -314,13 +364,14 @@ rf-hero[data-period="night"] .hero__overlay {
 
 @media (max-width: 700px) {
   .hero {
+    --hero-cloud-reserve: 4.5rem;
     min-height: 100svh;
     min-height: 100dvh;
   }
 
   .hero__container {
     padding-top: calc(var(--hero-header-offset) + var(--space-2));
-    padding-bottom: var(--space-6);
+    padding-bottom: calc(var(--hero-cloud-reserve) + var(--space-5));
     gap: var(--space-3);
     justify-content: center;
   }
@@ -362,6 +413,8 @@ rf-hero[data-period="night"] .hero__overlay {
     margin-top: var(--space-3);
     padding: var(--space-2) var(--space-1);
   }
+
+  .hero__beach-palm { display: none; }
 }
 
 @media (max-width: 480px) {
@@ -369,12 +422,86 @@ rf-hero[data-period="night"] .hero__overlay {
   .hero__description { font-size: 0.875rem; }
 }
 
-/* Próxima section após o hero */
+/* ============================================================
+   NUVENS DE TRANSIÇÃO — fundo do hero para a próxima section
+   Três camadas de SVGs com formas orgânicas redondas, criando
+   profundidade. Os prédios "emergem das nuvens".
+============================================================ */
+
+.hero__clouds {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--hero-cloud-reserve, 5.5rem);
+  z-index: 4;
+  pointer-events: none;
+  line-height: 0;
+  overflow: hidden;
+}
+
+/* As três camadas se sobrepõem no mesmo bottom */
+.hero__clouds-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Camada de trás — mais translúcida, mais lenta */
+.hero__clouds-layer--back {
+  opacity: 0.55;
+  filter: blur(2px);
+  animation: cloud-drift-slow 28s ease-in-out infinite;
+}
+
+/* Camada do meio — meio translúcida */
+.hero__clouds-layer--mid {
+  opacity: 0.85;
+  animation: cloud-drift-mid 22s ease-in-out infinite reverse;
+}
+
+/* Camada da frente — sólida, conecta visualmente com a próxima section */
+.hero__clouds-layer--front {
+  opacity: 1;
+  animation: cloud-drift-fast 18s ease-in-out infinite;
+}
+
+@keyframes cloud-drift-slow {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-30px); }
+}
+@keyframes cloud-drift-mid {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(20px); }
+}
+@keyframes cloud-drift-fast {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(-12px); }
+}
+
+/* A próxima section continua o fundo branco das nuvens */
 .hero + rf-apartments-teaser,
 .hero + section,
 .hero + .next-section {
   background: var(--paper);
   position: relative;
+}
+
+/* Em mobile: nuvens mais baixas — não cobrem o buscador */
+@media (max-width: 700px) {
+  .hero__clouds-layer--back,
+  .hero__clouds-layer--mid {
+    display: none;
+  }
+
+  .hero__clouds-layer--front {
+    opacity: 1;
+    animation: none;
+  }
 }
 
 /* Site wrapper */
