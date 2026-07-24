@@ -134,25 +134,38 @@
 /*
   Ordem e superfície:
   1. Hero          — vídeo (full bleed)
-  2. Apartamentos  — branco
-  3. Comodidades   — creme
-  4. Matching      — creme (container, foto contida)
-  5. Destinos      — branco
-  6. Depoimentos   — mangue escuro (marquee)
-  7. FAQ           — creme
-  8. Localização   — branco
-  9. Números       — sand (creme suave)
+  2. Marquee + trust
+  3. Apartamentos  — branco
+  4. Matching      — creme
+  5. Como reservar
+  6. Comodidades / Por que nós
+  7. Localização
+  8. Depoimentos
+  9. FAQ
   10. Reserva      — oceano
   11. Footer       — escuro
 */
 
 rf-apartments-teaser,
+rf-matching-teaser,
 rf-amenities-section,
-rf-neighborhoods-showcase,
+rf-why-choose-section,
 rf-testimonials-section,
 rf-faq-section,
 rf-location-section,
-rf-stats-banner,
 rf-booking-promo {
   display: block;
+}
+
+/* Abaixo da dobra: adia layout/paint até perto da viewport */
+rf-matching-teaser,
+rf-reservation-steps,
+rf-amenities-section,
+rf-why-choose-section,
+rf-location-section,
+rf-testimonials-section,
+rf-faq-section,
+rf-booking-promo {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 520px;
 }
