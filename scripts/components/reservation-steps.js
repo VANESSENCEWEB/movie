@@ -60,9 +60,9 @@ class RFReservationSteps extends HTMLElement {
             </p>
           </header>
 
-          <div class="reservation-steps__grid">${steps}</div>
+          <div class="reservation-steps__grid" data-reservation-steps>${steps}</div>
 
-          <div class="reservation-steps__highlights">${highlights}</div>
+          <div class="reservation-steps__highlights" data-reservation-highlights>${highlights}</div>
 
           <div class="reservation-steps__cta" data-reservation-reveal>
             <a href="${whatsappUrl('Olá! Quero verificar disponibilidade para minhas datas.')}" class="btn btn--primary" target="_blank" rel="noopener noreferrer">
@@ -76,80 +76,109 @@ class RFReservationSteps extends HTMLElement {
     `;
 
     this._animate();
-    this._initScrollGlow();
   }
 
   disconnectedCallback() {
     this._scrollTriggers?.forEach((st) => st.kill());
     this._scrollTriggers = null;
-    this._cardObserver?.disconnect();
-    this._cardObserver = null;
   }
 
-  _initScrollGlow() {
-    const cards = [...this.querySelectorAll('[data-reservation-card]')];
+  _revealCards(cards, onDone) {
     if (!cards.length) return;
 
     if (prefersReducedMotion()) {
-      cards.forEach((card) => card.classList.add('is-lit'));
+      cards.forEach((card) => card.classList.add('is-visible', 'is-lit'));
+      onDone?.();
       return;
     }
 
     if (window.gsap && window.ScrollTrigger) {
-      this._scrollTriggers = cards.map((card) =>
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 86%',
-          once: true,
-          onEnter: () => card.classList.add('is-lit'),
-        }),
-      );
+      gsap.set(cards, { opacity: 0, y: 36, scale: 0.94 });
+      gsap.to(cards, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        stagger: 0.14,
+        ease: 'power3.out',
+        onComplete: () => {
+          cards.forEach((card, i) => {
+            window.setTimeout(() => card.classList.add('is-lit'), i * 80);
+          });
+          onDone?.();
+        },
+      });
       return;
     }
 
-    if (!('IntersectionObserver' in window)) {
-      cards.forEach((card) => card.classList.add('is-lit'));
-      return;
-    }
-
-    this._cardObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-lit');
-          this._cardObserver.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.35, rootMargin: '0px 0px -6% 0px' },
-    );
-
-    cards.forEach((card) => this._cardObserver.observe(card));
+    cards.forEach((card, i) => {
+      window.setTimeout(() => {
+        card.classList.add('is-visible', 'is-lit');
+      }, i * 120);
+    });
+    onDone?.();
   }
 
   _animate() {
-    if (prefersReducedMotion() || !window.gsap) return;
-
-    const cards = this.querySelectorAll('[data-reservation-card]');
+    const stepsGrid = this.querySelector('[data-reservation-steps]');
+    const highlightsGrid = this.querySelector('[data-reservation-highlights]');
+    const stepCards = [...(stepsGrid?.querySelectorAll('[data-reservation-card]') || [])];
+    const highlightCards = [...(highlightsGrid?.querySelectorAll('[data-reservation-card]') || [])];
     const staticReveal = this.querySelectorAll('[data-reservation-reveal]');
 
-    gsap.from(staticReveal, {
-      opacity: 0,
-      y: 28,
-      duration: 0.65,
-      stagger: 0.08,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: this, start: 'top 85%', once: true },
-    });
+    if (prefersReducedMotion()) {
+      [...stepCards, ...highlightCards].forEach((c) => c.classList.add('is-visible', 'is-lit'));
+      return;
+    }
 
-    cards.forEach((card) => {
-      gsap.from(card, {
-        opacity: 0,
-        y: 26,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: card, start: 'top 88%', once: true },
-      });
-    });
+    if (!window.gsap || !window.ScrollTrigger) {
+      [...stepCards, ...highlightCards].forEach((c) => c.classList.add('is-visible', 'is-lit'));
+      return;
+    }
+
+    this._scrollTriggers = [];
+
+    gsap.set(staticReveal, { opacity: 0, y: 24 });
+    this._scrollTriggers.push(
+      ScrollTrigger.create({
+        trigger: this.querySelector('.reservation-steps__header'),
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          gsap.to(staticReveal, {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            stagger: 0.1,
+            ease: 'power2.out',
+          });
+        },
+      }),
+    );
+
+    this._scrollTriggers.push(
+      ScrollTrigger.create({
+        trigger: stepsGrid,
+        start: 'top 82%',
+        once: true,
+        onEnter: () => {
+          stepCards.forEach((c) => c.classList.add('is-visible'));
+          this._revealCards(stepCards);
+        },
+      }),
+    );
+
+    this._scrollTriggers.push(
+      ScrollTrigger.create({
+        trigger: highlightsGrid,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          highlightCards.forEach((c) => c.classList.add('is-visible'));
+          this._revealCards(highlightCards);
+        },
+      }),
+    );
   }
 }
 

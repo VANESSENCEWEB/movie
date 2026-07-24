@@ -182,37 +182,37 @@ class RFFooter extends HTMLElement {
               <ul>${recifeLinks}</ul>
             </div>
 
-            <div class="site-footer__col site-footer__col--support" data-footer-reveal>
-              <h4><span class="site-footer__col-line"></span>Suporte</h4>
-              <div class="site-footer__contact">
-                <a href="${waLink}" class="site-footer__contact-box" target="_blank" rel="noopener noreferrer">
-                  <span class="site-footer__contact-icon">${svgIcon('whatsapp', 18)}</span>
-                  <div>
-                    <strong>WhatsApp</strong>
-                    <span class="site-footer__contact-value">${BUSINESS.phoneDisplay}</span>
-                  </div>
-                </a>
-                <a href="mailto:${BUSINESS.email}" class="site-footer__contact-box">
-                  <span class="site-footer__contact-icon">${svgIcon('mail', 18)}</span>
-                  <div>
-                    <strong>E-mail</strong>
-                    <span class="site-footer__contact-value">${BUSINESS.email}</span>
-                  </div>
-                </a>
-                <a href="${MAPS_LINKS.place}" class="site-footer__contact-box" target="_blank" rel="noopener noreferrer">
-                  <span class="site-footer__contact-icon">${svgIcon('location', 18)}</span>
-                  <div>
-                    <strong>Localização</strong>
-                    <span class="site-footer__contact-value">${BUSINESS.neighborhood}, ${BUSINESS.city}/${BUSINESS.state}</span>
-                  </div>
-                </a>
-              </div>
-              <div class="site-footer__status">
-                <span class="site-footer__status-dot" aria-hidden="true"></span>
-                Atendimento online
-              </div>
-            </div>
+          </div>
 
+          <div class="site-footer__support" data-footer-reveal>
+            <h4><span class="site-footer__col-line"></span>Suporte</h4>
+            <div class="site-footer__contact">
+              <a href="${waLink}" class="site-footer__contact-box" target="_blank" rel="noopener noreferrer">
+                <span class="site-footer__contact-icon">${svgIcon('whatsapp', 18)}</span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <span class="site-footer__contact-value">${BUSINESS.phoneDisplay}</span>
+                </div>
+              </a>
+              <a href="mailto:${BUSINESS.email}" class="site-footer__contact-box">
+                <span class="site-footer__contact-icon">${svgIcon('mail', 18)}</span>
+                <div>
+                  <strong>E-mail</strong>
+                  <span class="site-footer__contact-value">${BUSINESS.email}</span>
+                </div>
+              </a>
+              <a href="${MAPS_LINKS.place}" class="site-footer__contact-box" target="_blank" rel="noopener noreferrer">
+                <span class="site-footer__contact-icon">${svgIcon('location', 18)}</span>
+                <div>
+                  <strong>Localização</strong>
+                  <span class="site-footer__contact-value">${BUSINESS.neighborhood}, ${BUSINESS.city}/${BUSINESS.state}</span>
+                </div>
+              </a>
+            </div>
+            <div class="site-footer__status">
+              <span class="site-footer__status-dot" aria-hidden="true"></span>
+              Atendimento online
+            </div>
           </div>
         </div>
 

@@ -52,6 +52,18 @@
   gap: var(--space-5);
 }
 
+.reservation-step,
+.reservation-highlight {
+  opacity: 0;
+  transform: translateY(36px) scale(0.94);
+}
+
+.reservation-step.is-visible,
+.reservation-highlight.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .reservation-step {
   position: relative;
   padding: var(--space-6);
@@ -59,10 +71,11 @@
   border: 1px solid rgba(251, 246, 236, 0.12);
   border-radius: var(--radius-m);
   transition:
+    opacity 0.55s var(--ease-out),
+    transform 0.55s var(--ease-out),
     border-color 0.5s var(--ease-out),
     background 0.5s var(--ease-out),
-    box-shadow 0.5s var(--ease-out),
-    transform 0.5s var(--ease-out);
+    box-shadow 0.5s var(--ease-out);
 }
 
 .reservation-step::after {
@@ -164,10 +177,11 @@
   background: rgba(251, 246, 236, 0.05);
   border-radius: 0 var(--radius-s) var(--radius-s) 0;
   transition:
+    opacity 0.55s var(--ease-out),
+    transform 0.55s var(--ease-out),
     border-color 0.5s var(--ease-out),
     background 0.5s var(--ease-out),
-    box-shadow 0.5s var(--ease-out),
-    transform 0.5s var(--ease-out);
+    box-shadow 0.5s var(--ease-out);
 }
 
 .reservation-highlight.is-lit,
@@ -224,6 +238,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reservation-step,
+  .reservation-highlight {
+    opacity: 1;
+    transform: none;
+  }
+
   .reservation-step,
   .reservation-highlight,
   .reservation-step__num {
