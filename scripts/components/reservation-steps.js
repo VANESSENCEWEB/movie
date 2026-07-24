@@ -78,48 +78,14 @@ class RFReservationSteps extends HTMLElement {
     this._animate();
   }
 
-  disconnectedCallback() {
-    this._scrollTriggers?.forEach((st) => st.kill());
-    this._scrollTriggers = null;
-  }
-
-  _revealCards(cards, onDone) {
-    if (!cards.length) return;
-
-    if (prefersReducedMotion()) {
-      cards.forEach((card) => card.classList.add('is-visible', 'is-lit'));
-      onDone?.();
-      return;
-    }
-
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.set(cards, { opacity: 0, y: 36, scale: 0.94 });
-      gsap.to(cards, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.7,
-        stagger: 0.14,
-        ease: 'power3.out',
-        onComplete: () => {
-          cards.forEach((card, i) => {
-            window.setTimeout(() => card.classList.add('is-lit'), i * 80);
-          });
-          onDone?.();
-        },
-      });
-      return;
-    }
-
+  _lightCards(cards) {
     cards.forEach((card, i) => {
-      window.setTimeout(() => {
-        card.classList.add('is-visible', 'is-lit');
-      }, i * 120);
+      window.setTimeout(() => card.classList.add('is-lit'), i * 80);
     });
-    onDone?.();
   }
 
   _animate() {
+    const header = this.querySelector('.reservation-steps__header');
     const stepsGrid = this.querySelector('[data-reservation-steps]');
     const highlightsGrid = this.querySelector('[data-reservation-highlights]');
     const stepCards = [...(stepsGrid?.querySelectorAll('[data-reservation-card]') || [])];
@@ -127,58 +93,50 @@ class RFReservationSteps extends HTMLElement {
     const staticReveal = this.querySelectorAll('[data-reservation-reveal]');
 
     if (prefersReducedMotion()) {
-      [...stepCards, ...highlightCards].forEach((c) => c.classList.add('is-visible', 'is-lit'));
+      [...stepCards, ...highlightCards].forEach((c) => c.classList.add('is-lit'));
       return;
     }
 
-    if (!window.gsap || !window.ScrollTrigger) {
-      [...stepCards, ...highlightCards].forEach((c) => c.classList.add('is-visible', 'is-lit'));
-      return;
-    }
+    if (!window.gsap || !window.ScrollTrigger) return;
 
-    this._scrollTriggers = [];
+    gsap.from(header, {
+      opacity: 0,
+      y: 24,
+      duration: 0.65,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: header, start: 'top 85%', once: true },
+    });
 
-    gsap.set(staticReveal, { opacity: 0, y: 24 });
-    this._scrollTriggers.push(
-      ScrollTrigger.create({
-        trigger: this.querySelector('.reservation-steps__header'),
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          gsap.to(staticReveal, {
-            opacity: 1,
-            y: 0,
-            duration: 0.65,
-            stagger: 0.1,
-            ease: 'power2.out',
-          });
-        },
-      }),
-    );
+    gsap.from(staticReveal, {
+      opacity: 0,
+      y: 20,
+      duration: 0.55,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: staticReveal[0] || this, start: 'top 85%', once: true },
+    });
 
-    this._scrollTriggers.push(
-      ScrollTrigger.create({
-        trigger: stepsGrid,
-        start: 'top 82%',
-        once: true,
-        onEnter: () => {
-          stepCards.forEach((c) => c.classList.add('is-visible'));
-          this._revealCards(stepCards);
-        },
-      }),
-    );
+    gsap.from(stepCards, {
+      opacity: 0,
+      y: 36,
+      scale: 0.94,
+      duration: 0.7,
+      stagger: 0.14,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: stepsGrid, start: 'top 82%', once: true },
+      onComplete: () => this._lightCards(stepCards),
+    });
 
-    this._scrollTriggers.push(
-      ScrollTrigger.create({
-        trigger: highlightsGrid,
-        start: 'top 85%',
-        once: true,
-        onEnter: () => {
-          highlightCards.forEach((c) => c.classList.add('is-visible'));
-          this._revealCards(highlightCards);
-        },
-      }),
-    );
+    gsap.from(highlightCards, {
+      opacity: 0,
+      y: 28,
+      x: -12,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: highlightsGrid, start: 'top 85%', once: true },
+      onComplete: () => this._lightCards(highlightCards),
+    });
   }
 }
 
