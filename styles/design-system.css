@@ -105,10 +105,26 @@
 /* Marquee de localidades (abaixo do hero) */
 .marquee {
   overflow: hidden;
-  background: var(--mangue-900);
+  background: var(--mangue-600);
+  border-block: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marquee--ticker {
+  background: linear-gradient(90deg, var(--terracotta-800), var(--terracotta-600), var(--terracotta-800));
+  padding: 0.55rem 0;
+}
+
+.marquee--ticker .marquee__item {
   color: var(--paper);
-  padding-block: 0.9rem;
-  border-block: 1px solid rgba(240, 199, 154, 0.12);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.marquee--ticker .marquee__item::before {
+  content: '·';
+  margin-right: 1.25rem;
+  opacity: 0.5;
 }
 
 .marquee__track {

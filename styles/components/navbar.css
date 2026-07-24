@@ -118,8 +118,91 @@ rf-navbar {
 .navbar__actions {
   display: flex;
   align-items: center;
-  gap: clamp(0.35rem, 1.2vw, var(--space-2));
+  gap: clamp(0.35rem, 1vw, 0.65rem);
   flex-shrink: 0;
+}
+
+/* --- Nav desktop (estilo exemplo) --- */
+.desktop-nav {
+  flex: 1;
+  display: none;
+  justify-content: center;
+  min-width: 0;
+}
+
+.desktop-nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.15rem, 1.2vw, 0.35rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.desktop-nav__link {
+  display: block;
+  padding: 0.45rem clamp(0.5rem, 1vw, 0.75rem);
+  font-size: clamp(0.78rem, 1.1vw, 0.875rem);
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  border-radius: var(--radius-s);
+  transition: color var(--dur-fast), background var(--dur-fast);
+}
+
+.desktop-nav__link:hover {
+  color: var(--terracotta-800);
+  background: rgba(232, 163, 61, 0.12);
+}
+
+.navbar__whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background: #25d366;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+
+.navbar__whatsapp:hover {
+  background: #1ebe57;
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+.navbar.is-over-hero:not(.is-scrolled) .desktop-nav__link,
+.navbar.is-scrolled .desktop-nav__link {
+  color: var(--paper);
+}
+
+.navbar.is-over-hero:not(.is-scrolled) .desktop-nav__link:hover,
+.navbar.is-scrolled .desktop-nav__link:hover {
+  color: var(--paper);
+  background: rgba(251, 246, 236, 0.12);
+}
+
+@media (min-width: 1024px) {
+  .desktop-nav { display: flex; }
+}
+
+@media (max-width: 1023px) {
+  .navbar__whatsapp-label { display: none; }
+  .navbar__whatsapp {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar__whatsapp { display: none; }
 }
 
 .lang-switcher {
@@ -226,23 +309,27 @@ rf-navbar {
 .menu-toggle {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-1);
-  font-family: var(--font-body);
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-s);
+  border: 1.5px solid rgba(42, 33, 24, 0.15);
+  background: transparent;
   flex-shrink: 0;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
 }
 
-.menu-toggle__label {
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-  color: var(--ink);
+.menu-toggle:hover {
+  background: rgba(42, 33, 24, 0.06);
+}
+
+@media (min-width: 1024px) {
+  .menu-toggle { display: none; }
 }
 
 .menu-toggle__icon {
-  width: 28px;
-  height: 18px;
+  width: 18px;
+  height: 14px;
   position: relative;
   flex-shrink: 0;
 }
@@ -274,12 +361,16 @@ rf-navbar {
 .menu-toggle.is-open .menu-toggle__icon span:nth-child(3) {
   top: 50%; transform: translateY(-50%) rotate(-45deg);
 }
-.menu-toggle.is-open .menu-toggle__icon span { background: var(--sol); }
-.menu-toggle.is-open .menu-toggle__label { color: var(--sol); }
+.menu-toggle.is-open .menu-toggle__icon span { background: var(--terracotta-600); }
 
-.navbar.is-over-hero:not(.is-scrolled) .menu-toggle__label,
-.navbar.is-scrolled .menu-toggle__label {
-  color: var(--branco);
+.navbar.is-over-hero:not(.is-scrolled) .menu-toggle,
+.navbar.is-scrolled .menu-toggle {
+  border-color: rgba(251, 246, 236, 0.35);
+}
+
+.navbar.is-over-hero:not(.is-scrolled) .menu-toggle:hover,
+.navbar.is-scrolled .menu-toggle:hover {
+  background: rgba(251, 246, 236, 0.1);
 }
 
 .navbar.is-over-hero:not(.is-scrolled) .menu-toggle__icon span,
@@ -295,11 +386,6 @@ rf-navbar {
   }
   .navbar__logo-name { font-size: 1.05rem; }
   .navbar__logo-sub { font-size: 0.55rem; }
-  .menu-toggle__label {
-    display: inline;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-  }
   .lang-toggle {
     padding: 6px 8px;
     gap: 4px;

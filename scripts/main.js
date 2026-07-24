@@ -11,6 +11,7 @@ import './components/navbar.js';
 import './components/menu.js';
 import './components/confirm-reservation-modal.js';
 import './components/booking-search.js';
+import './components/beach-scene.js';
 import './components/hero.js';
 import './components/trust-strip.js';
 import './components/home-marquee.js';
