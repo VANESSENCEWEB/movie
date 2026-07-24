@@ -95,11 +95,6 @@ function linkItem(link) {
   `;
 }
 
-function aptFooterLabel(apt) {
-  if (apt.building) return apt.building;
-  return apt.name.replace('Apartamento ', 'Apt ').replace(' Boa Viagem', '').replace(' Pina', ' · Pina');
-}
-
 class RFFooter extends HTMLElement {
   connectedCallback() {
     const year = new Date().getFullYear();
@@ -109,7 +104,7 @@ class RFFooter extends HTMLElement {
       <li>
         <a href="${apartmentUrl(a.slug)}" title="${a.name}">
           <span class="site-footer__link-icon">${svgIcon('home', 14)}</span>
-          <span class="site-footer__link-text">${aptFooterLabel(a)}</span>
+          <span class="site-footer__link-text">${a.shortName || a.name}</span>
         </a>
       </li>
     `).join('');
