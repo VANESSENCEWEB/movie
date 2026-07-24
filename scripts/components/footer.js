@@ -26,7 +26,7 @@ const RECIFE_LINKS = [
   { label: 'Dicas locais', href: './sobre.html', icon: 'map' },
   { label: 'Boa Viagem', href: './boa-viagem.html', icon: 'pin' },
   { label: 'Pina', href: './pina.html', icon: 'pin' },
-  { label: 'O que fazer em Recife', href: './index.html#localizacao', icon: 'compass' },
+  { label: 'O que fazer', href: './index.html#localizacao', icon: 'compass' },
 ];
 
 const SOCIALS = [
@@ -89,23 +89,27 @@ function linkItem(link) {
     <li>
       <a href="${pageHref(link.href)}">
         <span class="site-footer__link-icon">${svgIcon(link.icon, 14)}</span>
-        ${link.label}
+        <span class="site-footer__link-text">${link.label}</span>
       </a>
     </li>
   `;
+}
+
+function aptFooterLabel(apt) {
+  if (apt.building) return apt.building;
+  return apt.name.replace('Apartamento ', 'Apt ').replace(' Boa Viagem', '').replace(' Pina', ' · Pina');
 }
 
 class RFFooter extends HTMLElement {
   connectedCallback() {
     const year = new Date().getFullYear();
     const waLink = whatsappUrl('Olá! Gostaria de saber mais sobre os apartamentos para temporada em Recife.');
-    const address = `${BUSINESS.streetAddress} — ${BUSINESS.neighborhood}, ${BUSINESS.city}/${BUSINESS.state}`;
 
     const aptLinks = APARTAMENTOS.map((a) => `
       <li>
-        <a href="${apartmentUrl(a.slug)}">
+        <a href="${apartmentUrl(a.slug)}" title="${a.name}">
           <span class="site-footer__link-icon">${svgIcon('home', 14)}</span>
-          ${a.name}
+          <span class="site-footer__link-text">${aptFooterLabel(a)}</span>
         </a>
       </li>
     `).join('');
@@ -140,8 +144,7 @@ class RFFooter extends HTMLElement {
               </div>
 
               <p class="site-footer__desc">
-                Apartamentos de temporada prontos pra você chegar e curtir. Pertinho da praia,
-                com tudo incluso, reserva direta e atendimento de quem é da terra.
+                Flats mobiliados em Boa Viagem e Pina. Reserva direta, fotos reais e atendimento local.
               </p>
 
               <div class="site-footer__trust">${trustCards}</div>
@@ -167,7 +170,7 @@ class RFFooter extends HTMLElement {
               <ul>${aptLinks}
                 <li class="site-footer__see-all">
                   <a href="${pageHref('./apartamentos.html')}">
-                    Ver todos os apartamentos
+                    <span class="site-footer__link-text">Ver todos</span>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                   </a>
                 </li>
@@ -191,21 +194,21 @@ class RFFooter extends HTMLElement {
                   <span class="site-footer__contact-icon">${svgIcon('whatsapp', 18)}</span>
                   <div>
                     <strong>WhatsApp</strong>
-                    <span>${BUSINESS.phoneDisplay}</span>
+                    <span class="site-footer__contact-value">${BUSINESS.phoneDisplay}</span>
                   </div>
                 </a>
                 <a href="mailto:${BUSINESS.email}" class="site-footer__contact-box">
                   <span class="site-footer__contact-icon">${svgIcon('mail', 18)}</span>
                   <div>
                     <strong>E-mail</strong>
-                    <span>${BUSINESS.email}</span>
+                    <span class="site-footer__contact-value">${BUSINESS.email}</span>
                   </div>
                 </a>
                 <a href="${MAPS_LINKS.place}" class="site-footer__contact-box" target="_blank" rel="noopener noreferrer">
                   <span class="site-footer__contact-icon">${svgIcon('location', 18)}</span>
                   <div>
                     <strong>Localização</strong>
-                    <span>${address}</span>
+                    <span class="site-footer__contact-value">${BUSINESS.neighborhood}, ${BUSINESS.city}/${BUSINESS.state}</span>
                   </div>
                 </a>
               </div>
