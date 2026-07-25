@@ -110,19 +110,41 @@ Você pode juntar dias se tiver mais tempo, ou dividir se tiver menos.
 
 ### Dia 0 — Fundação do repositório
 
-**Objetivo:** repo limpo, README inicial, estrutura vazia.
+**Objetivo:** repo limpo, README inicial e **pastas** prontas.
 
-**Crie:**
+#### O que fazer (e o que NÃO fazer)
+
+| Fazer no Dia 0 | NÃO fazer no Dia 0 |
+|---|---|
+| Criar pastas (`styles/`, `scripts/`, `assets/`…) | Criar `tokens.css`, `navbar.js`, `menu.js` vazios |
+| Criar `.gitignore` **com conteúdo** | Deixar arquivos de componente em branco “só pra reservar” |
+| Criar `README.md` **curto** (visão geral) | Copiar o README final completo |
+| Criar `package.json` **básico** | Começar hero, menu, páginas…
+
+Os arquivos do site entram **com conteúdo real** a partir do Dia 1.
+
+#### Crie isto:
 
 ```text
-.gitignore
-README.md
-package.json
-styles/
-scripts/
-assets/images/
-assets/videos/
-docs/
+.gitignore          ← com as regras abaixo (não vazio)
+README.md           ← texto curto de apresentação (não vazio)
+package.json        ← scripts básicos (não vazio)
+
+styles/             ← pasta (pode ficar vazia por enquanto)
+scripts/            ← pasta
+assets/images/      ← pasta
+assets/videos/      ← pasta
+docs/               ← pasta
+```
+
+> Git **não salva pasta vazia**. Para a pasta existir no GitHub, coloque um arquivo
+> `.gitkeep` dentro dela (arquivo vazio só para “segurar” a pasta).
+
+Exemplo:
+
+```bash
+mkdir -p styles scripts assets/images assets/videos docs
+touch styles/.gitkeep scripts/.gitkeep assets/images/.gitkeep assets/videos/.gitkeep docs/.gitkeep
 ```
 
 **`.gitignore` sugerido:**
@@ -135,6 +157,29 @@ node_modules/
 .env
 .env.*
 *.log
+```
+
+**`package.json` mínimo:**
+
+```json
+{
+  "name": "recife-flats-temporada",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve . -p 3000",
+    "dev": "npm run start"
+  }
+}
+```
+
+**`README.md` do Dia 0** (curto; o completo vem no Dia 10):
+
+```md
+# Recife Flats Temporada
+
+Site de aluguel por temporada em Recife (Boa Viagem e Pina).
+
+Stack: HTML, CSS e JavaScript (Web Components), sem framework.
 ```
 
 **Commits do dia:**
