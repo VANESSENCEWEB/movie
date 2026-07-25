@@ -12,8 +12,9 @@
  */
 
 import { pageHref } from '../data/site-structure.js';
+import { whatsappUrl } from '../data/location.js';
 import { getLang, setLang, initDocumentLang } from '../utils/i18n.js';
-import { FLAG_BR_SVG, FLAG_US_SVG, GLOBE_SVG } from '../data/brand-icons.js';
+import { FLAG_BR_SVG, FLAG_US_SVG, WHATSAPP_ICON_SVG } from '../data/brand-icons.js';
 
 class RFNavbar extends HTMLElement {
   connectedCallback() {
@@ -24,6 +25,7 @@ class RFNavbar extends HTMLElement {
     const lang = getLang();
     const flagSvg = lang === 'en' ? FLAG_US_SVG : FLAG_BR_SVG;
     const langMenuLabel = lang === 'en' ? 'Choose language' : 'Escolher idioma';
+    const waHref = whatsappUrl('Olá! Vim pelo site e gostaria de mais informações.');
 
     this.innerHTML = /* html */`
       <header class="navbar ${overHero ? 'is-over-hero' : ''}" data-navbar>
@@ -49,6 +51,15 @@ class RFNavbar extends HTMLElement {
           </a>
 
           <div class="navbar__actions">
+            <a href="${waHref}"
+               class="navbar__whatsapp"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Falar no WhatsApp"
+               title="WhatsApp">
+              ${WHATSAPP_ICON_SVG.replace('<svg', '<svg width="20" height="20"')}
+            </a>
+
             <div class="lang-switcher" data-lang-switcher>
               <button class="lang-toggle"
                       type="button"
@@ -57,9 +68,7 @@ class RFNavbar extends HTMLElement {
                       aria-expanded="false"
                       aria-label="${langMenuLabel}"
                       title="${langMenuLabel}">
-                ${GLOBE_SVG}
                 <span class="lang-toggle__flag-wrap" data-lang-flag>${flagSvg}</span>
-                <span class="lang-toggle__code" data-lang-code>${lang.toUpperCase()}</span>
                 <svg class="lang-toggle__chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"/>
                 </svg>
@@ -95,7 +104,6 @@ class RFNavbar extends HTMLElement {
     this._navbar    = this.querySelector('[data-navbar]');
     this._toggle    = this.querySelector('[data-menu-toggle]');
     this._langBtn   = this.querySelector('[data-lang-toggle]');
-    this._langCode  = this.querySelector('[data-lang-code]');
     this._langFlag  = this.querySelector('[data-lang-flag]');
     this._langMenu  = this.querySelector('[data-lang-menu]');
     this._langRoot  = this.querySelector('[data-lang-switcher]');
@@ -128,7 +136,6 @@ class RFNavbar extends HTMLElement {
     };
 
     const applyLangUi = (next) => {
-      if (this._langCode) this._langCode.textContent = next.toUpperCase();
       if (this._langFlag) this._langFlag.innerHTML = next === 'en' ? FLAG_US_SVG : FLAG_BR_SVG;
       this._langMenu?.querySelectorAll('[data-lang-option]').forEach((btn) => {
         const active = btn.dataset.langOption === next;

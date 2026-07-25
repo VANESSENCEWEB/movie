@@ -118,8 +118,32 @@ rf-navbar {
 .navbar__actions {
   display: flex;
   align-items: center;
-  gap: clamp(0.35rem, 1.2vw, var(--space-2));
+  gap: clamp(0.4rem, 1.2vw, 0.65rem);
   flex-shrink: 0;
+}
+
+/* WhatsApp circular na navbar — no lugar do botão flutuante solto */
+.navbar__whatsapp {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #25d366;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base);
+}
+
+.navbar__whatsapp:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+.navbar__whatsapp:focus-visible {
+  outline: 2px solid #25d366;
+  outline-offset: 3px;
 }
 
 .lang-switcher {
@@ -129,8 +153,8 @@ rf-navbar {
 .lang-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 7px 10px;
+  gap: 6px;
+  padding: 7px 9px;
   border-radius: var(--radius-pill);
   border: 1.5px solid rgba(42, 33, 24, 0.18);
   color: var(--ink);
@@ -300,12 +324,13 @@ rf-navbar {
     font-size: 0.65rem;
     letter-spacing: 0.1em;
   }
+  .navbar__whatsapp {
+    width: 36px;
+    height: 36px;
+  }
   .lang-toggle {
     padding: 6px 8px;
     gap: 4px;
-  }
-  .lang-toggle__code {
-    font-size: 0.65rem;
   }
 }
 

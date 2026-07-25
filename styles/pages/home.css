@@ -146,6 +146,23 @@
   11. Footer       — escuro
 */
 
+/* Scroll por seções de tela cheia na home */
+html:has(.site-content--home-full) {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+.site-content--home-full > rf-hero,
+.site-content--home-full > rf-apartments-teaser,
+.site-content--home-full > rf-matching-teaser,
+.site-content--home-full > rf-reservation-steps,
+.site-content--home-full > rf-location-section,
+.site-content--home-full > rf-testimonials-section,
+.site-content--home-full > rf-booking-promo {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
 rf-apartments-teaser,
 rf-matching-teaser,
 rf-amenities-section,
@@ -153,8 +170,11 @@ rf-why-choose-section,
 rf-testimonials-section,
 rf-faq-section,
 rf-location-section,
-rf-booking-promo {
+rf-booking-promo,
+rf-reservation-steps {
   display: block;
+  min-height: min(100dvh, 100%);
+  box-sizing: border-box;
 }
 
 /* Abaixo da dobra: adia layout/paint até perto da viewport */

@@ -157,25 +157,27 @@ class RFMenu extends HTMLElement {
       onStart: () => {
         this._menuEl.classList.add('is-active');
         this._menuEl.setAttribute('aria-hidden', 'false');
+        document.documentElement.classList.add('is-menu-open');
         document.body.style.overflow = 'hidden';
       },
       onReverseComplete: () => {
         this._menuEl.classList.remove('is-active');
         this._menuEl.setAttribute('aria-hidden', 'true');
+        document.documentElement.classList.remove('is-menu-open');
         document.body.style.overflow = '';
       },
     });
 
-    // ATO 1 — Página recua
+    // ATO 1 — Página recua (efeito leve, sem abrir fresta embaixo)
     if (this._wrapsEl) {
       tl.to(this._wrapsEl, {
-        rotateY: -9,
-        scale: 0.91,
-        x: '-2.5%',
+        rotateY: -6,
+        scale: 0.96,
+        x: '-1.25%',
         transformPerspective: 1400,
         transformOrigin: 'right center',
-        borderRadius: '14px',
-        filter: 'brightness(0.65) saturate(0.8)',
+        borderRadius: '12px',
+        filter: 'brightness(0.7) saturate(0.85)',
       }, 0);
     }
 

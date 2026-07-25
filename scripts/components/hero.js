@@ -9,7 +9,6 @@
  *   GET {api-base}/hero/{hero-id}/night.json
  */
 
-import { splitTextIntoLetters } from '../utils/split-text.js';
 import { prefersReducedMotion } from '../utils/dom.js';
 import { whatsappUrl } from '../data/location.js';
 import { getTimeOfDay, getTimeOptionsFromElement } from '../utils/time-of-day.js';
@@ -156,23 +155,6 @@ class RFHero extends HTMLElement {
         <div class="hero__overlay"></div>
         <div class="hero__grain"></div>
 
-        <div class="hero__ticker" aria-hidden="true">
-          <div class="hero__ticker-track">
-            <span class="hero__ticker-item">🏠 Flats mobiliados em Boa Viagem</span>
-            <span class="hero__ticker-item">🌊 A 100m da praia</span>
-            <span class="hero__ticker-item">📶 WiFi 300Mbps incluído</span>
-            <span class="hero__ticker-item">🏊 Piscina e academia</span>
-            <span class="hero__ticker-item">🔒 Segurança 24h</span>
-            <span class="hero__ticker-item">⭐ Nota 4.9 no Google</span>
-            <span class="hero__ticker-item">🏠 Flats mobiliados em Boa Viagem</span>
-            <span class="hero__ticker-item">🌊 A 100m da praia</span>
-            <span class="hero__ticker-item">📶 WiFi 300Mbps incluído</span>
-            <span class="hero__ticker-item">🏊 Piscina e academia</span>
-            <span class="hero__ticker-item">🔒 Segurança 24h</span>
-            <span class="hero__ticker-item">⭐ Nota 4.9 no Google</span>
-          </div>
-        </div>
-
         <div class="hero__container container">
           <div class="hero__text">
             <span class="eyebrow hero__eyebrow" data-hero-eyebrow>${eyebrow}</span>
@@ -182,6 +164,13 @@ class RFHero extends HTMLElement {
             ${description ? `
               <p class="hero__description" data-hero-desc>${description}</p>
             ` : ''}
+
+            <ul class="hero__trust" data-hero-trust aria-label="Destaques">
+              <li class="hero__trust-item"><strong>4.9</strong> no Google</li>
+              <li class="hero__trust-item"><strong>100m</strong> da praia</li>
+              <li class="hero__trust-item"><strong>Wi-Fi</strong> 300Mbps</li>
+              <li class="hero__trust-item"><strong>Reserva</strong> direta</li>
+            </ul>
 
             <div class="hero__cta" data-hero-cta>
               <a href="./apartamentos.html" class="btn btn--shiny">
@@ -209,34 +198,27 @@ class RFHero extends HTMLElement {
     const titleEl = this.querySelector('[data-hero-title]');
     const eyebrowEl = this.querySelector('[data-hero-eyebrow]');
     const descEl = this.querySelector('[data-hero-desc]');
+    const trustEl = this.querySelector('[data-hero-trust]');
     const ctaEl = this.querySelector('[data-hero-cta]');
     const searchEl = this.querySelector('[data-hero-search]');
 
-    const letters = titleEl ? splitTextIntoLetters(titleEl) : [];
-    const revealEls = [eyebrowEl, descEl, ctaEl, searchEl].filter(Boolean);
+    const revealEls = [eyebrowEl, titleEl, descEl, trustEl, ctaEl, searchEl].filter(Boolean);
 
     if (reduce) {
       revealEls.forEach((el) => {
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
-      letters.forEach((l) => { l.style.opacity = '1'; l.style.transform = 'none'; });
       return;
     }
 
-    const tl = gsap.timeline({ delay: 0.15 });
-
-    if (letters.length) {
-      tl.to(letters, {
-        opacity: 1, y: 0,
-        duration: 0.5, ease: 'power2.out',
-        stagger: 0.022,
-      }, 0);
-    }
-    if (eyebrowEl) tl.to(eyebrowEl, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.1);
-    if (descEl) tl.to(descEl, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.35);
-    if (ctaEl) tl.to(ctaEl, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.45);
-    if (searchEl) tl.to(searchEl, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.55);
+    const tl = gsap.timeline({ delay: 0.12 });
+    if (eyebrowEl) tl.to(eyebrowEl, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0);
+    if (titleEl) tl.to(titleEl, { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' }, 0.08);
+    if (descEl) tl.to(descEl, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.22);
+    if (trustEl) tl.to(trustEl, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.32);
+    if (ctaEl) tl.to(ctaEl, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.4);
+    if (searchEl) tl.to(searchEl, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.48);
   }
 
   _applyLang(lang) {
