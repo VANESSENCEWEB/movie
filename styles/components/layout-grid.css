@@ -1,16 +1,15 @@
 /* ============================================================
-   LAYOUT GRID — Trilho único de alinhamento (logo ↔ conteúdo ↔ menu)
-   Tudo que é conteúdo editorial usa .container com o mesmo padding.
+   LAYOUT GRID — Trilho único de alinhamento
+   Logo da navbar ↔ colunas do footer ↔ botão WhatsApp
+   Os valores canônicos ficam em tokens.css (--container-max,
+   --container-px, --page-gutter). Este arquivo só reforça o uso.
 ============================================================ */
 
-:root {
-  /* Trilho horizontal único — navbar, hero, seções */
-  --container-max: 1120px;
-  --container-px: clamp(1.25rem, 4vw, 2rem);
-}
-
-/* Garante que filhos do container não vazem o trilho */
 .container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-px);
   box-sizing: border-box;
 }
 
@@ -23,13 +22,13 @@
   padding-inline: 0;
 }
 
-/* Grids alinhados ao trilho esquerdo (ícones/cards não “flutuam” ao centro) */
+/* Grids alinhados ao trilho esquerdo */
 .align-grid-start {
   justify-items: start;
   align-items: start;
 }
 
-/* Botão/CTA alinhado ao trilho (não centralizado sem motivo) */
+/* Botão/CTA alinhado ao trilho */
 .section-cta {
   display: flex;
   justify-content: flex-start;

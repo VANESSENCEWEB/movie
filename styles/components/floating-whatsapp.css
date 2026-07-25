@@ -1,5 +1,5 @@
 /* ============================================================
-   FLOATING WHATSAPP — Botão fixo
+   FLOATING WHATSAPP — alinhado à borda direita do trilho (.container)
 ============================================================ */
 
 rf-floating-whatsapp {
@@ -7,12 +7,14 @@ rf-floating-whatsapp {
 }
 
 .floating-whatsapp {
+  --wa-size: 60px;
   position: fixed;
-  right: clamp(1rem, 3vw, 1.5rem);
+  /* Mesma margem direita do conteúdo da navbar/footer */
+  right: var(--page-gutter);
   bottom: clamp(1rem, 3vw, 1.5rem);
   z-index: calc(var(--z-nav) - 1);
-  width: 60px;
-  height: 60px;
+  width: var(--wa-size);
+  height: var(--wa-size);
   border-radius: 50%;
   background: #25d366;
   color: var(--white);
@@ -42,4 +44,12 @@ rf-floating-whatsapp {
 
 @media (prefers-reduced-motion: reduce) {
   .floating-whatsapp__pulse { animation: none; }
+}
+
+/* Em telas estreitas, mantém folga mínima da borda */
+@media (max-width: 480px) {
+  .floating-whatsapp {
+    --wa-size: 56px;
+    right: max(1rem, var(--page-gutter));
+  }
 }

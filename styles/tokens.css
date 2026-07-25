@@ -143,10 +143,16 @@
   --space-10: 6rem;
   --space-11: 8rem;
 
-  /* ---------- LAYOUT ---------- */
+  /* ---------- LAYOUT (trilho único do site) ---------- */
+  /* Navbar, hero, seções, footer e WhatsApp usam estes tokens. */
   --container:      1180px;
   --container-max:  var(--container);
-  --container-px:   32px;
+  --container-px:   clamp(1.25rem, 4vw, 2rem);
+  /* Distância da borda da tela até o conteúdo interno do .container */
+  --page-gutter: max(
+    var(--container-px),
+    calc((100vw - min(100vw, var(--container-max))) / 2 + var(--container-px))
+  );
   --nav-height:     72px;
   --nav-height-mobile: 64px;
   --announcement-height: 48px;
