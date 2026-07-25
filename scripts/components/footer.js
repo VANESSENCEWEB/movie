@@ -42,12 +42,33 @@ const LEGAL_LINKS = [
   { label: 'LGPD', href: './contato.html' },
 ];
 
+/** Logos oficiais simplificados (SVG) — melhor que só o nome do cartão */
 const PAYMENTS = [
-  { label: 'VISA', className: '' },
-  { label: 'Mastercard', className: '' },
-  { label: 'AMEX', className: '' },
-  { label: 'PIX', className: 'is-pix' },
-  { label: 'Elo', className: '' },
+  {
+    label: 'Visa',
+    className: 'is-visa',
+    logo: `<svg viewBox="0 0 48 16" width="48" height="16" aria-hidden="true"><path fill="#1A1F71" d="M17.5 1.2h-3.4c-.3 0-.5.2-.6.4L10.2 14.5h3.7l.7-2.1h3.4l.4 2.1h3.3L19.3 1.6c0-.3-.2-.4-.5-.4zm-.6 8.2-1.1-4.5-.8 4.5h1.9zM28.7 1.2l-2.9 13.3h3.5l2.9-13.3h-3.5zM39.4 1.2c-.7 0-1.2.2-1.8.7l-.3-.5h-3.1l1.8 4.2-2.5 9h3.6l2.5-8.5c.3-.1.5-.2.8-.2.5 0 .7.3.7.8l-.9 7.9h3.5l1-8.6c.2-1.8-.8-3.8-3.3-3.8zM8.6 1.2 5.1 10.4 4.8 9c-.6-1.9-2.4-4-4.5-5.1l3 10.4h3.7L12.3 1.2H8.6z"/></svg>`,
+  },
+  {
+    label: 'Mastercard',
+    className: 'is-mastercard',
+    logo: `<svg viewBox="0 0 40 24" width="40" height="24" aria-hidden="true"><circle cx="15" cy="12" r="9" fill="#EB001B"/><circle cx="25" cy="12" r="9" fill="#F79E1B"/><path fill="#FF5F00" d="M20 5.2a9 9 0 0 1 0 13.6 9 9 0 0 1 0-13.6z"/></svg>`,
+  },
+  {
+    label: 'American Express',
+    className: 'is-amex',
+    logo: `<svg viewBox="0 0 48 16" width="48" height="16" aria-hidden="true"><rect width="48" height="16" rx="2" fill="#2E77BC"/><text x="24" y="11.5" text-anchor="middle" fill="#fff" font-size="7" font-family="Arial,sans-serif" font-weight="700">AMEX</text></svg>`,
+  },
+  {
+    label: 'PIX',
+    className: 'is-pix',
+    logo: `<svg viewBox="0 0 48 16" width="48" height="16" aria-hidden="true"><path fill="#fff" d="M22.4 2.2c-.4-.4-1-.4-1.4 0l-2.3 2.3c-.2.2-.2.4 0 .6l3.4 3.4c.2.2.2.4 0 .6l-3.4 3.4c-.2.2-.2.4 0 .6l2.3 2.3c.4.4 1 .4 1.4 0l2.6-2.6c.8-.8.8-2 0-2.8l-.8-.8.8-.8c.8-.8.8-2 0-2.8L22.4 2.2zm5.2 0 2.6 2.6c.8.8.8 2 0 2.8l-.8.8.8.8c.8.8.8 2 0 2.8l-2.6 2.6c-.4.4-1 .4-1.4 0l-2.3-2.3c-.2-.2-.2-.4 0-.6l3.4-3.4c.2-.2.2-.4 0-.6l-3.4-3.4c-.2-.2-.2-.4 0-.6l2.3-2.3c.4-.4 1-.4 1.4 0z"/></svg>`,
+  },
+  {
+    label: 'Elo',
+    className: 'is-elo',
+    logo: `<svg viewBox="0 0 40 16" width="40" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="#FFCB05"/><circle cx="20" cy="8" r="6" fill="#00A4E0"/><circle cx="32" cy="8" r="6" fill="#EF4123"/></svg>`,
+  },
 ];
 
 const SOCIALS = [
@@ -129,7 +150,7 @@ class RFFooter extends HTMLElement {
     `).join('');
 
     const payments = PAYMENTS.map((p) =>
-      `<span class="site-footer__pay ${p.className}">${p.label}</span>`,
+      `<span class="site-footer__pay ${p.className}" title="${p.label}" aria-label="${p.label}">${p.logo}</span>`,
     ).join('');
 
     const socials = SOCIALS.map((s) => {

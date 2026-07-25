@@ -149,27 +149,41 @@
 .site-footer__pay-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 9px;
+  gap: 10px;
   align-items: center;
 }
 
 .site-footer__pay {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  padding: 7px 12px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #d1e0d9;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 40px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.site-footer__pay svg {
+  display: block;
+  max-width: 48px;
+  max-height: 22px;
 }
 
 .site-footer__pay.is-pix {
   background: #32bcad;
   border-color: #2aa899;
-  color: #fff;
+}
+
+.site-footer__pay.is-amex {
+  background: #2e77bc;
+  border-color: #2568a5;
+}
+
+.site-footer__pay.is-mastercard {
+  padding-inline: 10px;
 }
 
 .site-footer__social-row {
