@@ -17,10 +17,20 @@ export const BUSINESS = {
   whatsapp: '5581996601178',
   email: 'contato@recifeflats.com.br',
   website: 'https://recifeflatstemporada.com',
+  /** Preencha com o CNPJ real (ex.: 12.345.678/0001-90) */
+  cnpj: '',
+  /** Ex.: Cadastur / registro municipal — deixe vazio se ainda não tiver */
+  registration: '',
   lat: -8.1075708,
   lng: -34.890327,
   wazeLat: -8.107502,
   wazeLng: -34.890497,
+};
+
+/** Crédito do rodapé */
+export const DEVELOPER = {
+  name: 'VanessenceWeb',
+  url: 'https://vanessenceweb.com',
 };
 
 /** @param {string} [text] */
