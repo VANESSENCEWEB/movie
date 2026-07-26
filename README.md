@@ -3,6 +3,10 @@
 Site institucional com componentes reutilizáveis em **vanilla HTML/CSS/JS**.
 Sem framework. Sem build step. Pode subir direto na Netlify.
 
+> **Publicar no GitHub oficial (aos poucos)?**  
+> Use o pacote em [`docs/portfolio/`](./docs/portfolio/INDEX.md):  
+> README completo · guia dia a dia com commits · estrutura e breadcrumbs.
+
 ---
 
 ## Por que essa estrutura
